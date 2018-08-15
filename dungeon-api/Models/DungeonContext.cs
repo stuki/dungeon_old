@@ -13,6 +13,6 @@ namespace dungeon_api
         public DbSet<Player> Players { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<PlayerSession> PlayerSessions { get; set; }
-        public DbSet<Log> Logs { get; set; }
+        public DbSet<Log> Logs { get; set; } 
     }
 }

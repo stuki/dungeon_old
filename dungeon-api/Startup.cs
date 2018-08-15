@@ -44,6 +44,12 @@ namespace dungeon_api
                 app.UseHsts();
             }
 
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<DungeonContext>();
+                context.Database.EnsureCreated();
+            }
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }

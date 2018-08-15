@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace dungeon_api
 {
@@ -7,5 +8,6 @@ namespace dungeon_api
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public List<PlayerSession> PlayerSessions { get; set; }
     }
 }
