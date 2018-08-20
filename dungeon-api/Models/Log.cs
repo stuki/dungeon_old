@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace dungeon_api
 {
+    // Log can contain either history, actions, points of interest,
+    // messages, player joins
     public class Log
     {
         public int Id { get; set; }

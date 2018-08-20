@@ -2,6 +2,7 @@
 
 namespace dungeon_api
 {
+    // Table containing each session a player is part of
     public class PlayerSession
     {
         public int Id { get; set; }
