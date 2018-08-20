@@ -24,11 +24,11 @@ namespace dungeon_api
 
 		public string Looks { get; set; }
 		public int Armor { get; set; }
+		public int Level { get; set; }
+		public int XP { get; set; }
 		public int Hitpoints { get; set; }
 		public int Damage { get; set; }
 		public string Alignment { get; set; }
-		public int Level { get; set; }
-		public int XP { get; set; }
 		public string Gear { get; set; }
 		public string Race { get; set; }
 		public string Bonds { get; set; }
