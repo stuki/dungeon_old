@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace dungeon_api
 {
@@ -14,7 +16,7 @@ namespace dungeon_api
         public DbSet<Session> Sessions { get; set; }
         public DbSet<PlayerSession> PlayerSessions { get; set; }
         public DbSet<Character> Characters { get; set; }
-        public DbSet<Log> Logs { get; set; } 
+        public DbSet<Log> Logs { get; set; }
     }
 }
     

@@ -31,7 +31,7 @@ namespace dungeon_api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //Using Npgsql (Postgres) instead of T-SQL
-            services.AddEntityFrameworkNpgsql().AddDbContext<DungeonContext>(options => options.UseNpgsql(connectionString));
+            services.AddEntityFrameworkNpgsql().AddDbContext<DungeonContext>(options => options.UseNpgsql(connectionString, option => option.EnableRetryOnFailure()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
