@@ -8,7 +8,7 @@ namespace dungeon_api
     {
         public int Id { get; set; }
         [Required]
-        public int Name { get; set; }
+        public string Name { get; set; }
         [Required]
         public int SessionId { get; set; }
         public Session Session { get; set; }

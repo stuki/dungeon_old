@@ -20,7 +20,6 @@ class Sessions extends Component {
     }
 
     render() {
-        console.dir(this.state.userSessions);
         var allSessions = this.state.userSessions.map(function (session) {
             return (<Session session={session} key={session.id} />)
         });
