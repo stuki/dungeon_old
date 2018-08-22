@@ -17,7 +17,6 @@ namespace dungeon_api
         public int DungeonMasterId { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public string Password { get; set; }
         public List<Log> Logs { get; set; }
         public List<PlayerSession> PlayerSessions { get; set; }

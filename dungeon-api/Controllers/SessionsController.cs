@@ -89,8 +89,23 @@ namespace dungeon_api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            Random rnd = new Random();
+            string code = rnd.Next(0, 999).ToString().PadLeft(4, '0');
+
+            session.CreatedAt = DateTime.Now;
+            session.DungeonMasterId = session.CreatorId;
+            session.Password = code;
 
             _context.Sessions.Add(session);
+
+            PlayerSession playerSession = new PlayerSession(){ 
+
+                PlayerId = session.CreatorId,
+                SessionId = session.Id
+            };
+
+            _context.PlayerSessions.Add(playerSession);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSession", new { id = session.Id }, session);
