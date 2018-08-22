@@ -84,8 +84,18 @@ async function getUser(name) {
     const playerName = await players.get();
     // var player = (kyrb['data'].find(a => a.firstName === name));
     console.log(playerName);
+}
     // find(a => a.firstName === name));
 
+async function getSessions(callback) {
+    var sessions = fetchival(baseurl + "api/sessions/");
+    const sessionNames = await sessions.get();
+    // var player = (kyrb['data'].find(a => a.firstName === name));
+    return sessionNames
+    .then(function (sessions) {
+        callback(sessions);
+    });
+}
     // { name: 'cherries', quantity: 5 }
     // fetch("api/players", {
     //     method: 'GET',
@@ -116,8 +126,6 @@ async function getUser(name) {
         //     }
         // });
 
-}
-
-export { getUser }
+export { getUser, getSessions }
 
 
