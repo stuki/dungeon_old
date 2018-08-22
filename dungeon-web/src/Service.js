@@ -2,8 +2,16 @@ import fetchival from 'fetchival';
 
 // const baseurl = "http://rem-rest-api.herokuapp.com/api/users";
 
-const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
+const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/api/";
 
+async function createSession(name, id) {
+  const api = fetchival(baseurl);
+  const sessions = api('sessions');
+
+  sessions
+    .post({ "CreatorId": id, "Name": name })
+    .catch(function(err) {console.log(err)})
+}
 // function haeTapahtumaLista(callback) {
 //     fetch(baseurl)
 //         .then(function (response) {
@@ -68,7 +76,7 @@ const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(event)
 //     });
-        
+
 // }
 
 // function poistaKayttaja(id) {
@@ -80,7 +88,7 @@ const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
 // playerName
 
 async function getUser(name) {
-    var players = fetchival(baseurl + "api/players/" + name);
+    var players = fetchival(baseurl + "players/" + name);
     const playerName = await players.get();
     // var player = (kyrb['data'].find(a => a.firstName === name));
     console.log(playerName);
@@ -105,7 +113,7 @@ async function getUser(name) {
     //     })
         // .then(function (olio) {
         //     if (olio.pw === password) {
-                
+
         //         //VIIME HETKEN MUUTOS
         //         console.log("Täsmää!");
         //         cb(olio);
@@ -118,6 +126,4 @@ async function getUser(name) {
 
 }
 
-export { getUser }
-
-
+export { getUser, createSession }
