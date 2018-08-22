@@ -1,6 +1,8 @@
 import fetchival from 'fetchival';
 
-const baseurl = "http://rem-rest-api.herokuapp.com/api/users";
+// const baseurl = "http://rem-rest-api.herokuapp.com/api/users";
+
+const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
 
 // function haeTapahtumaLista(callback) {
 //     fetch(baseurl)
@@ -78,11 +80,10 @@ const baseurl = "http://rem-rest-api.herokuapp.com/api/users";
 // playerName
 
 async function getUser(name) {
-    var players = fetchival(baseurl);
-    console.log("jippii fetch");
-    const kyrb = await players.get();
-    var player = (kyrb['data'].find(a => a.firstName === name));
-    console.log(player);
+    var players = fetchival(baseurl + "api/players/" + name);
+    const playerName = await players.get();
+    // var player = (kyrb['data'].find(a => a.firstName === name));
+    console.log(playerName);
     // find(a => a.firstName === name));
 
     // { name: 'cherries', quantity: 5 }
