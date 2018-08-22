@@ -47,26 +47,26 @@ namespace dungeon_api.Controllers
 		}
 
 		// GET: api/Players/5
-		[HttpGet("{id}")]
-        public async Task<IActionResult> GetPlayer([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+		[HttpGet("{id:int}")]
+		public async Task<IActionResult> GetPlayer([FromRoute] int id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            var player = await _context.Players.FindAsync(id);
+			var player = await _context.Players.FindAsync(id);
 
-            if (player == null)
-            {
-                return NotFound();
-            }
+			if (player == null)
+			{
+				return NotFound();
+			}
 
-            return Ok(player);
-        }
+			return Ok(player);
+		}
 
-        // PUT: api/Players/5
-        [HttpPut("{id}")]
+		// PUT: api/Players/5
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
         {
             if (!ModelState.IsValid)
