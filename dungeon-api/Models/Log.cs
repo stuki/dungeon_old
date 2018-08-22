@@ -11,6 +11,7 @@ namespace dungeon_api
         [Required]
         public int SessionId { get; set; }
         public Session Session { get; set; }
+        public int PlayerId { get; set; }
         public DateTime CreatedAt { get; set; }
         [Required]
         public string Text { get; set; }

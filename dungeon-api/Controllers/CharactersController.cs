@@ -11,58 +11,56 @@ namespace dungeon_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LogsController : ControllerBase
+    public class CharactersController : ControllerBase
     {
         private readonly DungeonContext _context;
 
-        public LogsController(DungeonContext context)
+        public CharactersController(DungeonContext context)
         {
             _context = context;
         }
 
-        // GET: api/Logs
+        // GET: api/Characters
         [HttpGet]
-        public IEnumerable<Log> GetLogs()
+        public IEnumerable<Character> GetCharacters()
         {
-            return _context.Logs;
+            return _context.Characters;
         }
 
-        // GET: api/Logs/5
+        // GET: api/Characters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Log>>> GetLog([FromRoute] int id)
+        public async Task<IActionResult> GetCharacter([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var log = await _context.Logs.ToListAsync();
+            var character = await _context.Characters.FindAsync(id);
 
-            log = log.Where(_ => _.Id == id).ToList();
-
-            if (log == null)
+            if (character == null)
             {
                 return NotFound();
             }
 
-            return Ok(log);
+            return Ok(character);
         }
 
-        // PUT: api/Logs/5
+        // PUT: api/Characters/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLog([FromRoute] int id, [FromBody] Log log)
+        public async Task<IActionResult> PutCharacter([FromRoute] int id, [FromBody] Character character)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != log.Id)
+            if (id != character.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(log).State = EntityState.Modified;
+            _context.Entry(character).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +68,7 @@ namespace dungeon_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LogExists(id))
+                if (!CharacterExists(id))
                 {
                     return NotFound();
                 }
@@ -83,47 +81,45 @@ namespace dungeon_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Logs
+        // POST: api/Characters
         [HttpPost]
-        public async Task<IActionResult> PostLog([FromBody] Log log)
+        public async Task<IActionResult> PostCharacter([FromBody] Character character)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            log.CreatedAt = DateTime.Now;
-
-            _context.Logs.Add(log);
+            _context.Characters.Add(character);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLog", new { id = log.Id }, log);
+            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
         }
 
-        // DELETE: api/Logs/5
+        // DELETE: api/Characters/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLog([FromRoute] int id)
+        public async Task<IActionResult> DeleteCharacter([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var log = await _context.Logs.FindAsync(id);
-            if (log == null)
+            var character = await _context.Characters.FindAsync(id);
+            if (character == null)
             {
                 return NotFound();
             }
 
-            _context.Logs.Remove(log);
+            _context.Characters.Remove(character);
             await _context.SaveChangesAsync();
 
-            return Ok(log);
+            return Ok(character);
         }
 
-        private bool LogExists(int id)
+        private bool CharacterExists(int id)
         {
-            return _context.Logs.Any(e => e.Id == id);
+            return _context.Characters.Any(e => e.Id == id);
         }
     }
 }
