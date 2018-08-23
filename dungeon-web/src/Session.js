@@ -14,7 +14,6 @@ class Session extends Component {
               <p className="sesCreated"><b>Created at:</b> {new Date(this.props.session.createdAt).toLocaleString()}</p>
             </div>
           </div>
-
         );
     }
 }
