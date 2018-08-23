@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { createCharacter } from './Service';
 
 class CreateCharacter extends Component {
     constructor(props) {
         super(props);
         this.state = { Name:'',  Constitution:'', Charisma:'',
                        Dexterity:'', Intelligence:'', Strength:'',
-                       Wisdom:'', Looks:'', Armor:'', Level:'', 
-                       SessionId:3, PlayerId:1};
+                       Wisdom:'', Looks:'', Armor:'', Level:'' };
     }
 
     handleChange(property) {
