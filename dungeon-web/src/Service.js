@@ -1,6 +1,6 @@
 import fetchival from 'fetchival';
 
-const baseurl = "https://dungeon.azurewebsites.net/api";
+const baseurl = "https://dungeon.azurewebsites.net/api/";
 
 async function createSession(name, id) {
   const api = fetchival(baseurl);
@@ -19,7 +19,9 @@ async function createLog(label, text) {
       .post({ "Label": label, "Text": text })
       .catch(function(err) {console.log(err)})
   }
-
+// Tähän tarvitaan vielä kyseisen session ID
+// sekä kirjautuneet pelaajan ID, annetaan nämä
+// uuden hahmon sessionId:ksi sekä playerId:ksi
 async function createCharacter(character) {
     const api = fetchival(baseurl);
     const characters = api('characters');

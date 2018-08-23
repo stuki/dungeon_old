@@ -52,6 +52,7 @@ namespace dungeon_api
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DungeonContext>();
 
+                context.Database.SetCommandTimeout(240);
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
             }

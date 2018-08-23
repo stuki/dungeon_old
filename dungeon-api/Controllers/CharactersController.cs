@@ -27,16 +27,16 @@ namespace dungeon_api.Controllers
             return _context.Characters;
         }
 
-        // GET: api/Characters/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCharacter([FromRoute] int id)
+        // GET: api/Characters/5/5
+        [HttpGet("{playerId}/{sessionId}")]
+        public async Task<IActionResult> GetCharacter([FromRoute] int playerId, int sessionId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _context.Characters.FindAsync(playerId, sessionId);
 
             if (character == null)
             {
