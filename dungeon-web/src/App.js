@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import ProfilePage from './profilePage';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import SessionPage from './sessionPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 class App extends Component {
   render() {
     return (
       <Router>
-      <div className="App">
-        <ProfilePage/>
-      </div>
+        <Switch>
+          <Route exact path='/' component={ProfilePage} />
+          <Route path='/session' component={SessionPage} />
+        </Switch>
       </Router>
     );
   }

@@ -28,7 +28,7 @@ namespace dungeon_api.Controllers
         }
 
         // GET: api/Characters/5/5
-        [HttpGet("{playerId}/{sessionId}")]
+        [HttpGet("{playerId:int}/{sessionId:int}")]
         public async Task<IActionResult> GetCharacter([FromRoute] int playerId, int sessionId)
         {
             if (!ModelState.IsValid)
@@ -36,7 +36,7 @@ namespace dungeon_api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var character = await _context.Characters.FindAsync(playerId, sessionId);
+            var character = await _context.Characters.SingleOrDefaultAsync(c => c.PlayerId == playerId && c.SessionId == sessionId);
 
             if (character == null)
             {

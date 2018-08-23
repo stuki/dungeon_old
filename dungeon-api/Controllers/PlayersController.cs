@@ -36,7 +36,7 @@ namespace dungeon_api.Controllers
 				return BadRequest(ModelState);
 			}
 
-			var player = await _context.Players.Where(n => n.Name == name).FirstOrDefaultAsync();
+			var player = await _context.Players.SingleOrDefaultAsync(n => n.Name == name);
 
 			if (player == null)
 			{
