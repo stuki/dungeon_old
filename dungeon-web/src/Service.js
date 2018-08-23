@@ -10,6 +10,15 @@ async function createSession(name, id) {
     .post({ "CreatorId": id, "Name": name })
     .catch(function(err) {console.log(err)})
 }
+
+async function createLog(label, text) {
+    const api = fetchival(baseurl);
+    const logs = api('logs');
+  
+    logs
+      .post({ "Label": label, "Text": text })
+      .catch(function(err) {console.log(err)})
+  }
 // Tähän tarvitaan vielä kyseisen session ID
 // sekä kirjautuneet pelaajan ID, annetaan nämä
 // uuden hahmon sessionId:ksi sekä playerId:ksi
@@ -29,5 +38,5 @@ async function getUser(name) {
 }
 
 
-export { getUser, createSession, createCharacter }
+export { getUser, createSession, createCharacter, createLog }
 
