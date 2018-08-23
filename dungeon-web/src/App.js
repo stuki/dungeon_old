@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import Login from './Login';
-import Sessions from './Sessions';
-import SessionPage from './sessionPage';
-import LogList from './LogList';
+import ProfilePage from './profilePage';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Login/>
-        <Sessions/>
-        <LogList/>
-        <SessionPage/>
+        <ProfilePage/>
       </div>
     );
   }
