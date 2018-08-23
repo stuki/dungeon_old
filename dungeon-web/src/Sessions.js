@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Session from './Session';
 import fetchival from 'fetchival';
-const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
+const baseurl = "https://dungeon.azurewebsites.net/";
 
 class Sessions extends Component {
     constructor(props) {
