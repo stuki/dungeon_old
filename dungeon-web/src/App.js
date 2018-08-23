@@ -9,7 +9,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path='/' component={ProfilePage} />
-          <Route path='/session' component={SessionPage} />
+          <Route path='/session/:sessionId' component={SessionPage} />
         </Switch>
       </Router>
     );
