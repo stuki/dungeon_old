@@ -1,6 +1,6 @@
 import fetchival from 'fetchival';
 
-const baseurl = "https://dungeon.azurewebsites.net/api";
+const baseurl = "https://dungeon.azurewebsites.net/api/";
 
 async function createSession(name, id) {
   const api = fetchival(baseurl);
@@ -28,12 +28,6 @@ async function getUser(name) {
     console.log(playerName);
 }
 
-async function getCharacter(1) {
-    var players = fetchival(baseurl + "players/" + name);
-    const playerName = await players.get();
-    console.log(playerName);
-}
 
-
-export { getUser, createSession, createCharacter, getCharacter }
+export { getUser, createSession, createCharacter }
 
