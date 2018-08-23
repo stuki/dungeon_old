@@ -11,13 +11,11 @@ class sessionPage extends Component {
             <Router>
                 <div>
                     <Navigation/>
-                    <div className="SessionPageNavigation">
                         <Switch>
                             <Route path="/createCharacter" component={CreateCharacter} />
                             <Route path="/createSession" component={CreateSession} />
                             <Route path="/ModifyCharacter" component={ModifyCharacter} />
                         </Switch>
-                    </div>
                 </div>
             </Router>
         );
