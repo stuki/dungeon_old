@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom'
 class Session extends Component {
 
     render() {
+        const link = "/session/" + this.props.session.Id
         return (
           <div>
-            <Link to="/session">Session Page</Link>
+            <Link to={link}>Session Page</Link>
             <div className="Session">
               <p>SESSION</p>
               <p className="sesName"><b>Session name:</b> {this.props.session.name}</p>
