@@ -6,11 +6,9 @@ import Login from './Login';
 class ProfilePage extends Component {
     render() {
         return (
-            <div className="sessionList">
-                
+            <div className="sessionList">              
                 <Login />
                 <Sessions />
-                <SessionPage />
             </div>
         );
     };

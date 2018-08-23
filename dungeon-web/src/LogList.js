@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Logs from './Logs';
 import fetchival from 'fetchival';
-const baseurl = "https://dungeon-api20180821104258.azurewebsites.net/";
+const baseurl = "https://dungeon.azurewebsites.net/";
 
 
 class LogList extends Component {
@@ -11,11 +11,13 @@ class LogList extends Component {
     }
 
     componentDidMount() {
+        console.log("ohsolemio")
         this.getLogsAndUpdate();
     }
 
     getLogsAndUpdate = async () => {
         var logs = fetchival(baseurl + "api/logs/")
+        console.log("RIkka on kakkas")
         const log = await logs.get();
         this.setState({ userLogs: log })
     }
