@@ -6,7 +6,8 @@ class CreateCharacter extends Component {
         super(props);
         this.state = { Name:'',  Constitution:'', Charisma:'',
                        Dexterity:'', Intelligence:'', Strength:'',
-                       Wisdom:'', Looks:'', Armor:'', Level:'' };
+                       Wisdom:'', Looks:'', Armor:'', Level:'', 
+                       SessionId:3, PlayerId:1};
     }
 
     handleChange(property) {

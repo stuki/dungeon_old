@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import Login from './Login';
-import Sessions from './Sessions';
-import sessionPage from './sessionPage';
-import LogList from './LogList';
-import CreateCharacter from './createCharacter';
+import ProfilePage from './profilePage';
+import SessionPage from './sessionPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Login/>
-        <Sessions/>
-        <CreateCharacter/>
-        <LogList/>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={ProfilePage} />
+          <Route path='/session' component={SessionPage} />
+        </Switch>
+      </Router>
     );
   }
 }
