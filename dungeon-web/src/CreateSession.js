@@ -22,6 +22,7 @@ class CreateSession extends Component {
     return (
       <div>
         <form>
+          <p>Create new session</p>
           <label>
             Name:
             <input type="text" value={this.state.name} onChange={this.handleChange} />
