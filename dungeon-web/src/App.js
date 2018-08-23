@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import Sessions from './Sessions';
-import sessionPage from './sessionPage';
+import SessionPage from './sessionPage';
 import LogList from './LogList';
-import CreateCharacter from './createCharacter';
 
 class App extends Component {
   render() {
@@ -11,8 +10,8 @@ class App extends Component {
       <div className="App">
         <Login/>
         <Sessions/>
-        <CreateCharacter/>
         <LogList/>
+        <SessionPage/>
       </div>
     );
   }
