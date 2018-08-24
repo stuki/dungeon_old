@@ -50,7 +50,13 @@ namespace dungeon_api
             modelBuilder.Entity<Log>().HasData(
                 new { Id = 1, PlayerId = 1, SessionId = 1, Text = "Oscar writes some code", Label = "event", CreatedAt = DateTime.Now },
                 new { Id = 2, PlayerId = 1, SessionId = 1, Text = "Henni writes some code", Label = "message", CreatedAt = DateTime.Now },
-                new { Id = 3, PlayerId = 1, SessionId = 1, Text = "Riikka writes some code", Label = "note", CreatedAt = DateTime.Now });
+                new { Id = 3, PlayerId = 1, SessionId = 1, Text = "Oscar writes some code", Label = "event", CreatedAt = DateTime.Now },
+                new { Id = 4, PlayerId = 1, SessionId = 1, Text = "Henni writes some code", Label = "message", CreatedAt = DateTime.Now },
+                new { Id = 5, PlayerId = 1, SessionId = 1, Text = "Oscar writes some code", Label = "event", CreatedAt = DateTime.Now },
+                new { Id = 6, PlayerId = 1, SessionId = 1, Text = "Henni writes some code", Label = "message", CreatedAt = DateTime.Now },
+                new { Id = 7, PlayerId = 1, SessionId = 1, Text = "Oscar writes some code", Label = "event", CreatedAt = DateTime.Now },
+                new { Id = 8, PlayerId = 1, SessionId = 1, Text = "Henni writes some code", Label = "message", CreatedAt = DateTime.Now },
+                new { Id = 9, PlayerId = 1, SessionId = 1, Text = "Riikka writes some code", Label = "note", CreatedAt = DateTime.Now });
         }
         #endregion
     }

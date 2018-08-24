@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Session from './Session';
 import fetchival from 'fetchival';
-const baseurl = "https://dungeon.azurewebsites.net/";
+const baseurl = "https://dungeon.azurewebsites.net";
 
 class Sessions extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class Sessions extends Component {
     }
 
     getSessionsAndUpdate = async () => {
-        var sessions = fetchival(baseurl + "api/sessions/")
+        var sessions = fetchival(baseurl + "/api/sessions/")
         const session = await sessions.get();
         this.setState({ userSessions: session })
     }

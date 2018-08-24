@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProfilePage from './profilePage';
 import SessionPage from './sessionPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import 'bootstrap';
 
 class App extends Component {
   render() {
