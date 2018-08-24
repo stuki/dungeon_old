@@ -38,7 +38,7 @@ namespace dungeon_api.Controllers
 
             var log = await _context.Logs.ToListAsync();
 
-            log = log.Where(_ => _.Id == id).ToList();
+            log = log.Where(_ => _.SessionId == id).ToList();
 
             if (log == null)
             {

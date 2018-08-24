@@ -28,8 +28,8 @@ namespace dungeon_api.Controllers
         }
 
         // GET: api/Characters/5/5
-        [HttpGet("{playerId:int}/{sessionId:int}")]
-        public async Task<IActionResult> GetCharacter([FromRoute] int playerId, int sessionId)
+        [HttpGet("{sessionId:int}/{playerId:int}")]
+        public async Task<IActionResult> GetCharacter([FromRoute] int sessionId, int playerId)
         {
             if (!ModelState.IsValid)
             {

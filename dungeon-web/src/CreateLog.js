@@ -7,30 +7,36 @@ class CreateLog extends Component {
       super(props);
       this.state = {
         label: "",
-        text: ""
+        text: "",
+        SessionId: 1,
+        PlayerId: 1
       }
     }
-  
-    handleChange = (e) => {
-      this.setState({ label: e.target.value })
-    }
-  
+
+    handleChange(property) {
+        return e => {
+          this.setState({
+            [property]: e.target.value
+          });
+        };
+      }
+
     handleSubmit = (e) => {
       e.preventDefault();
-      createLog(this.state.label, 1)
+      createLog(this.state)
     }
-  
+
     render() {
       return (
         <div>
             <div>Create new log</div>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <table>
                 <tbody>
-                    <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange} /></td></tr>
-                    <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange} /></td></tr>
-                    
-                    <tr><td><input type="submit" defaultValue="Add new log"/></td></tr>
+                    <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange('label')} /></td></tr>
+                    <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange('text')} /></td></tr>
+
+                    <tr><td><input type="submit" defaultValue="Add new log" /></td></tr>
                 </tbody>
             </table>
 
@@ -39,7 +45,7 @@ class CreateLog extends Component {
       );
     }
   }
-  
+
 
 
 export default CreateLog;

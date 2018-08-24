@@ -5,7 +5,8 @@ class CreateSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      CreatorId: 1
     }
   }
 
@@ -15,7 +16,7 @@ class CreateSession extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    createSession(this.state.name, 1)
+    createSession(this.state)
   }
 
   render() {
