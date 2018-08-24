@@ -30,11 +30,14 @@ async function createCharacter(character) {
       .catch(function(err) {console.log(err)})
   }
 
-async function getUser(name) {
-    var players = fetchival(baseurl + "/players/" + name);
-    const playerName = await players.get();
-    console.log(playerName);
-}
+  async function getUser(user) {
+    const api = fetchival(baseurl);
+    const users = api('users');
+
+    users
+      .get(user)
+      .catch(function(err) {console.log(err)})
+  }
 
 
 export { getUser, createSession, createCharacter, createLog }

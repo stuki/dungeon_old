@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { getUser } from "./Service";
 // Tämän avulla komponentit 
 // connectoidaan storeen
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
+import fetchival from 'fetchival';
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class Login extends Component {
 
@@ -15,22 +16,22 @@ class Login extends Component {
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
 
-  onUpdateUser(event) {
-      this.props.onUpdateUser(this.state.name);
+  onUpdateUser(user) {
+      this.props.onUpdateUser(user);
     }
   
   nameChanged = (e) => {
     this.setState({ name: e.target.value });
   }
 
-  login = (e) => {
+  login = async (e) => {
     e.preventDefault();
-    this.onUpdateUser(e);
-    getUser(this.state.name, function() {
-      this.setState({ name: ''});
-    }.bind(this));
+    const api = fetchival(baseurl);
+    const players = api('players');
+    const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
+    this.onUpdateUser(player);
+    this.props.handleLogin();
   }
-
 
   render() {
     return (
