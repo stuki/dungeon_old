@@ -14,8 +14,9 @@ class Sessions extends Component {
     }
 
     getSessionsAndUpdate = async () => {
-        var sessions = fetchival(baseurl + "/api/sessions/")
-        const session = await sessions.get();
+        const api = fetchival(baseurl);
+        var sessions = api("sessions")
+        const session = await sessions.get().catch(err => console.log(err));
         this.setState({ userSessions: session })
     }
 
