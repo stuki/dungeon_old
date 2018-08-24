@@ -59,7 +59,6 @@ namespace dungeon_api.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(session).State = EntityState.Modified;
 
             try

@@ -11,7 +11,6 @@ class LogList extends Component {
     }
 
     componentDidMount() {
-        console.log("ohsolemio")
         this.getLogsAndUpdate();
     }
 
@@ -26,7 +25,7 @@ class LogList extends Component {
         var allLogs = this.state.userLogs.map(function (logs) {
             return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
         });
-    
+
         return (
             <div>
                 <ul className="LogList">
