@@ -1,6 +1,6 @@
 import fetchival from 'fetchival';
 
-const baseurl = "https://dungeon.azurewebsites.net";
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 async function createSession(session) {
   const api = fetchival(baseurl);
@@ -14,7 +14,6 @@ async function createSession(session) {
 async function createLog(log) {
     const api = fetchival(baseurl);
     const logs = api('logs');
-    console.log(log)
     logs
       .post(log)
       .catch(function(err) {console.log(err)})

@@ -13,13 +13,13 @@ class sessionPage extends Component {
 
     render() {
         return (
-                <div>
-                    <LogList />
-                    <CreateLog />
-                    <CreateCharacter />
-                    <CreateSession />
-                    <ModifyCharacter />
-                </div>
+          <div>
+              <LogList />
+              <CreateLog />
+              <CreateCharacter />
+              <CreateSession />
+              <ModifyCharacter />
+          </div>
         );
     }
 }

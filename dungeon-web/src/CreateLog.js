@@ -30,13 +30,13 @@ class CreateLog extends Component {
       return (
         <div>
             <div>Create new log</div>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <table>
                 <tbody>
                     <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange('label')} /></td></tr>
                     <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange('text')} /></td></tr>
 
-                    <tr><td><input type="submit" defaultValue="Add new log" onClick={this.handleSubmit}/></td></tr>
+                    <tr><td><input type="submit" defaultValue="Add new log" /></td></tr>
                 </tbody>
             </table>
 

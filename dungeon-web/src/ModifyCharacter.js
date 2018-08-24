@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import fetchival from 'fetchival';
-const baseurl = "https://dungeon.azurewebsites.net";
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class ModifyCharacter extends Component {
   constructor(props) {
@@ -15,8 +15,8 @@ class ModifyCharacter extends Component {
 
   getCharacter = async () => {
     const api = fetchival(baseurl);
-    const session = api("characters/1/2")
-    const char = await session.get();
+    const session = api("characters/2/1")
+    const char = await session.get().catch(err => console.log(err));
     this.setState({ character: char })
   }
 
