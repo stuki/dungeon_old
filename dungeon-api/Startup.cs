@@ -29,8 +29,7 @@ namespace dungeon_api
             var connectionString = Configuration.GetConnectionString("DungeonDB");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //Using Npgsql (Postgres) instead of T-SQL
+            
             services.AddDbContext<DungeonContext>(options => options.UseSqlServer(connectionString, option => option.EnableRetryOnFailure()));
         }
 
@@ -45,9 +44,7 @@ namespace dungeon_api
             {
                 app.UseHsts();
             }
-
-            // Quick and dirty way to ensure that the database exists, and if not, then it is created.
-            // TODO: Use migratation instead
+            
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DungeonContext>();

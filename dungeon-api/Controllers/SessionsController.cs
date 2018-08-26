@@ -28,23 +28,31 @@ namespace dungeon_api.Controllers
         }
 
         // GET: api/Sessions/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSession([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<List<Session>>> GetSession([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var session = await _context.Sessions.FindAsync(id);
+        //    var sessions = _context.Players.Find(id).selectMany;
 
-            if (session == null)
-            {
-                return NotFound();
-            }
+        //    List<Session> sessionList = new List<Session>();
 
-            return Ok(session);
-        }
+        //    foreach (PlayerSession session in sessions)
+        //    {
+        //        Session sesh = await _context.Sessions.FindAsync(session.SessionId);
+        //        sessionList.Add(sesh);
+        //    }
+
+        //    if (sessionList == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(sessionList);
+        //}
 
         // PUT: api/Sessions/5
         [HttpPut("{id}")]
@@ -97,8 +105,8 @@ namespace dungeon_api.Controllers
 
             _context.Sessions.Add(session);
 
-            PlayerSession playerSession = new PlayerSession(){ 
-
+            PlayerSession playerSession = new PlayerSession()
+            {
                 PlayerId = session.CreatorId,
                 SessionId = session.Id
             };

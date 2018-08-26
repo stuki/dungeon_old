@@ -1,6 +1,9 @@
-﻿using System;
+﻿using dungeon_api.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace dungeon_api
 {
@@ -9,6 +12,8 @@ namespace dungeon_api
     // the session is the admin and the default DM of the session
     public class Session
     {
+        public Session() => Players = new JoinCollectionFacade<Player, Session, PlayerSession>(this, PlayerSessions);
+
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         [Required]
@@ -18,8 +23,11 @@ namespace dungeon_api
         [Required]
         public string Name { get; set; }
         public string Password { get; set; }
-        public List<Log> Logs { get; set; }
-        public List<PlayerSession> PlayerSessions { get; set; }
-        public List<Character> Characters { get; set; }
+        public ICollection<Log> Logs { get; set; }
+        public ICollection<PlayerSession> PlayerSessions { get; } = new List<PlayerSession>();
+        public ICollection<Character> Characters { get; set; }
+
+        [NotMapped]
+        public ICollection<Player> Players;
     }
 }

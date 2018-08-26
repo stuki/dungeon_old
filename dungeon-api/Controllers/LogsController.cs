@@ -36,9 +36,9 @@ namespace dungeon_api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var log = await _context.Logs.ToListAsync();
+            var session = await _context.Sessions.FindAsync(id);
 
-            log = log.Where(_ => _.SessionId == id).ToList();
+            var log = session.Logs.Where(l => l.Id == id).ToList();
 
             if (log == null)
             {
@@ -94,7 +94,10 @@ namespace dungeon_api.Controllers
 
             log.CreatedAt = DateTime.Now;
 
-            _context.Logs.Add(log);
+            var session = _context.Sessions.Find(log.SessionId);
+
+            session.Logs.Add(log);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLog", new { id = log.Id }, log);

@@ -28,23 +28,23 @@ namespace dungeon_api.Controllers
         }
 
         // GET: api/Characters/5/5
-        [HttpGet("{sessionId:int}/{playerId:int}")]
-        public async Task<IActionResult> GetCharacter([FromRoute] int sessionId, int playerId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpGet("{sessionId:int}/{playerId:int}")]
+        //public async Task<IActionResult> GetCharacter([FromRoute] int sessionId, int playerId)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var character = await _context.Characters.SingleOrDefaultAsync(c => c.PlayerId == playerId && c.SessionId == sessionId);
+        //    var character = await _context.Characters.SingleOrDefaultAsync(c => c.PlayerId == playerId && c.SessionId == sessionId);
 
-            if (character == null)
-            {
-                return NotFound();
-            }
+        //    if (character == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(character);
-        }
+        //    return Ok(character);
+        //}
 
         // PUT: api/Characters/5
         [HttpPut("{id}")]
