@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createSession } from './Service';
+import Api from './Api';
 
 class CreateSession extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class CreateSession extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    createSession(this.state)
+    Api.createSession(this.state)
   }
 
   render() {

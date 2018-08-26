@@ -26,8 +26,8 @@ class sessionPage extends Component {
     const api = fetchival(baseurl);
     var sessions = api("sessions")
     var characters = api("characters")
-    const session = await sessions(sessionId).get().catch(err => console.log(err));
-    const character = await characters(sessionId + '/' + playerId).get().catch(err => console.log(err))
+    const session = await sessions(sessionId).get().catch(err => console.log("Session fetch:", err));
+    const character = await characters(sessionId + '/' + playerId).get().catch(err => console.log("Character fetch:", err))
 
     if (session) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })
@@ -35,13 +35,12 @@ class sessionPage extends Component {
   }
 
   render() {
-    const { session, playerId, playerCharacter } = this.state
+    const { session, sessionId, playerId, playerCharacter } = this.state
     return (
       <div>
-        {session && (playerId === session.dungeonMasterId) && <LogList />}
+        {session && (playerId === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
-          <LogList /> &&
-          <CreateLog /> &&
+          <LogList sessionId={sessionId}/> &&
           <ModifyCharacter />
         }
         {!session && <CreateSession /> }
