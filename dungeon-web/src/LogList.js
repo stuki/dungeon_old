@@ -1,39 +1,44 @@
 import React, { Component } from 'react';
 import Logs from './Logs';
 import fetchival from 'fetchival';
-const baseurl = "https://dungeon.azurewebsites.net/";
+import CreateLog from './CreateLog';
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 
 class LogList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { userLogs: [] };
-    }
+  constructor(props) {
+    super(props);
+    this.state = { userLogs: [] };
+  }
 
-    componentDidMount() {
-        this.getLogsAndUpdate();
-    }
+  componentDidMount() {
+    this.getLogsAndUpdate();
+  }
 
-    getLogsAndUpdate = async () => {
-        var logs = fetchival(baseurl + "api/logs/")
-        console.log("RIkka on kakkas")
-        const log = await logs.get();
-        this.setState({ userLogs: log })
+  getLogsAndUpdate = async () => {
+    const api = fetchival(baseurl);
+    var logs = api("logs")
+    const log = await logs(this.props.sessionId).get().catch(err => console.log("Logs fetch:", err));
+    if (log) {
+      this.setState({ userLogs: log })
     }
-    render() {
-        console.dir(this.state.userLogs);
-        var allLogs = this.state.userLogs.map(function (logs) {
-            return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
-        });
+  }
+  render() {
+    console.dir(this.state.userLogs);
+    var allLogs = this.state.userLogs.map(function (logs) {
+      return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
+    });
 
-        return (
-            <div>
-                <ul className="LogList">
-                    {allLogs}
-                </ul>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <ul className="LogList">
+          {allLogs}
+
+          <CreateLog />
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default LogList;
