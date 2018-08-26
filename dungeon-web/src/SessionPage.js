@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CreateCharacter from './createCharacter';
+import CreateCharacter from './CreateCharacter';
 import ModifyCharacter from './ModifyCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
