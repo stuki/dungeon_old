@@ -9,6 +9,6 @@ namespace dungeon_api
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<PlayerSession> PlayerSessions { get; set; }
+        public ICollection<PlayerSession> PlayerSessions { get; set; }
     }
 }

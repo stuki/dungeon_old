@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetchival from 'fetchival';
+import Api from './Api';
 const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class ModifyCharacter extends Component {
@@ -8,15 +9,11 @@ class ModifyCharacter extends Component {
     this.state = {
       character: null
     }
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
-  componentDidMount() {
-    this.getCharacter();
-  }
-
-  getCharacter = async () => {
-    const api = fetchival(baseurl);
-    const session = api("characters/2/1")
-    const char = await session.get().catch(err => console.log(err));
+  
+  async componentDidMount() {
+    const char = await Api.getCharacter(2, 1);
     this.setState({ character: char })
   }
 

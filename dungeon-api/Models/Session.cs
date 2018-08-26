@@ -18,8 +18,8 @@ namespace dungeon_api
         [Required]
         public string Name { get; set; }
         public string Password { get; set; }
-        public List<Log> Logs { get; set; }
-        public List<PlayerSession> PlayerSessions { get; set; }
-        public List<Character> Characters { get; set; }
+        public ICollection<Log> Logs { get; set; }
+        public ICollection<PlayerSession> PlayerSessions { get; set; }
+        public ICollection<Character> Characters { get; set; }
     }
 }

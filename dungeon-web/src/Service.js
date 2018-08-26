@@ -5,10 +5,10 @@ const baseurl = "https://dungeon.azurewebsites.net/api";
 async function createSession(session) {
   const api = fetchival(baseurl);
   const sessions = api('sessions');
-
+  console.log(session)
   sessions
     .post(session)
-    .catch(function(err) {console.log(err)})
+    .catch(function(err) {console.log("Session post:", err)})
 }
 
 async function createLog(log) {
@@ -16,7 +16,7 @@ async function createLog(log) {
     const logs = api('logs');
     logs
       .post(log)
-      .catch(function(err) {console.log(err)})
+      .catch(function(err) {console.log("Log post:", err)})
   }
 // Tähän tarvitaan vielä kyseisen session ID
 // sekä kirjautuneet pelaajan ID, annetaan nämä
@@ -27,14 +27,17 @@ async function createCharacter(character) {
 
     characters
       .post(character)
-      .catch(function(err) {console.log(err)})
+      .catch(function(err) {console.log("Character post:", err)})
   }
 
-async function getUser(name) {
-    var players = fetchival(baseurl + "/players/" + name);
-    const playerName = await players.get();
-    console.log(playerName);
-}
+  async function getUser(user) {
+    const api = fetchival(baseurl);
+    const users = api('users');
+
+    users
+      .get(user)
+      .catch(function(err) {console.log(err)})
+  }
 
 
 export { getUser, createSession, createCharacter, createLog }
