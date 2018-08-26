@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// Tämän avulla komponentit 
+// Tämän avulla komponentit
 // connectoidaan storeen
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
@@ -11,7 +11,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: null
     }
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
@@ -19,18 +19,23 @@ class Login extends Component {
   onUpdateUser(user) {
       this.props.onUpdateUser(user);
     }
-  
+
   nameChanged = (e) => {
     this.setState({ name: e.target.value });
   }
 
   login = async (e) => {
     e.preventDefault();
-    const api = fetchival(baseurl);
-    const players = api('players');
-    const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
-    this.onUpdateUser(player);
-    this.props.handleLogin();
+    if (this.state.name) {
+      const api = fetchival(baseurl);
+      const players = api('players');
+      const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
+      console.log(player);
+      if (player != undefined) {
+        this.onUpdateUser(player);
+        this.props.handleLogin();
+      }
+    }
   }
 
   render() {
@@ -63,5 +68,5 @@ const mapActionsToProps = {
   onUpdateUser: updateUser
 };
 
-// mapStateToProps basically receives the state of the store 
+// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps, mapActionsToProps)(Login);

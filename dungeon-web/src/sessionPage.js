@@ -6,8 +6,9 @@ import LogList from './LogList';
 import CreateLog from './CreateLog';
 import fetchival from 'fetchival';
 import { connect } from 'react-redux';
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
-class sessionPage extends Component {
+class SessionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ class sessionPage extends Component {
     //   })
     // })
 
-    
+
   }
 
   async componentDidMount() {
@@ -59,6 +60,6 @@ class sessionPage extends Component {
   const mapStateToProps = (state) => ({
     user: state.user
   })
-  
-  // mapStateToProps basically receives the state of the store 
-  export default connect(mapStateToProps)(sessionPage);
+
+  // mapStateToProps basically receives the state of the store
+  export default connect(mapStateToProps)(SessionPage);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Sessions from './Sessions';
+import SessionList from './SessionList';
 import Login from './Login';
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
@@ -9,7 +9,7 @@ class ProfilePage extends Component {
         super(props)
         this.state = {
             player: props.user,
-          };
+        };
     }
 
     handleLogin = () => {
@@ -19,15 +19,14 @@ class ProfilePage extends Component {
     handleLogOut = () => {
         this.props.onUpdateUser(null);
         setTimeout(() => this.setState({player: this.props.user}), 1000);
-        
     }
 
     render() {
         const { player } = this.state
         return (
-            <div className="sessionList">
+            <div className="SessionList">
             {!player && <Login handleLogin={this.handleLogin} />}
-            {player && <Sessions handleLogOut={this.handleLogOut}/>}
+            {player && <SessionList handleLogOut={this.handleLogOut}/>}
             </div>
         );
     };
@@ -36,12 +35,12 @@ class ProfilePage extends Component {
 const mapStateToProps = (state) => ({
     user: state.user
   })
-  
+
   const mapActionsToProps = {
     // Käytetään onUpdateUser, jotta vältytään
     // variable collisionilta
     onUpdateUser: updateUser
   };
-  
-  // mapStateToProps basically receives the state of the store 
+
+  // mapStateToProps basically receives the state of the store
   export default connect(mapStateToProps, mapActionsToProps)(ProfilePage);

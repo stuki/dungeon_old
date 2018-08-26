@@ -27,7 +27,7 @@ class Api {
   }
 
   getSessions = async (id) => {
-    return this.sessions()
+    return this.sessions(id)
       .get()
       .catch(err => console.log("Error getting sessions", err))
   }
