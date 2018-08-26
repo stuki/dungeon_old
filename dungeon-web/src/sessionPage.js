@@ -5,8 +5,7 @@ import CreateSession from './CreateSession';
 import LogList from './LogList';
 import CreateLog from './CreateLog';
 import fetchival from 'fetchival';
-
-const baseurl = "https://dungeon.azurewebsites.net/api";
+import { connect } from 'react-redux';
 
 class sessionPage extends Component {
   constructor(props) {
@@ -14,15 +13,21 @@ class sessionPage extends Component {
     this.state = {
       sessionId: props.match.params.sessionId,
       session: null,
-      playerId: 1,
+      playerId: props.user,
       playerCharacter: null,
       isLoading: true
     };
+    // store.subscribe(()=>{
+    //   this.setState({
+    //     playerId: store.getState().user
+    //   })
+    // })
+
+    
   }
 
   async componentDidMount() {
     const { sessionId, playerId } = this.state
-
     const api = fetchival(baseurl);
     var sessions = api("sessions")
     var characters = api("characters")
@@ -51,4 +56,9 @@ class sessionPage extends Component {
     }
   }
 
-export default sessionPage;
+  const mapStateToProps = (state) => ({
+    user: state.user
+  })
+  
+  // mapStateToProps basically receives the state of the store 
+  export default connect(mapStateToProps)(sessionPage);

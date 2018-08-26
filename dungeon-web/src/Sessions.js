@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Session from './Session';
 import fetchival from 'fetchival';
 import Api from './Api';
-const baseurl = "https://dungeon.azurewebsites.net/api";
+import {Button} from 'react-bootstrap';
 
 class Sessions extends Component {
     constructor(props) {
@@ -30,6 +30,7 @@ class Sessions extends Component {
 
         return (
             <div>
+                <Button onClick={this.props.handleLogOut}>Log Out</Button>
                 <ul className="sessionList">
                     {allSessions}
                 </ul>
