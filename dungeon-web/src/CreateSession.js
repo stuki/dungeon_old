@@ -18,6 +18,7 @@ class CreateSession extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     Api.createSession(this.state)
+    this.setState({name: ""})
   }
 
   render() {

@@ -31,7 +31,7 @@ class Login extends Component {
       const players = api('players');
       const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
       console.log(player);
-      if (player != undefined) {
+      if (player !== undefined) {
         this.onUpdateUser(player);
         this.props.handleLogin();
       }
