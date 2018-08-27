@@ -29,8 +29,8 @@ class LogList extends Component {
     }
   }
   render() {
-    console.dir(this.state.userLogs);
-    var allLogs = this.state.userLogs.map(function (logs) {
+    console.dir(this.state, this.props);
+    var allLogs = this.state.logs.map(function (logs) {
       return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
     });
 
