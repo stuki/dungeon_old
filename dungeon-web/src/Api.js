@@ -49,7 +49,9 @@ class Api {
   }
 
   getCharacter = async (sessionId, playerId) => {
-    return this.characters(sessionId + "/" + playerId)
+    const url = sessionId + "/" + playerId;
+    console.log(url);
+    return this.characters(url)
       .get()
       .catch(err => console.log("Error getting character:", err));
   }

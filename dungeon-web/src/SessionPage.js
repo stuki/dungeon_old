@@ -15,7 +15,7 @@ class SessionPage extends Component {
     this.state = {
       sessionId: props.match.params.sessionId,
       session: null,
-      playerId: props.user,
+      player: props.user,
       playerCharacter: null,
       isLoading: true
     };
@@ -29,10 +29,10 @@ class SessionPage extends Component {
   }
 
   async componentDidMount() {
-    const { sessionId, playerId } = this.state
-    
+    const { sessionId, player } = this.state
+
     const session = await Api.getSession(sessionId);
-    const character = await Api.getCharacter(sessionId, playerId);
+    const character = await Api.getCharacter(sessionId, player.id);
 
     if (session) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })
@@ -40,16 +40,18 @@ class SessionPage extends Component {
   }
 
   render() {
-    const { session, sessionId, playerId, playerCharacter } = this.state
+    const { session, sessionId, player, playerCharacter } = this.state
     return (
       <div>
-        {session && (playerId === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
+        {session && (player.id === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
-          <LogList sessionId={sessionId}/> &&
-          <ModifyCharacter />
+          <React.Fragment>
+            <LogList sessionId={sessionId}/>
+            <ModifyCharacter />
+          </React.Fragment>
         }
         {!session && <CreateSession /> }
-        {session && !playerCharacter && (playerId !== session.dungeonMasterId) && <CreateCharacter /> }
+        {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter /> }
 
       </div>
       );
