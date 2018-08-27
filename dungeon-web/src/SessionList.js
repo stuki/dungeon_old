@@ -4,6 +4,7 @@ import fetchival from 'fetchival';
 import Api from './Api';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
+import CreateSession from './CreateSession';
 
 class SessionList extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class SessionList extends Component {
         <Button onClick={this.props.handleLogOut}>Log Out</Button>
         <ul className="sessionList">
           {allSessions}
+          <CreateSession/>
         </ul>
       </div>
     );
