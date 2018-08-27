@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
-import { getUser } from "./Service";
+// Tämän avulla komponentit
+// connectoidaan storeen
+import { connect } from 'react-redux';
+import { updateUser } from './Actions/UserActions';
+import fetchival from 'fetchival';
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: null
     }
+    this.onUpdateUser = this.onUpdateUser.bind(this);
   }
+
+  onUpdateUser(user) {
+      this.props.onUpdateUser(user);
+    }
 
   nameChanged = (e) => {
     this.setState({ name: e.target.value });
   }
 
-  login = (e) => {
+  login = async (e) => {
     e.preventDefault();
-    getUser(this.state.name, function() {
-      this.setState({ name: ''});
-    }.bind(this));
+    if (this.state.name) {
+      const api = fetchival(baseurl);
+      const players = api('players');
+      const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
+      console.log(player);
+      if (player != undefined) {
+        this.onUpdateUser(player);
+        this.props.handleLogin();
+      }
+    }
   }
-
 
   render() {
     return (
@@ -42,4 +58,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapActionsToProps = {
+  // Käytetään onUpdateUser, jotta vältytään
+  // variable collisionilta
+  onUpdateUser: updateUser
+};
+
+// mapStateToProps basically receives the state of the store
+export default connect(mapStateToProps, mapActionsToProps)(Login);

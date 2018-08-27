@@ -29,14 +29,14 @@ namespace dungeon_api.Controllers
 
         // GET: api/Sessions/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSession([FromRoute] int id)
+        public async Task<ActionResult<IEnumerable<Session>>> GetSession([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var session = await _context.Sessions.FindAsync(id);
+            var session = _context.Players.Where(p => p.Id == id).SelectMany(p => p.PlayerSessions).Select(ps => ps.Session);
 
             if (session == null)
             {
@@ -59,7 +59,6 @@ namespace dungeon_api.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(session).State = EntityState.Modified;
 
             try

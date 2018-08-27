@@ -29,7 +29,7 @@ class CreateLog extends Component {
 
     render() {
       return (
-        <div>
+        <li>
             <div>Create new log</div>
           <form onSubmit={this.handleSubmit}>
             <table>
@@ -42,7 +42,7 @@ class CreateLog extends Component {
             </table>
 
           </form>
-        </div>
+        </li>
       );
     }
   }

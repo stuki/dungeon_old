@@ -22,6 +22,27 @@ namespace dungeon_api
         #region DATASEEDING
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PlayerSession>()
+                .HasKey(ps => new { ps.PlayerId, ps.SessionId });
+
+            modelBuilder.Entity<PlayerSession>()
+                .HasOne(ps => ps.Player)
+                .WithMany(p => p.PlayerSessions)
+                .HasForeignKey(ps => ps.PlayerId);
+
+            modelBuilder.Entity<PlayerSession>()
+                .HasOne(ps => ps.Session)
+                .WithMany(s => s.PlayerSessions)
+                .HasForeignKey(ps => ps.SessionId);
+
+            modelBuilder.Entity<Session>()
+                .HasMany(s => s.Characters)
+                .WithOne(c => c.Session);
+
+            modelBuilder.Entity<Session>()
+                .HasMany(s => s.Logs)
+                .WithOne(l => l.Session);
+
             modelBuilder.Entity<Player>().HasData(
                 new { Id = 1, Name = "Oscar" },
                 new { Id = 2, Name = "Henni" },
