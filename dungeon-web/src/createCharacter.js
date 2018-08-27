@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createCharacter } from './Service';
+import { connect } from 'react-redux';
 
 class CreateCharacter extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class CreateCharacter extends Component {
       Looks:'',
       Armor:0,
       Level:0,
-      SessionId:3,
-      PlayerId:1
+      SessionId: this.props.SessionId,
+      PlayerId: props.user.id
     };
   }
 
@@ -75,4 +76,9 @@ class CreateCharacter extends Component {
   }
 }
 
-export default CreateCharacter;
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+// mapStateToProps basically receives the state of the store
+export default connect(mapStateToProps)(CreateCharacter);

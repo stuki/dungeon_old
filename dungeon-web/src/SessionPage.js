@@ -3,11 +3,8 @@ import CreateCharacter from './CreateCharacter';
 import ModifyCharacter from './ModifyCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
-import CreateLog from './CreateLog';
-import fetchival from 'fetchival';
 import { connect } from 'react-redux';
 import Api from './Api';
-const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionPage extends Component {
   constructor(props) {
@@ -21,7 +18,7 @@ class SessionPage extends Component {
     };
     // store.subscribe(()=>{
     //   this.setState({
-    //     playerId: store.getState().user
+    //     player: store.getState().user
     //   })
     // })
 
@@ -51,8 +48,7 @@ class SessionPage extends Component {
           </React.Fragment>
         }
         {!session && <CreateSession /> }
-        {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter /> }
-
+        {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
       </div>
       );
     }
