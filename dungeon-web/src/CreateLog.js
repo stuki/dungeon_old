@@ -24,6 +24,7 @@ class CreateLog extends Component {
     handleSubmit = (e) => {
       e.preventDefault();
       createLog(this.state)
+      this.setState({label: "", text: "", SessionId: "1", PlayerId: "1"})
     }
 
     render() {
@@ -36,7 +37,7 @@ class CreateLog extends Component {
                     <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange('label')} /></td></tr>
                     <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange('text')} /></td></tr>
 
-                    <tr><td><input type="submit" defaultValue="Add new log" /></td></tr>
+                    <tr><td><input type="submit" defaultValue="Add new log" onClick={this.handleSubmit}/></td></tr>
                 </tbody>
             </table>
 
