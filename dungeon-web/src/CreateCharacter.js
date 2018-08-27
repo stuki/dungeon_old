@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createCharacter } from './Service';
 import { connect } from 'react-redux';
+import Api from './Api'
 
 class CreateCharacter extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class CreateCharacter extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state)
-    createCharacter(this.state);
+    Api.createCharacter(this.state);
 
     this.setState({
       Name:'',

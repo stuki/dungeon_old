@@ -31,8 +31,12 @@ class SessionPage extends Component {
     const session = await Api.getSession(sessionId);
     const character = await Api.getCharacter(sessionId, player.id);
 
-    if (session) {
+    if (session && character) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })
+    }
+    if (session && character == undefined) {
+      console.log("mo");
+      this.setState({ session: session, isLoading: false })
     }
   }
 
