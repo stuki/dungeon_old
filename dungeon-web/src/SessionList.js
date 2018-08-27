@@ -4,6 +4,8 @@ import fetchival from 'fetchival';
 import Api from './Api';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
+import CreateSession from './CreateSession';
+const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionList extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class SessionList extends Component {
   }
 
   getSessionsAndUpdate = async () => {
-      const api = fetchival("https://dungeon.azurewebsites.net/api");
+      const api = fetchival(baseurl);
       var sessions = api("sessions")
       const session = await sessions.get().catch(err => console.log("Session fetch:", err));
       this.setState({ userSessions: session })
@@ -41,6 +43,8 @@ class SessionList extends Component {
         <Button onClick={this.props.handleLogOut}>Log Out</Button>
         <ul className="sessionList">
           {allSessions}
+          <p>* * * * * * * * *</p>
+          <CreateSession/>
         </ul>
       </div>
     );

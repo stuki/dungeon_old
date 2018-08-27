@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 // connectoidaan storeen
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
-import fetchival from 'fetchival';
-const baseurl = "https://dungeon.azurewebsites.net/api";
+import Api from './Api';
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name: null
+      name: null,
+      register: false
     }
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
@@ -26,33 +26,59 @@ class Login extends Component {
 
   login = async (e) => {
     e.preventDefault();
+    console.log(this.state);
     if (this.state.name) {
-      const api = fetchival(baseurl);
-      const players = api('players');
-      const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
-      console.log(player);
-      if (player != undefined) {
+      const player = await Api.getPlayer(this.state.name);
+      if (player !== undefined) {
         this.onUpdateUser(player);
         this.props.handleLogin();
+      } else {
+        this.setState({ register: true })
       }
     }
   }
 
+  register = async (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    if (this.state.name) {
+      Api.createPlayer(this.state.name);
+      setTimeout(this.login(e), 1000);
+    }
+  }
+
   render() {
+    const { register } = this.state;
     return (
       <div className="Login">
-        <form onSubmit={this.login}>
-          <table>
-            <tbody>
-              <tr>
-                <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
-              </tr>
-              <tr>
-                <td><input type="submit" defaultValue="Login"/></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        {!register &&
+          <form onSubmit={this.login}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
+                </tr>
+                <tr>
+                  <td><input type="submit" defaultValue="Login"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        }
+        {register &&
+          <form onSubmit={this.register}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
+                </tr>
+                <tr>
+                  <td><input type="submit" defaultValue="Register"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        }
       </div>
     );
   }

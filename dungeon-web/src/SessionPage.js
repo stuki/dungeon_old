@@ -3,10 +3,8 @@ import CreateCharacter from './CreateCharacter';
 import ModifyCharacter from './ModifyCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
-import CreateLog from './CreateLog';
-import fetchival from 'fetchival';
 import { connect } from 'react-redux';
-const baseurl = "https://dungeon.azurewebsites.net/api";
+import Api from './Api';
 
 class SessionPage extends Component {
   constructor(props) {
@@ -14,13 +12,13 @@ class SessionPage extends Component {
     this.state = {
       sessionId: props.match.params.sessionId,
       session: null,
-      playerId: props.user,
+      player: props.user,
       playerCharacter: null,
       isLoading: true
     };
     // store.subscribe(()=>{
     //   this.setState({
-    //     playerId: store.getState().user
+    //     player: store.getState().user
     //   })
     // })
 
@@ -28,30 +26,33 @@ class SessionPage extends Component {
   }
 
   async componentDidMount() {
-    const { sessionId, playerId } = this.state
-    const api = fetchival(baseurl);
-    var sessions = api("sessions")
-    var characters = api("characters")
-    const session = await sessions(sessionId).get().catch(err => console.log("Session fetch:", err));
-    const character = await characters(sessionId + '/' + playerId).get().catch(err => console.log("Character fetch:", err))
+    const { sessionId, player } = this.state
 
-    if (session) {
+    const session = await Api.getSession(sessionId);
+    const character = await Api.getCharacter(sessionId, player.id);
+
+    if (session && character) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })
+    }
+    if (session && character == undefined) {
+      console.log("mo");
+      this.setState({ session: session, isLoading: false })
     }
   }
 
   render() {
-    const { session, sessionId, playerId, playerCharacter } = this.state
+    const { session, sessionId, player, playerCharacter } = this.state
     return (
       <div>
-        {session && (playerId === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
+        {session && (player.id === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
-          <LogList sessionId={sessionId}/> &&
-          <ModifyCharacter />
+          <React.Fragment>
+            <LogList SessionId={sessionId}/>
+            <ModifyCharacter sessionId={this.state.sessionId}/>
+          </React.Fragment>
         }
         {!session && <CreateSession /> }
-        {session && !playerCharacter && (playerId !== session.dungeonMasterId) && <CreateCharacter /> }
-
+        {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
       </div>
       );
     }
