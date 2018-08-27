@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Api from './Api';
 import { connect } from 'react-redux';
 
+
 class CreateSession extends Component {
   constructor(props) {
     super(props);
