@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createLog } from './Service';
+import { connect } from 'react-redux';
 
 
 class CreateLog extends Component {
@@ -8,7 +9,7 @@ class CreateLog extends Component {
       this.state = {
         label: "",
         text: "",
-        SessionId: 1,
+        SessionId: this.props.SessionId,
         PlayerId: props.user.id
       }
     }
@@ -24,7 +25,7 @@ class CreateLog extends Component {
     handleSubmit = (e) => {
       e.preventDefault();
       createLog(this.state)
-      this.setState({label: "", text: "", SessionId: "1", PlayerId: "1"})
+      this.setState({label: "", text: "", SessionId: "1", PlayerId: this.props.user.id})
     }
 
     render() {
@@ -47,6 +48,9 @@ class CreateLog extends Component {
     }
   }
 
-
-
-export default CreateLog;
+  const mapStateToProps = (state) => ({
+    user: state.user
+  })
+  
+  // mapStateToProps basically receives the state of the store
+  export default connect(mapStateToProps)(CreateLog);
