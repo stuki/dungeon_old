@@ -9,7 +9,7 @@ class CreateLog extends Component {
       this.state = {
         label: "",
         text: "",
-        SessionId: this.props.SessionId,
+        SessionId: props.SessionId,
         PlayerId: props.user.id
       }
     }
@@ -25,7 +25,7 @@ class CreateLog extends Component {
     handleSubmit = (e) => {
       e.preventDefault();
       createLog(this.state)
-      this.setState({label: "", text: "", SessionId: "1", PlayerId: this.props.user.id})
+      this.setState({label: "", text: ""})
     }
 
     render() {

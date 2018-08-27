@@ -15,7 +15,7 @@ class LogList extends Component {
   }
 
   async componentDidMount() {
-    const logs = await Api.getLogs(this.props.sessionId);
+    const logs = await Api.getLogs(this.props.SessionId);
     this.setState({ logs })
     // this.getLogsAndUpdate();
   }
@@ -23,9 +23,9 @@ class LogList extends Component {
   getLogsAndUpdate = async () => {
     const api = fetchival(baseurl);
     var logs = api("logs")
-    const log = await logs(this.props.sessionId).get().catch(err => console.log("Logs fetch:", err));
+    const log = await logs(this.props.SessionId).get().catch(err => console.log("Logs fetch:", err));
     if (log) {
-      this.setState({ userLogs: log })
+      this.setState({ logs: log })
     }
   }
   render() {
@@ -39,7 +39,7 @@ class LogList extends Component {
         <ul className="LogList">
           {allLogs}
 
-          <CreateLog sessionId={this.props.sessionId}/>
+          <CreateLog SessionId={this.props.SessionId}/>
         </ul>
       </div>
     );

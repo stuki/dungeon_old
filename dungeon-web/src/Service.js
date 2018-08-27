@@ -14,6 +14,7 @@ async function createSession(session) {
 async function createLog(log) {
     const api = fetchival(baseurl);
     const logs = api('logs');
+    console.log(log)
     logs
       .post(log)
       .catch(function(err) {console.log("Log post:", err)})
