@@ -27,9 +27,9 @@ namespace dungeon_api.Controllers
             return _context.Sessions;
         }
 
-        // GET: api/Sessions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSession([FromRoute] int id)
+        // GET: api/Sessions/playerid/5
+        [HttpGet("playerid/{id}")]
+        public ActionResult<IEnumerable<Session>> GetSessions([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -37,6 +37,25 @@ namespace dungeon_api.Controllers
             }
 
             var session = _context.Players.Where(p => p.Id == id).SelectMany(p => p.PlayerSessions).Select(ps => ps.Session);
+
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(session);
+        }
+
+        // GET: api/Sessions/id/5
+        [HttpGet("id/{id}")]
+        public async Task<IActionResult> GetSession([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var session = await _context.Sessions.FindAsync(id);
 
             if (session == null)
             {
