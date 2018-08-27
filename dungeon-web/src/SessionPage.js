@@ -3,11 +3,8 @@ import CreateCharacter from './CreateCharacter';
 import ModifyCharacter from './ModifyCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
-import CreateLog from './CreateLog';
-import fetchival from 'fetchival';
 import { connect } from 'react-redux';
 import Api from './Api';
-const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionPage extends Component {
   constructor(props) {
@@ -15,13 +12,13 @@ class SessionPage extends Component {
     this.state = {
       sessionId: props.match.params.sessionId,
       session: null,
-      playerId: props.user,
+      player: props.user,
       playerCharacter: null,
       isLoading: true
     };
     // store.subscribe(()=>{
     //   this.setState({
-    //     playerId: store.getState().user
+    //     player: store.getState().user
     //   })
     // })
 
@@ -40,16 +37,16 @@ class SessionPage extends Component {
   }
 
   render() {
-    const { session, sessionId, playerId, playerCharacter } = this.state
+    const { session, sessionId, player, playerCharacter } = this.state
     return (
       <div>
-        {session && (playerId === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
+        {session && (player === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
           <LogList sessionId={sessionId}/> &&
           <ModifyCharacter />
         }
         {!session && <CreateSession /> }
-        {session && !playerCharacter && (playerId !== session.dungeonMasterId) && <CreateCharacter /> }
+      {session && !playerCharacter && (player !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
 
       </div>
       );

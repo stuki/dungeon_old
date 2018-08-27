@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { createSession } from './Service';
 import Api from './Api';
+import { connect } from 'react-redux';
 
 class CreateSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      CreatorId: 1
+      CreatorId: props.user.id
     }
   }
 
@@ -18,7 +18,7 @@ class CreateSession extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     Api.createSession(this.state)
-    this.setState({name: ""})
+    this.setState({ name: "" })
   }
 
   render() {
@@ -37,4 +37,9 @@ class CreateSession extends Component {
   }
 }
 
-export default CreateSession;
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+// mapStateToProps basically receives the state of the store
+export default connect(mapStateToProps)(CreateSession);

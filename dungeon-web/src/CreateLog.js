@@ -9,7 +9,7 @@ class CreateLog extends Component {
         label: "",
         text: "",
         SessionId: 1,
-        PlayerId: 1
+        PlayerId: props.user.id
       }
     }
 

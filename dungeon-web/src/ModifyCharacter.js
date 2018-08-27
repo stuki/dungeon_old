@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import fetchival from 'fetchival';
 import Api from './Api';
-const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class ModifyCharacter extends Component {
   constructor(props) {
