@@ -11,8 +11,9 @@ class Api {
   }
 
   createPlayer = (player) => {
+    const p = { name: player }
     this.players
-      .post(player)
+      .post(p)
       .catch(err => console.log("Error creating player:", err));
   }
 
