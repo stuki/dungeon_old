@@ -17,7 +17,9 @@ class Api {
   }
 
   getPlayer = async (name) => {
-    return this.players(name).get()
+    return this.players(name)
+      .get()
+      .catch(err => console.log("Error getting player:", err));
   }
 
   createSession = (session) => {
@@ -27,7 +29,15 @@ class Api {
   }
 
   getSessions = async (id) => {
-    return this.sessions(id)
+    const sessions = this.sessions("playerid")
+    return sessions(id)
+      .get()
+      .catch(err => console.log("Error getting sessions", err))
+  }
+
+  getSession = async (id) => {
+    const sessions = this.sessions("id")
+    return sessions(id)
       .get()
       .catch(err => console.log("Error getting sessions", err))
   }
@@ -39,7 +49,9 @@ class Api {
   }
 
   getCharacter = async (sessionId, playerId) => {
-    return this.characters(sessionId + "/" + playerId).get()
+    return this.characters(sessionId + "/" + playerId)
+      .get()
+      .catch(err => console.log("Error getting character:", err));
   }
 
   createLog = (log) => {
@@ -49,7 +61,9 @@ class Api {
   }
 
   getLogs = async (id) => {
-    return this.logs(id).get()
+    return this.logs(id)
+      .get()
+      .catch(err => console.log("Error getting log:", err));
   }
 
 }

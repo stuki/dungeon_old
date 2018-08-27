@@ -6,6 +6,7 @@ import LogList from './LogList';
 import CreateLog from './CreateLog';
 import fetchival from 'fetchival';
 import { connect } from 'react-redux';
+import Api from './Api';
 const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionPage extends Component {
@@ -29,11 +30,9 @@ class SessionPage extends Component {
 
   async componentDidMount() {
     const { sessionId, playerId } = this.state
-    const api = fetchival(baseurl);
-    var sessions = api("sessions")
-    var characters = api("characters")
-    const session = await sessions(sessionId).get().catch(err => console.log("Session fetch:", err));
-    const character = await characters(sessionId + '/' + playerId).get().catch(err => console.log("Character fetch:", err))
+    
+    const session = await Api.getSession(sessionId);
+    const character = await Api.getCharacter(sessionId, playerId);
 
     if (session) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })

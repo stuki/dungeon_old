@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import Logs from './Logs';
 import fetchival from 'fetchival';
 import CreateLog from './CreateLog';
+import Api from './Api';
 const baseurl = "https://dungeon.azurewebsites.net/api";
 
 
 class LogList extends Component {
   constructor(props) {
     super(props);
-    this.state = { userLogs: [] };
+    this.state = { logs: [] };
+
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  componentDidMount() {
-    this.getLogsAndUpdate();
+  async componentDidMount() {
+    const logs = await Api.getLogs(this.props.sessionId);
+    this.setState({ logs })
+    // this.getLogsAndUpdate();
   }
 
   getLogsAndUpdate = async () => {
