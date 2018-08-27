@@ -28,7 +28,7 @@ namespace dungeon_api
         {
             var connectionString = Configuration.GetConnectionString("DungeonDB");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             //Using Npgsql (Postgres) instead of T-SQL
             services.AddDbContext<DungeonContext>(options => options.UseSqlServer(connectionString, option => option.EnableRetryOnFailure()));
@@ -53,8 +53,8 @@ namespace dungeon_api
                 var context = serviceScope.ServiceProvider.GetRequiredService<DungeonContext>();
 
                 //context.Database.SetCommandTimeout(240);
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+                //context.Database.EnsureDeleted();
+                //context.Database.EnsureCreated();
             }
 
             app.UseHttpsRedirection();
