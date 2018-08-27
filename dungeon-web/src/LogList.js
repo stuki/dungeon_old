@@ -39,7 +39,7 @@ class LogList extends Component {
         <ul className="LogList">
           {allLogs}
 
-          <CreateLog />
+          <CreateLog sessionId={this.props.sessionId}/>
         </ul>
       </div>
     );
