@@ -47,8 +47,8 @@ class SessionPage extends Component {
         {session && (player.id === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
           <React.Fragment>
-            <LogList sessionId={sessionId}/>
-            <ModifyCharacter />
+            <LogList SessionId={sessionId}/>
+            <ModifyCharacter sessionId={this.state.sessionId}/>
           </React.Fragment>
         }
         {!session && <CreateSession /> }
