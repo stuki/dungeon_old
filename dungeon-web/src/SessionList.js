@@ -5,6 +5,7 @@ import Api from './Api';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import CreateSession from './CreateSession';
+import Moves from './Moves';
 const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionList extends Component {
@@ -44,7 +45,7 @@ class SessionList extends Component {
         <ul className="sessionList">
           {allSessions}
           <p>* * * * * * * * *</p>
-          <CreateSession/>
+          <CreateSession/> <br/>
         </ul>
       </div>
     );
