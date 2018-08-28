@@ -17,7 +17,6 @@ class LogList extends Component {
   async componentDidMount() {
     const logs = await Api.getLogs(this.props.SessionId);
     this.setState({ logs })
-    // this.getLogsAndUpdate();
   }
 
   getLogsAndUpdate = async () => {
