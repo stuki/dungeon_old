@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Session from './Session';
-import fetchival from 'fetchival';
 import Api from './Api';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import CreateSession from './CreateSession';
-const baseurl = "https://dungeon.azurewebsites.net/api";
 
 class SessionList extends Component {
   constructor(props) {
@@ -23,14 +21,6 @@ class SessionList extends Component {
     const sessions = await Api.getSessions(player.id);
     console.log(sessions);
     this.setState({ userSessions: sessions })
-    // this.getSessionsAndUpdate();
-  }
-
-  getSessionsAndUpdate = async () => {
-      const api = fetchival(baseurl);
-      var sessions = api("sessions")
-      const session = await sessions.get().catch(err => console.log("Session fetch:", err));
-      this.setState({ userSessions: session })
   }
 
   render() {
