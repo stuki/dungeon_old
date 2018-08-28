@@ -8,6 +8,7 @@ import { Link, Route } from 'react-router-dom'
 import ModifyCharacter from './ModifyCharacter';
 import Login from './Login'
 import Password from './Password'
+import Settings from './Settings'
 
 class SessionPage extends Component {
   constructor(props) {
