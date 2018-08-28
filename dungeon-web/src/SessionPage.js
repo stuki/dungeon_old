@@ -8,6 +8,7 @@ import { Link, Route } from 'react-router-dom'
 import ModifyCharacter from './ModifyCharacter';
 import Login from './Login'
 import Password from './Password'
+import Moves from './Moves';
 
 class SessionPage extends Component {
   constructor(props) {
@@ -92,13 +93,15 @@ class SessionPage extends Component {
               <React.Fragment>
                 <Link to='/'>Profile Page</Link>
                 <Link to={`${this.props.match.url}/journey`}>Journey</Link>
-                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>       
+                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link> 
+                <Link to={`${this.props.match.url}/moves`}>Moves</Link>        
               </React.Fragment>
             }
             {!session && <CreateSession /> }
             {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
             <Route path={`${this.props.match.url}/character`} component={ModifyCharacter}/>
             <Route path={`${this.props.match.url}/journey`} component={LogList}/>
+            <Route path={`${this.props.match.url}/moves`} component={Moves}/>
         </div>
         );
       }
