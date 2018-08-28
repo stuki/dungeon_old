@@ -43,6 +43,12 @@ class Api {
       .catch(err => console.log("Error getting sessions", err))
   }
 
+  joinSession = (id, player) => {
+    this.sessions(id + "/join")
+      .post(player)
+      .catch(err => console.log("Error joining session", err))
+  }
+
   createCharacter = (character) => {
     console.log(character)
     this.characters
@@ -51,27 +57,29 @@ class Api {
   }
 
   updateCharacter = (sessionId, playerId, character) => {
+    console.log(character)
     const url = sessionId + "/" + playerId;
-    return this.characters(url)
+    this.characters(url)
       .put(character)
       .catch(err => console.log("Error creating character:", err));
   }
 
   getCharacter = async (sessionId, playerId) => {
     const url = sessionId + "/" + playerId;
-    console.log(url);
     return this.characters(url)
       .get()
       .catch(err => console.log("Error getting character:", err));
   }
 
   createLog = (log) => {
+    console.log(log);
     this.logs
       .post(log)
       .catch(err => console.log("Error creating log:", err));
   }
 
   getLogs = async (id) => {
+    console.log(id);
     return this.logs(id)
       .get()
       .catch(err => console.log("Error getting log:", err));
