@@ -34,7 +34,7 @@ class SessionPage extends Component {
     if (session && character) {
       this.setState({ session: session, playerCharacter: character, isLoading: false })
     }
-    if (session && character == undefined) {
+    if (session && character === undefined) {
       console.log("mo");
       this.setState({ session: session, isLoading: false })
     }
