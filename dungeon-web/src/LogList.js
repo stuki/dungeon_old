@@ -15,20 +15,18 @@ class LogList extends Component {
   }
 
   async componentDidMount() {
-    const logs = await Api.getLogs(this.props.SessionId);
-    this.setState({ logs })
-  }
-
-  getLogsAndUpdate = async () => {
-    const api = fetchival(baseurl);
-    var logs = api("logs")
-    const log = await logs(this.props.SessionId).get().catch(err => console.log("Logs fetch:", err));
-    if (log) {
-      this.setState({ logs: log })
+    const logs = await Api.getLogs(this.props.sessionId);
+    if (logs) {
+      this.setState({ logs })
     }
   }
+
+  updateLogs = () => {
+    this.componentDidMount();
+  }
+
   render() {
-    console.dir(this.state, this.props);
+    console.log("logs", this.state, this.props);
     var allLogs = this.state.logs.map(function (logs) {
       return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
     });
@@ -38,7 +36,7 @@ class LogList extends Component {
         <ul className="LogList">
           {allLogs}
 
-          <CreateLog SessionId={this.props.SessionId}/>
+          <CreateLog sessionId={this.props.sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
     );
