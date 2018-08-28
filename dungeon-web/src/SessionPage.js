@@ -9,6 +9,7 @@ import ModifyCharacter from './ModifyCharacter';
 import Login from './Login'
 import Password from './Password'
 import Moves from './Moves';
+import Settings from './Settings'
 
 class SessionPage extends Component {
   constructor(props) {
