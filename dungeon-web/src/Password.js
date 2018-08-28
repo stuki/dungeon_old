@@ -1,42 +1,24 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PinInput from 'react-pin-input';
 
-class Password extends Component {
-  state = { password: [] }
-  componentDidMount() {
-
-  }
-
-  handleKeyUp = (e) => {
-    if (isFinite(e.key)) {
-      e.target.nextSibling.focus()
-    }
-    //console.log(e.target.form, e.target.nextSibling, isFinite(e.key));
-  }
-
-  handleChange = (e) => {
-    let password = this.state.password
-    password.push(e.target.value)
-    this.setState({
-      password
-    });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.handlePassword(this.state)
+class Password extends PureComponent {
+  handleSubmit = (pin) => {
+    this.props.handlePassword(pin)
   }
 
   render() {
     return (
-      <form onSubmit={this.props.handlePassword}>
-        <input type="number" max="9" onChange={this.handleChange} onKeyUp={this.handleKeyUp} autoFocus="true" />
-        <input type="number" max="9" onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
-        <input type="number" max="9" onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
-        <input type="number" max="9" onChange={this.handleChange} onKeyUp={this.handleSubmit} />
-      </form>
+      <PinInput
+        length={4}
+        onChange={(value, index) => {}}
+        type="numeric"
+        style={{padding: '10px'}}
+        inputStyle={{borderColor: 'red'}}
+        inputFocusStyle={{borderColor: 'blue'}}
+        onComplete={(value, index) => this.handleSubmit(value)}
+      />
     );
   }
-
 }
 
 export default Password;

@@ -30,7 +30,6 @@ class LogList extends Component {
   }
 
   render() {
-    console.log("logs", this.state, this.props);
     var allLogs = this.state.logs.map(function (logs) {
       return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
     });

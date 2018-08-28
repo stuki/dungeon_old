@@ -4,7 +4,7 @@ import CreateSession from './CreateSession';
 import LogList from './LogList';
 import { connect } from 'react-redux';
 import Api from './Api';
-import { Link, Route } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import ModifyCharacter from './ModifyCharacter';
 import Login from './Login'
 import Password from './Password'
@@ -27,6 +27,7 @@ class SessionPage extends Component {
 
     if (player != null) {
       const session = await Api.getSession(sessionId);
+        console.log("SESSION PASSWORD:", session.password);
       const character = await Api.getCharacter(sessionId, player.id);
       if (session && character) {
         this.setState({ session: session, playerCharacter: character, isLoading: false })
@@ -54,23 +55,17 @@ class SessionPage extends Component {
 
   handlePassword = async (pin) => {
     const { session, player } = this.state
-    // debugger;
-    console.log("before",session, player);
-    let password = pin.password.join('');
-    if (session.password === password) {
-      console.log("wihtihn", session);
+    if (session.password === pin) {
       Api.joinSession(session.id, player);
       const newSession = await Api.getSession(session.id);
       this.setState({
         session: newSession
       });
-      // console.log("hoi");
-      // SET PLAYER AS A MEMBER OF THE SESSION, REFRESH THE PAGE TO THE CHARACTER CREATION SCREEN
     }
   }
+  
   render() {
     const { session, sessionId, player, playerCharacter } = this.state;
-    console.log(this.state);
     if (!player) {
       return (
         <div>
@@ -90,21 +85,22 @@ class SessionPage extends Component {
         <div>
             {session && (player.id === session.dungeonMasterId) &&
               <React.Fragment>
-                <Link to='/'>Profile Page</Link>
-                <Link to={`${this.props.match.url}/journey`}>Journey</Link>
-                <Link to={`${this.props.match.url}/settings`}>Settings</Link>
+                <NavLink to='/'>Profile Page</NavLink>
+                <NavLink to={`${this.props.match.url}/journey`}>Journey</NavLink>
+                <NavLink to={`${this.props.match.url}/settings`}>Settings</NavLink>
               </React.Fragment>}
             {session && playerCharacter &&
               <React.Fragment>
-                <Link to='/'>Profile Page</Link>
-                <Link to={`${this.props.match.url}/journey`}>Journey</Link>
-                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>
+                <NavLink to='/'>Profile Page</NavLink>
+                <NavLink to={`${this.props.match.url}/journey`}>Journey</NavLink>
+                <NavLink to={`${this.props.match.url}/character`}>Character Sheet</NavLink>
               </React.Fragment>
             }
             {!session && <CreateSession /> }
             {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
             <Route path={`${this.props.match.url}/character`} component={ModifyCharacter}/>
             <Route path={`${this.props.match.url}/journey`} component={LogList}/>
+            <Route path={`${this.props.match.url}/settings`} component={Settings}/>
         </div>
         );
       }

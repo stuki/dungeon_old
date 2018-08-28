@@ -14,75 +14,71 @@ class Api {
     const p = { name: player }
     this.players
       .post(p)
-      .catch(err => console.log("Error creating player:", err));
+      .catch(err => console.error("Error creating player:", err.message));
   }
 
   getPlayer = async (name) => {
     return this.players(name)
       .get()
-      .catch(err => console.log("Error getting player:", err));
+      .catch(err => console.error("Error getting player:", err.message));
   }
 
   createSession = (session) => {
     this.sessions
       .post(session)
-      .catch(err => console.log("Error creating session:", err));
+      .catch(err => console.error("Error creating session:", err.message));
   }
 
   getSessions = async (id) => {
     const sessions = this.sessions("playerid")
     return sessions(id)
       .get()
-      .catch(err => console.log("Error getting sessions", err))
+      .catch(err => console.error("Error getting sessions:", err.message))
   }
 
   getSession = async (id) => {
     const sessions = this.sessions("id")
     return sessions(id)
       .get()
-      .catch(err => console.log("Error getting sessions", err))
+      .catch(err => console.error("Error getting sessions:", err.message))
   }
 
   joinSession = (id, player) => {
     this.sessions(id + "/join")
       .post(player)
-      .catch(err => console.log("Error joining session", err))
+      .catch(err => console.error("Error joining session:", err.message))
   }
 
   createCharacter = (character) => {
-    console.log(character)
     this.characters
       .post(character)
-      .catch(err => console.log("Error creating character:", err));
+      .catch(err => console.error("Error creating character:", err.message));
   }
 
   updateCharacter = (sessionId, playerId, character) => {
-    console.log(character)
     const url = sessionId + "/" + playerId;
     this.characters(url)
       .put(character)
-      .catch(err => console.log("Error creating character:", err));
+      .catch(err => console.error("Error creating character:", err.message));
   }
 
   getCharacter = async (sessionId, playerId) => {
     const url = sessionId + "/" + playerId;
     return this.characters(url)
       .get()
-      .catch(err => console.log("Error getting character:", err));
+      .catch(err => console.error("Error getting character:", err.message));
   }
 
   createLog = (log) => {
-    console.log(log);
     this.logs
       .post(log)
-      .catch(err => console.log("Error creating log:", err));
+      .catch(err => console.error("Error creating log:", err.message));
   }
 
   getLogs = async (id) => {
-    console.log(id);
     return this.logs(id)
       .get()
-      .catch(err => console.log("Error getting log:", err));
+      .catch(err => console.error("Error getting log:", err.message));
   }
 
 }
