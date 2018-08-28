@@ -88,12 +88,17 @@ class SessionPage extends Component {
       } else {
         return (
         <div>
-            {session && (player.id === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
+            {session && (player.id === session.dungeonMasterId) &&
+              <React.Fragment>
+                <Link to='/'>Profile Page</Link>
+                <Link to={`${this.props.match.url}/journey`}>Journey</Link>
+                <Link to={`${this.props.match.url}/settings`}>Settings</Link>
+              </React.Fragment>}
             {session && playerCharacter &&
               <React.Fragment>
                 <Link to='/'>Profile Page</Link>
                 <Link to={`${this.props.match.url}/journey`}>Journey</Link>
-                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>       
+                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>
               </React.Fragment>
             }
             {!session && <CreateSession /> }

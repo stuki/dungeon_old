@@ -8,10 +8,10 @@ class LogList extends Component {
   constructor(props) {
     super(props);
 
-    const sessionId = props.match.url.split('/')[2]
-    
-    this.state = { 
-      logs: [], 
+    const sessionId = this.props.match.url.split('/')[2]
+
+    this.state = {
+      logs: [],
       sessionId: sessionId
     };
 
