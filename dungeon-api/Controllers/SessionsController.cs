@@ -59,6 +59,8 @@ namespace dungeon_api.Controllers
 
             session.PlayerSessions = _context.Sessions.Where(p => p.Id == id).SelectMany(p => p.PlayerSessions).ToList();
 
+            session.Characters = _context.Characters.Where(c => c.SessionId == session.Id).ToList();
+
             if (session == null)
             {
                 return NotFound();
@@ -67,8 +69,8 @@ namespace dungeon_api.Controllers
             return Ok(session);
         }
 
-        // PUT: api/Sessions/5
-        [HttpPut("{id}")]
+        // PUT: api/Sessions/id/5
+        [HttpPut("id/{id}")]
         public async Task<IActionResult> PutSession([FromRoute] int id, [FromBody] Session session)
         {
             if (!ModelState.IsValid)
@@ -129,6 +131,28 @@ namespace dungeon_api.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSession", new { id = session.Id }, session);
+        }
+
+        // POST: api/Sessions/:id/join
+        [HttpPost("{id}/join")]
+        public async Task<IActionResult> JoinSession([FromRoute] int id, [FromBody] Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            PlayerSession playerSession = new PlayerSession()
+            {
+                PlayerId = player.Id,
+                SessionId = id
+            };
+
+            _context.PlayerSessions.Add(playerSession);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         // DELETE: api/Sessions/5
