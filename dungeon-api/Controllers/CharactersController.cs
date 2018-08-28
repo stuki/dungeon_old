@@ -46,16 +46,16 @@ namespace dungeon_api.Controllers
             return Ok(character);
         }
 
-        // PUT: api/Characters/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter([FromRoute] int id, [FromBody] Character character)
+        // PUT: api/Characters/5/5
+        [HttpPut("{sessionId:int}/{playerId:int}")]
+        public async Task<IActionResult> PutCharacter([FromRoute] int sessionId, int playerId, [FromBody] Character character)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != character.Id)
+            if (sessionId != character.SessionId && playerId != character.PlayerId)
             {
                 return BadRequest();
             }
@@ -68,7 +68,7 @@ namespace dungeon_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CharacterExists(id))
+                if (!CharacterExists(character.Id))
                 {
                     return NotFound();
                 }

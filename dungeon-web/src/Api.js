@@ -50,8 +50,16 @@ class Api {
   }
 
   createCharacter = (character) => {
+    console.log(character)
     this.characters
       .post(character)
+      .catch(err => console.log("Error creating character:", err));
+  }
+
+  updateCharacter = (sessionId, playerId, character) => {
+    const url = sessionId + "/" + playerId;
+    return this.characters(url)
+      .put(character)
       .catch(err => console.log("Error creating character:", err));
   }
 
