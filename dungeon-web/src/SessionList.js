@@ -5,8 +5,6 @@ import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import CreateSession from './CreateSession';
 
-const baseurl = "https://dungeon.azurewebsites.net/api";
-
 class SessionList extends Component {
   constructor(props) {
     super(props);

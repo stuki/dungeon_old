@@ -21,6 +21,7 @@ class SessionPage extends Component {
       playerCharacter: null,
       isLoading: true
     };
+    
   }
 
   async componentDidMount() {
@@ -95,7 +96,8 @@ class SessionPage extends Component {
                 <Link to='/'>Profile Page</Link>
                 <Link to={`${this.props.match.url}/journey`}>Journey</Link>
                 <Link to={`${this.props.match.url}/character`}>Character Sheet</Link> 
-                <Link to={`${this.props.match.url}/moves`}>Moves</Link>        
+                <Link to={`${this.props.match.url}/moves`}>Moves</Link>  
+                <Link to={`${this.props.match.url}/settings`}>Settings</Link>              
               </React.Fragment>
             }
             {!session && <CreateSession /> }
@@ -103,6 +105,7 @@ class SessionPage extends Component {
             <Route path={`${this.props.match.url}/character`} component={ModifyCharacter}/>
             <Route path={`${this.props.match.url}/journey`} component={LogList}/>
             <Route path={`${this.props.match.url}/moves`} component={Moves}/>
+            <Route path={`${this.props.match.url}/settings`} component={Settings}/>
         </div>
         );
       }
