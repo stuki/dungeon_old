@@ -39,6 +39,7 @@ class LogList extends Component {
       <div>
         <ul className="LogList">
           {allLogs}
+          <p>* * * * * * * * * *</p>
           <CreateLog sessionId={this.state.sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
