@@ -79,7 +79,6 @@ class Api {
   }
 
   getLogs = async (id) => {
-    console.log(id);
     return this.logs(id)
       .get()
       .catch(err => console.log("Error getting log:", err));

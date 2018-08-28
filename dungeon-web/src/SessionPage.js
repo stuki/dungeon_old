@@ -72,7 +72,6 @@ class SessionPage extends Component {
   }
   render() {
     const { session, sessionId, player, playerCharacter } = this.state;
-    console.log(this.state);
     if (!player) {
       return (
         <div>
