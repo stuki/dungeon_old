@@ -10,7 +10,7 @@ class SessionList extends Component {
     super(props);
     this.state = {
         player: props.user,
-        userSessions: []
+        sessions: []
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -19,12 +19,18 @@ class SessionList extends Component {
   async componentDidMount() {
     const { player } = this.state
     const sessions = await Api.getSessions(player.id);
-    this.setState({ userSessions: sessions })
+    if (sessions) {
+    this.setState({ sessions })
+    }
+  }
+
+  updateSessions = () => {
+    this.componentDidMount();
   }
 
   render() {
-    var allSessions = this.state.userSessions.map(function (session) {
-      return (<Session session={session} key={session.id} />)
+    var allSessions = this.state.sessions.map(function (sessions) {
+      return (<Session session={sessions} key={sessions.id} />)
     });
 
     return (
@@ -33,7 +39,7 @@ class SessionList extends Component {
         <ul className="sessionList">
           {allSessions}
           <p>* * * * * * * * *</p>
-          <CreateSession/> <br/>
+          <CreateSession updateSessions={this.updateSessions}/> <br/>
         </ul>
       </div>
     );
