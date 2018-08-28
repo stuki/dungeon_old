@@ -9,10 +9,10 @@ class LogList extends Component {
     super(props);
     console.log(props, this.state);
 
-    const sessionId = props.match.url.split('/')[2]
-    
-    this.state = { 
-      logs: [], 
+    const sessionId = this.props.match.url.split('/')[2]
+
+    this.state = {
+      logs: [],
       sessionId: sessionId
     };
 
