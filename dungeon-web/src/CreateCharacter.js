@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Api from './Api'
+import 'bootstrap';
 
 class CreateCharacter extends Component {
   constructor(props) {
