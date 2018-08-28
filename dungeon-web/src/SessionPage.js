@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import CreateCharacter from './CreateCharacter';
-import ModifyCharacter from './ModifyCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
 import { connect } from 'react-redux';
 import Api from './Api';
+import { Link, Route } from 'react-router-dom'
+import ModifyCharacter from './ModifyCharacter';
 
 class SessionPage extends Component {
   constructor(props) {
@@ -16,13 +17,6 @@ class SessionPage extends Component {
       playerCharacter: null,
       isLoading: true
     };
-    // store.subscribe(()=>{
-    //   this.setState({
-    //     player: store.getState().user
-    //   })
-    // })
-
-
   }
 
   async componentDidMount() {
@@ -47,12 +41,14 @@ class SessionPage extends Component {
         {session && (player.id === session.dungeonMasterId) && <LogList sessionId={sessionId}/>}
         {session && playerCharacter &&
           <React.Fragment>
-            <LogList SessionId={sessionId}/>
-            <ModifyCharacter sessionId={this.state.sessionId}/>
+            <Link to='/'>Profile Page</Link>
+            <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>
+            <LogList sessionId={sessionId}/>
           </React.Fragment>
         }
         {!session && <CreateSession /> }
         {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
+        <Route path={`${this.props.match.url}/character`} component={ModifyCharacter}/>
       </div>
       );
     }

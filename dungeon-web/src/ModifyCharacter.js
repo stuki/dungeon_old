@@ -5,11 +5,15 @@ import { connect } from 'react-redux';
 class ModifyCharacter extends Component {
   constructor(props) {
     super(props);
+
+    const sessionId = props.match.url.split('/')[2]
+
     this.state = {
       character: null,
       playerId: props.user.id,
-      sessionId: props.sessionId
+      sessionId: sessionId
     }
+    console.log(props)
     this.componentDidMount = this.componentDidMount.bind(this);
   }
   

@@ -9,20 +9,23 @@ const baseurl = "https://dungeon.azurewebsites.net/api";
 class LogList extends Component {
   constructor(props) {
     super(props);
-    this.state = { logs: [] };
+    
+    this.state = { 
+      logs: [], 
+    };
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   async componentDidMount() {
-    const logs = await Api.getLogs(this.props.SessionId);
+    const logs = await Api.getLogs(this.props.sessionId);
     this.setState({ logs })
   }
 
   getLogsAndUpdate = async () => {
     const api = fetchival(baseurl);
     var logs = api("logs")
-    const log = await logs(this.props.SessionId).get().catch(err => console.log("Logs fetch:", err));
+    const log = await logs(this.props.sessionId).get().catch(err => console.log("Logs fetch:", err));
     if (log) {
       this.setState({ logs: log })
     }
@@ -38,7 +41,7 @@ class LogList extends Component {
         <ul className="LogList">
           {allLogs}
 
-          <CreateLog SessionId={this.props.SessionId}/>
+          <CreateLog SessionId={this.props.sessionId}/>
         </ul>
       </div>
     );
