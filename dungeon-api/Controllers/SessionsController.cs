@@ -57,7 +57,7 @@ namespace dungeon_api.Controllers
 
             var session = await _context.Sessions.FindAsync(id);
 
-            session.PlayerSessions = _context.Sessions.Where(p => p.Id == id).SelectMany(p => p.PlayerSessions).ToList();
+            session.PlayerSessions = _context.Sessions.Where(p => p.Id == id).SelectMany(p => p.PlayerSessions).Include("Player").ToList();
 
             session.Characters = _context.Characters.Where(c => c.SessionId == session.Id).ToList();
 

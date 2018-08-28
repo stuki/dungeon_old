@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Api from './Api';
 import Login from './Login'
 import Password from './Password'
+import Settings from './Settings'
 
 class SessionPage extends Component {
   constructor(props) {
@@ -91,6 +92,7 @@ class SessionPage extends Component {
               <React.Fragment>
                 <LogList sessionId={sessionId} />
                 <ModifyCharacter sessionId={this.state.sessionId} />
+                <Settings id={this.state.sessionId} />
               </React.Fragment>
             }
             { session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter sessionId={this.state.sessionId} /> }
