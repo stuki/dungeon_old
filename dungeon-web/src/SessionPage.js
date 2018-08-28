@@ -91,13 +91,14 @@ class SessionPage extends Component {
             {session && playerCharacter &&
               <React.Fragment>
                 <Link to='/'>Profile Page</Link>
-                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>
-                <LogList sessionId={sessionId}/>
+                <Link to={`${this.props.match.url}/journey`}>Journey</Link>
+                <Link to={`${this.props.match.url}/character`}>Character Sheet</Link>       
               </React.Fragment>
             }
             {!session && <CreateSession /> }
             {session && !playerCharacter && (player.id !== session.dungeonMasterId) && <CreateCharacter SessionId={this.state.sessionId}/> }
             <Route path={`${this.props.match.url}/character`} component={ModifyCharacter}/>
+            <Route path={`${this.props.match.url}/journey`} component={LogList}/>
         </div>
         );
       }

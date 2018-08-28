@@ -6,7 +6,7 @@ class Session extends Component {
 
     render() {
         const {session} = this.props
-        const link = "/session/" + session.id
+        const link = "/session/" + session.id + '/journey'
         return (
           <div>
             <Link to={link}>Session Page</Link>

@@ -7,16 +7,19 @@ import Api from './Api';
 class LogList extends Component {
   constructor(props) {
     super(props);
+
+    const sessionId = props.match.url.split('/')[2]
     
     this.state = { 
       logs: [], 
+      sessionId: sessionId
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   async componentDidMount() {
-    const logs = await Api.getLogs(this.props.sessionId);
+    const logs = await Api.getLogs(this.state.sessionId);
     if (logs) {
       this.setState({ logs })
     }
@@ -36,7 +39,7 @@ class LogList extends Component {
       <div>
         <ul className="LogList">
           {allLogs}
-          <CreateLog sessionId={this.props.sessionId} updateLogs={this.updateLogs} />
+          <CreateLog sessionId={this.state.sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
     );
