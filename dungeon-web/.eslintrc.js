@@ -10,6 +10,7 @@ module.exports = {
           {
             "extensions": [".js", ".jsx"]
           }
-        ]
+        ],
+        "linebreak-style": 0
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Logs from './Logs';
 import CreateLog from './CreateLog';
 import Api from './Api';
@@ -8,20 +9,24 @@ class LogList extends Component {
   constructor(props) {
     super(props);
 
-    const sessionId = this.props.match.url.split('/')[2]
+    const { match } = this.props;
+
+    const sessionId = match.url.split('/')[2];
 
     this.state = {
       logs: [],
-      sessionId: sessionId
+      sessionId,
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   async componentDidMount() {
-    const logs = await Api.getLogs(this.state.sessionId);
+    const { sessionId } = this.state;
+
+    const logs = await Api.getLogs(sessionId);
     if (logs) {
-      this.setState({ logs })
+      this.setState({ logs });
     }
   }
 
@@ -30,20 +35,27 @@ class LogList extends Component {
   }
 
   render() {
-    var allLogs = this.state.logs.map(function (logs) {
-      return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
-    });
+    const { logs, sessionId } = this.state;
+    const allLogs = logs.map(l => <Logs logs={l} key={l.id} label={l.label} text={l.text} />);
 
     return (
       <div>
         <ul className="LogList">
           {allLogs}
           <p>* * * * * * * * * *</p>
-          <CreateLog sessionId={this.state.sessionId} updateLogs={this.updateLogs} />
+          <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
     );
   }
 }
+
+LogList.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      sessionId: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default LogList;

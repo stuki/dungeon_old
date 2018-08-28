@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-// Tämän avulla komponentit
-// connectoidaan storeen
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       name: null,
-      register: false
-    }
+      register: false,
+    };
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
 
   onUpdateUser(user) {
-    this.props.onUpdateUser(user);
+    const { onUpdateUser } = this.props;
+
+    onUpdateUser(user);
   }
 
   nameChanged = (e) => {
@@ -26,70 +26,91 @@ class Login extends Component {
 
   login = async (e) => {
     e.preventDefault();
-    if (this.state.name) {
-      const player = await Api.getPlayer(this.state.name);
+
+    const { name } = this.state;
+    const { handleLogin } = this.props;
+
+    if (name) {
+      const player = await Api.getPlayer(name);
       if (player !== undefined) {
         this.onUpdateUser(player);
-        setTimeout(this.props.handleLogin(), 1000);
+        setTimeout(handleLogin(), 1000);
       } else {
-        this.setState({ register: true })
+        this.setState({ register: true });
       }
     }
   }
 
   register = async (e) => {
     e.preventDefault();
-    if (this.state.name) {
-      Api.createPlayer(this.state.name);
+
+    const { name } = this.state;
+
+    if (name) {
+      Api.createPlayer(name);
       setTimeout(this.login(e), 1000);
     }
   }
 
   render() {
-    const { register } = this.state;
+    const { register, name } = this.state;
     return (
       <div className="Login">
-        {!register &&
+        {!register
+          && (
           <form onSubmit={this.login}>
             <table>
               <tbody>
                 <tr>
-                  <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
+                  <td>Name: </td>
+                  <td><input value={name} onChange={this.nameChanged} /></td>
                 </tr>
                 <tr>
-                  <td><input type="submit" defaultValue="Login"/></td>
+                  <td><input type="submit" defaultValue="Login" /></td>
                 </tr>
               </tbody>
             </table>
           </form>
+          )
         }
-        {register &&
+        {register
+          && (
           <form onSubmit={this.register}>
             <table>
               <tbody>
                 <tr>
-                  <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
+                  <td>Name: </td>
+                  <td><input value={name} onChange={this.nameChanged} /></td>
                 </tr>
                 <tr>
-                  <td><input type="submit" defaultValue="Register"/></td>
+                  <td><input type="submit" defaultValue="Register" /></td>
                 </tr>
               </tbody>
             </table>
           </form>
+          )
         }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user
-})
+Login.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  onUpdateUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
 
 const mapActionsToProps = {
   // Käytetään onUpdateUser, jotta vältytään
   // variable collisionilta
-  onUpdateUser: updateUser
+  onUpdateUser: updateUser,
 };
 
 // mapStateToProps basically receives the state of the store
