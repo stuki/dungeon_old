@@ -24,14 +24,17 @@ class ModifyCharacter extends Component {
 
   handleChange(property) {
     return e => {
+      let c = this.state.character
+      c[property] = e.target.value
       this.setState({
-        character : {[property]: e.target.value}
+        character : c
       });
     };
   }
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(this.state.character)
     Api.updateCharacter(this.state.sessionId, this.state.playerId, this.state.character)
     const char = await Api.getCharacter(this.state.sessionId, this.state.playerId);
 
