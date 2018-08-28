@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createLog } from './Service';
 import { connect } from 'react-redux';
+import Api from './Api';
 
 
 class CreateLog extends Component {
@@ -9,7 +9,7 @@ class CreateLog extends Component {
       this.state = {
         label: "",
         text: "",
-        SessionId: props.SessionId,
+        sessionId: props.sessionId,
         PlayerId: props.user.id
       }
     }
@@ -24,7 +24,8 @@ class CreateLog extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault();
-      createLog(this.state)
+      Api.createLog(this.state)
+      this.props.updateLogs()
       this.setState({label: "", text: ""})
     }
 
@@ -51,6 +52,6 @@ class CreateLog extends Component {
   const mapStateToProps = (state) => ({
     user: state.user
   })
-  
+
   // mapStateToProps basically receives the state of the store
   export default connect(mapStateToProps)(CreateLog);
