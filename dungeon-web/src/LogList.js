@@ -7,7 +7,10 @@ import Api from './Api';
 class LogList extends Component {
   constructor(props) {
     super(props);
-    this.state = { logs: [] };
+    
+    this.state = { 
+      logs: [], 
+    };
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -33,7 +36,6 @@ class LogList extends Component {
       <div>
         <ul className="LogList">
           {allLogs}
-
           <CreateLog sessionId={this.props.sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
