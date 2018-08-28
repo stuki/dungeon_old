@@ -17,8 +17,8 @@ class Login extends Component {
   }
 
   onUpdateUser(user) {
-      this.props.onUpdateUser(user);
-    }
+    this.props.onUpdateUser(user);
+  }
 
   nameChanged = (e) => {
     this.setState({ name: e.target.value });
@@ -26,12 +26,11 @@ class Login extends Component {
 
   login = async (e) => {
     e.preventDefault();
-    console.log(this.state);
     if (this.state.name) {
       const player = await Api.getPlayer(this.state.name);
       if (player !== undefined) {
         this.onUpdateUser(player);
-        this.props.handleLogin();
+        setTimeout(this.props.handleLogin(), 1000);
       } else {
         this.setState({ register: true })
       }
@@ -40,7 +39,6 @@ class Login extends Component {
 
   register = async (e) => {
     e.preventDefault();
-    console.log(this.state);
     if (this.state.name) {
       Api.createPlayer(this.state.name);
       setTimeout(this.login(e), 1000);
