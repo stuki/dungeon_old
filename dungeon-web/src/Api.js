@@ -57,8 +57,9 @@ class Api {
   }
 
   updateCharacter = (sessionId, playerId, character) => {
+    console.log(character)
     const url = sessionId + "/" + playerId;
-    return this.characters(url)
+    this.characters(url)
       .put(character)
       .catch(err => console.log("Error creating character:", err));
   }
