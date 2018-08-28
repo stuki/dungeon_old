@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Route } from 'react-router-dom';
+import {
+  Navbar, Nav, NavItem, NavbarBrand,
+} from 'react-bootstrap';
 import CreateCharacter from './CreateCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
@@ -97,21 +100,34 @@ class SessionPage extends Component {
       <div>
         {session && (player.id === session.dungeonMasterId)
               && (
-              <React.Fragment>
-                <NavLink to="/">Profile Page</NavLink>
-                <NavLink to={`${match.url}/journey`}>Journey</NavLink>
-                <NavLink to={`${match.url}/settings`}>Settings</NavLink>
-                <NavLink to={`${match.url}/moves`}>Moves</NavLink>
-              </React.Fragment>
+                <Navbar expand="md">
+                  <NavbarBrand to="/">Dungeon</NavbarBrand>
+                  <Nav navbar>
+                    <NavItem>
+                      <NavLink to={`${match.url}/journey`}>Journey</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink to={`${match.url}/settings`}>Settings</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink to={`${match.url}/moves`}>Moves</NavLink>
+                    </NavItem>
+                  </Nav>
+                </Navbar>
               )}
         {session && playerCharacter
               && (
-              <React.Fragment>
-                <NavLink to="/">Profile Page</NavLink>
-                <NavLink to={`${match.url}/journey`}>Journey</NavLink>
-                <NavLink to={`${match.url}/character`}>Character Sheet</NavLink>
-                <NavLink to={`${match.url}/moves`}>Moves</NavLink>
-              </React.Fragment>
+              <Nav>
+                <NavItem>
+                  <NavLink to={`${match.url}/journey`} active>Journey</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to={`${match.url}/character`}>Character</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to={`${match.url}/moves`}>Moves</NavLink>
+                </NavItem>
+              </Nav>
               )
             }
         {!session && <CreateSession /> }

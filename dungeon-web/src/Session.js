@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -8,21 +8,16 @@ const Session = (props) => {
   const { session } = props;
   const link = `/session/${session.id}/journey`;
   return (
-    <div>
-      <Link to={link}>Session Page</Link>
-      <div className="Session">
-        <p className="sesName">
-          <b>Session name:</b>
-          {' '}
-          {session.name}
-        </p>
-        <p className="sesCreated">
-          <b>Created at:</b>
-          {' '}
-          {new Date(session.createdAt).toLocaleString()}
-        </p>
-      </div>
-    </div>
+    <Panel>
+      <Panel.Heading>
+        <Link to={link}>
+          <Panel.Title>{session.name}</Panel.Title>
+        </Link>
+      </Panel.Heading>
+      <Panel.Body>
+                Created at: {new Date(session.createdAt).toLocaleString()}
+      </Panel.Body>
+    </Panel>
   );
 };
 

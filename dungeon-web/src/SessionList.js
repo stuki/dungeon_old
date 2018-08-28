@@ -40,10 +40,7 @@ class SessionList extends Component {
         <Button onClick={handleLogOut}>Log Out</Button>
         <ul className="sessionList">
           {allSessions}
-          <p>* * * * * * * * *</p>
           <CreateSession updateSessions={this.updateSessions} />
-          {' '}
-          <br />
         </ul>
       </div>
     );
@@ -52,6 +49,10 @@ class SessionList extends Component {
 
 SessionList.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

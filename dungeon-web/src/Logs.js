@@ -1,12 +1,13 @@
 import React from 'react';
+import { Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const Logs = (props) => {
   const { text } = props;
   return (
-    <li className="Logs">
+    <Panel>
       {text}
-    </li>
+    </Panel>
   );
 };
 

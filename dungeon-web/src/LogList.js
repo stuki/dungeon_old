@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { PanelGroup } from 'react-bootstrap';
 import Logs from './Logs';
 import CreateLog from './CreateLog';
 import Api from './Api';
@@ -39,13 +40,10 @@ class LogList extends Component {
     const allLogs = logs.map(l => <Logs logs={l} key={l.id} label={l.label} text={l.text} />);
 
     return (
-      <div>
-        <ul className="LogList">
-          {allLogs}
-          <p>* * * * * * * * * *</p>
-          <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
-        </ul>
-      </div>
+      <PanelGroup>
+        {allLogs}
+        <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
+      </PanelGroup>
     );
   }
 }
