@@ -7,7 +7,7 @@ import 'bootstrap';
 class CreateCharacter extends Component {
   constructor(props) {
     super(props);
-    const { sessoinId, user } = props;
+    const { SessionId, user } = props;
     this.state = {
       Name: '',
       Constitution: 0,
@@ -19,7 +19,7 @@ class CreateCharacter extends Component {
       Looks: '',
       Armor: 0,
       Level: 0,
-      sessoinId,
+      SessionId,
       PlayerId: user.id,
     };
   }
@@ -27,21 +27,8 @@ class CreateCharacter extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     Api.createCharacter(this.state);
-
-    this.setState({
-      Name: '',
-      Constitution: 0,
-      Charisma: 0,
-      Dexterity: 0,
-      Intelligence: 0,
-      Strength: 0,
-      Wisdom: 0,
-      Looks: '',
-      Armor: 0,
-      Level: 0,
-    });
+    setTimeout(this.props.updateState(), 1000);
   }
 
   handleChange(property) {
@@ -122,7 +109,7 @@ class CreateCharacter extends Component {
 }
 
 CreateCharacter.propTypes = {
-  sessoinId: PropTypes.number.isRequired,
+  sessionId: PropTypes.number.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

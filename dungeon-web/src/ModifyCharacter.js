@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 import { connect } from 'react-redux';
 import Api from './Api';
 
@@ -34,7 +35,7 @@ class ModifyCharacter extends Component {
 
     Api.updateCharacter(sessionId, playerId, character);
     const char = await Api.getCharacter(sessionId, playerId);
-
+    toastr.success('sara', 'on kakka');
     this.setState({ character: char });
   }
 
