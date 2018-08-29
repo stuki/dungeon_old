@@ -1,9 +1,12 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+import UserReducer from './Reducers/UserReducers';
 // defaults to localStorage for web and AsyncStorage for react-native
 import storage from 'redux-persist/lib/storage';
+import { systemAlerts } from '@salocreative/react-redux-alerts';
 
-import UserReducer from './Reducers/UserReducers';
+
+
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +15,7 @@ const persistConfig = {
 
 const allReducers = combineReducers({
   user: UserReducer,
+  alert: systemAlerts
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers);
@@ -19,7 +23,8 @@ const persistedReducer = persistReducer(persistConfig, allReducers);
 export const store = createStore(
   persistedReducer,
   {
-    user: null,
+    user: {},
+    alert: {}
   },
   window.devToolsExtension && window.devToolsExtension(),
 );

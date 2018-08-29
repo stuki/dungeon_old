@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button
@@ -87,35 +88,57 @@ class Settings extends Component {
             <ListGroup>
               {players}
             </ListGroup>
+            {/* <Alerts alerts={this.props.alert} /> */}
+            {/* <Button bsStyle="danger" onClick={() => this.props.dispatch({
+        type: API_FAILURE,
+        payload: {
+          errorMessage: {
+            type: 'error',
+            message: 'My failure message goes here'
+          }
+        }
+      })}>Delete Session</Button> */}
+            <Button type="submit">Submit</Button>
+            <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
           </form>
-          <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
+         
         </div>
-          );
-        }
-        return (
+      );
+    }
+    return (
       <div />
-          );
-        }
-      }
-      
+    );
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
+
+function mapStateToProps(state) {
+  return {
+    alert: state.alert,
+  };
+}
+
 function FieldGroup({
-            id, label, help, ...props
+  id, label, help, ...props
 }) {
   return (
     <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-          </FormGroup>
-          );
-        }
-        
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
+
 Settings.propTypes = {
-            match: PropTypes.shape({
-            params: PropTypes.shape({
-            sessionId: PropTypes.node,
-        }).isRequired,
-      }).isRequired,
-    };
-    
-    export default Settings;
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      sessionId: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
