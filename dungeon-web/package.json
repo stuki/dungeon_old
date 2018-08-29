@@ -10,6 +10,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.3",
+    "react-bootstrap-form": "^0.1.4-beta6",
     "react-dom": "^16.4.2",
     "react-navbar": "^3.0.0",
     "react-pin-input": "^0.7.0",

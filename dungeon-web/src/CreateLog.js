@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Api from './Api';
+import {
+    FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
+  } from 'react-bootstrap';
 
 
 class CreateLog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      label: '',
-      text: '',
-      sessionId: props.sessionId,
-      PlayerId: props.user.id,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+        label: '',
+        text: '',
+        sessionId: props.sessionId,
+        playerId: props.user.id,
+        };
+    }
 
 
     handleSubmit = (e) => {
@@ -34,32 +37,53 @@ class CreateLog extends Component {
     }
 
     render() {
-      const { label, text } = this.state;
+        
+        const {
+            label,
+            text,
+        } = this.state;
 
-      return (
-        <li>
-          <div>Create new log</div>
-          <form onSubmit={this.handleSubmit}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Label: </td>
-                  <td><input type="text" value={label} onChange={this.handleChange('label')} /></td>
-                </tr>
-                <tr>
-                  <td>Text: </td>
-                  <td><input type="text" value={text} onChange={this.handleChange('text')} /></td>
-                </tr>
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <FieldGroup
+                        id="newLogLabel"
+                        type="text"
+                        label="Create new log"
+                        value={label}
+                        placeholder="Write a label"
+                        onChange={this.handleChange('label')}
+                    />
+                    <FieldGroup
+                        id="newLogText"
+                        type="text"
+                        
+                        value={text}
+                        placeholder="Write a log text"
+                        onChange={this.handleChange('text')}
+                        
+                    />
 
-                <tr><td><input type="submit" defaultValue="Add new log" onClick={this.handleSubmit} /></td></tr>
-              </tbody>
-            </table>
-
-          </form>
-        </li>
-      );
+                    <Button type="submit">Add</Button>
+                </form>
+                {/* <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button> */}
+            </div>
+        );
     }
 }
+
+function FieldGroup({
+            label, ...text}) {
+    return (
+        <FormGroup>
+            <ControlLabel>{label}</ControlLabel>
+            <FormControl {...text} />
+            
+        </FormGroup>
+    );
+}
+        
+    
 
 
 CreateLog.propTypes = {
