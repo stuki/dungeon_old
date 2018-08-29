@@ -25,6 +25,7 @@ class SessionPage extends Component {
       playerCharacter: null,
       isLoading: true,
     };
+    
   }
 
   async componentDidMount() {
