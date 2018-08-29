@@ -47,6 +47,12 @@ class Api {
       .catch(err => console.error('Error joining session:', err.message));
   }
 
+  updateSession = (session) => {
+    this.sessions(`id/${session.id}`)
+      .put(session)
+      .catch(err => console.error('Error updating session:', err.message));
+  }
+
   createCharacter = (character) => {
     this.characters
       .post(character)
@@ -57,7 +63,7 @@ class Api {
     const url = `${sessionId}/${playerId}`;
     this.characters(url)
       .put(character)
-      .catch(err => console.error('Error creating character:', err.message));
+      .catch(err => console.error('Error updating character:', err.message));
   }
 
   getCharacter = async (sessionId, playerId) => {
