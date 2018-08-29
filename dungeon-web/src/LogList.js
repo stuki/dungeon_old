@@ -9,7 +9,6 @@ import Api from './Api';
 class LogList extends Component {
   constructor(props) {
     super(props);
-    console.log(props, this.state);
 
     const { match } = this.props;
 

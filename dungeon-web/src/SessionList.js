@@ -11,9 +11,6 @@ import CreateSession from './CreateSession';
 import './SessionList.css';
 import NameGen from './NameGen';
 
-console.log(NameGen);
-
-
 class SessionList extends Component {
   constructor(props) {
     super(props);

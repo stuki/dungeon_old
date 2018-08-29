@@ -33,7 +33,7 @@ class ModifyCharacter extends Component {
 
     const { sessionId, playerId, character } = this.state;
 
-    Api.updateCharacter(sessionId, playerId, character);
+    Api.updateCharacter(character);
     const char = await Api.getCharacter(sessionId, playerId);
     toastr.success('sara', 'on kakka');
     this.setState({ character: char });

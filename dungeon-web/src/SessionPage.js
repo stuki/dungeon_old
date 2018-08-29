@@ -34,6 +34,8 @@ class SessionPage extends Component {
       const session = await Api.getSession(sessionId);
       console.log('SESSION PASSWORD:', session.password);
       const character = await Api.getCharacter(sessionId, player.id);
+      console.log(character);
+      
       if (session && character) {
         this.setState({ session, playerCharacter: character, isLoading: false });
       }
