@@ -46,16 +46,8 @@ class SessionPage extends Component {
   handleLogin = async () => {
     const { sessionId } = this.state;
     const { user } = this.props;
-
-    const session = await Api.getSession(sessionId);
-    const character = await Api.getCharacter(sessionId, user.id);
-
-    if (session && character) {
-      this.setState({ session, playerCharacter: character, isLoading: false });
-    }
-    if (session && character === undefined) {
-      this.setState({ session, isLoading: false });
-    }
+    this.setState({player: user})
+    this.componentDidMount();
   }
 
   handlePassword = async (pin) => {
@@ -84,6 +76,7 @@ class SessionPage extends Component {
       match,
     } = this.props;
     if (!player) {
+      console.log("kakka")
       return (
         <div>
           <Login handleLogin={this.handleLogin} />
@@ -102,12 +95,18 @@ class SessionPage extends Component {
         </div>
       );
     }
+    if (playerCharacter === null && session.dungeonMasterId !== player.id){
+      console.log("pilluperse");
+      return (
+      <CreateCharacter updateState={this.updateState} SessionId={sessionId} />
+      )
+    }
     return (
       <div>
         {(player.id === session.dungeonMasterId)
               && (
                 <Navbar expand="md">
-                  <NavbarBrand to="/">Dungeon</NavbarBrand>
+                  <Navbar.Brand><NavLink to='/'>Dungeon</NavLink></Navbar.Brand>
                   <Nav navbar>
                     <NavItem>
                       <NavLink to={`${match.url}`}>Journey</NavLink>
@@ -124,7 +123,7 @@ class SessionPage extends Component {
         {playerCharacter
               && (
                 <Navbar expand="md">
-                  <NavbarBrand to="/">Dungeon</NavbarBrand>
+                  <Navbar.Brand><NavLink to='/'>Dungeon</NavLink></Navbar.Brand>
                   <Nav navbar>
                     <NavItem>
                       <NavLink to={`${match.url}`}>Journey</NavLink>
@@ -139,13 +138,11 @@ class SessionPage extends Component {
                 </Navbar>
               )
             }
-        {!playerCharacter && (player.id !== session.dungeonMasterId)
-          && <CreateCharacter updateState={this.updateState} SessionId={sessionId} />
-        }
         <Route exact path={match.url} component={LogList} />
         <Route path={`${match.url}/character`} component={ModifyCharacter} />
         <Route path={`${match.url}/settings`} component={Settings} />
         <Route path={`${match.url}/moves`} component={Moves} />
+        <Route path={`${match.url}/createCharacter`} component={CreateCharacter} />
       </div>
     );
   }
