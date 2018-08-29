@@ -72,7 +72,6 @@ class Api {
   }
 
   createLog = (log) => {
-    console.log(log);
     this.logs
       .post(log)
       .catch(err => console.log("Error creating log:", err));

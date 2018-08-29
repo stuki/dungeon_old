@@ -25,7 +25,7 @@ class CreateLog extends Component {
     handleSubmit = (e) => {
       e.preventDefault();
       Api.createLog(this.state)
-      this.props.updateLogs()
+      setTimeout(this.props.updateLogs(), 2000);
       this.setState({label: "", text: ""})
     }
 
@@ -38,8 +38,7 @@ class CreateLog extends Component {
                 <tbody>
                     <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange('label')} /></td></tr>
                     <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange('text')} /></td></tr>
-
-                    <tr><td><input type="submit" defaultValue="Add new log" onClick={this.handleSubmit}/></td></tr>
+                    <tr><td><input type="submit" defaultValue="Add new log"/></td></tr>
                 </tbody>
             </table>
 

@@ -26,12 +26,11 @@ class LogList extends Component {
     }
   }
 
-  updateLogs = () => {
-    this.componentDidMount();
-  }
+ updateLogs = () => {
+  this.componentDidMount()
+}
 
   render() {
-    console.log("logs", this.state, this.props);
     var allLogs = this.state.logs.map(function (logs) {
       return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
     });
@@ -40,11 +39,13 @@ class LogList extends Component {
       <div>
         <ul className="LogList">
           {allLogs}
+          <p>* * * * * * * * * *</p>
           <CreateLog sessionId={this.state.sessionId} updateLogs={this.updateLogs} />
         </ul>
       </div>
     );
   }
 }
+
 
 export default LogList;

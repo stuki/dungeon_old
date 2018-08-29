@@ -19,19 +19,20 @@ class CreateSession extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     Api.createSession(this.state)
+    this.props.updateSessions()
     this.setState({ name: "" })
   }
 
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <p>Create new session</p>
           <label>
             Name:
             <input type="text" value={this.state.name} onChange={this.handleChange} />
           </label>
-          <input type="submit" value="submit" onClick={this.handleSubmit}/>
+          <input type="submit" value="submit"/>
         </form>
       </div>
     );
