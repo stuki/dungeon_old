@@ -33,6 +33,8 @@ class Login extends Component {
     if (name) {
       const player = await Api.getPlayer(name);
       if (player !== undefined) {
+        console.log(player);
+        
         this.onUpdateUser(player);
         setTimeout(handleLogin(), 1000);
       } else {
@@ -41,7 +43,6 @@ class Login extends Component {
     }
   }
 
-  
 
   register = async (e) => {
     e.preventDefault();

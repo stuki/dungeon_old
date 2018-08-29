@@ -1,4 +1,5 @@
 import fetchival from 'fetchival';
+import { toastr } from 'react-redux-toastr';
 
 class Api {
   constructor(url = 'https://dungeon.azurewebsites.net/api') {
@@ -10,87 +11,95 @@ class Api {
     this.logs = this.fetch('logs');
   }
 
+
   createPlayer = (player) => {
     const p = { name: player };
     this.players
       .post(p)
-      .catch(err => console.error('Error creating player:', err.message));
+      .catch(err => toastr.error('Problem registering', err.message))
+      .then(json => toastr.success('Register successful', `Welcome ${json.name}`));
   }
 
   getPlayer = async name => this.players(name)
     .get()
-    .catch(err => console.error('Error getting player:', err.message))
+    .catch(err => toastr.error('Error logging in', err.message))
 
   createSession = (session) => {
     this.sessions
       .post(session)
-      .catch(err => console.error('Error creating session:', err.message));
+      .catch(err => toastr.error('Failed to create session', err.message))
+      .then(json => toastr.success('Session created', `Send ${json.url} to your friends, password is ${json.password}`));
   }
 
   getSessions = async (id) => {
     const sessions = this.sessions('playerid');
     return sessions(id)
       .get()
-      .catch(err => console.error('Error getting sessions:', err.message));
+      .catch(err => toastr.error('Failed to get sessions', err.message));
   }
 
   getSession = async (id) => {
     const sessions = this.sessions('id');
     return sessions(id)
       .get()
-      .catch(err => console.error('Error getting sessions:', err.message));
+      .catch(err => toastr.error('Failed to open session', err.message));
   }
 
   deleteSession = async id => this.sessions(id)
     .delete()
-    .catch(err => console.error('Error getting sessions:', err.message))
+    .catch(err => toastr.error('Cannot delete session', err.message))
+    .then(() => toastr.success('Session deleted successfully'));
 
   joinSession = (id, player) => {
     this.sessions(`${id}/join`)
       .post(player)
-      .catch(err => console.error('Error joining session:', err.message));
+      .catch(err => toastr.error('Failed to join session', err.message))
+      .then(() => toastr.success('Successfully joined session'));
   }
 
   updateSession = (session) => {
     this.sessions(`id/${session.id}`)
       .put(session)
-      .catch(err => console.error('Error updating session:', err.message));
+      .catch(err => toastr.error('Failed to update session settings', err.message))
+      .then(() => toastr.success('Updated session settings'));
   }
 
   createCharacter = (character) => {
     this.characters
       .post(character)
-      .catch(err => console.error('Error creating character:', err.message));
+      .catch(err => toastr.error('Failed to create character', err.message))
+      .then(json => toastr.success(`Character ${json.name} created`));
   }
 
-  updateCharacter = (sessionId, playerId, character) => {
-    const url = `${sessionId}/${playerId}`;
+  updateCharacter = (character) => {
+    const url = `${character.sessionId}/${character.playerId}`;
     this.characters(url)
       .put(character)
-      .catch(err => console.error('Error updating character:', err.message));
+      .catch(err => toastr.error('Failed to update character sheet', err.message))
+      .then(() => toastr.success('Character sheet update successful'));
   }
 
   getCharacter = async (sessionId, playerId) => {
     const url = `${sessionId}/${playerId}`;
     return this.characters(url)
       .get()
-      .catch(err => console.error('Error getting character:', err.message));
+      .catch(err => toastr.error('Failed to fetch character', err.message));
   }
 
   createLog = (log) => {
     this.logs
       .post(log)
-      .catch(err => console.error('Error creating log:', err.message));
+      .catch(err => toastr.error('Failed to update journey', err.message));
   }
 
   getLogs = async id => this.logs(id)
     .get()
-    .catch(err => console.error('Error getting log:', err.message)) 
+    .catch(err => toastr.error('Failed to populate journey', err.message))
 
   updateLog = (log) => {
     this.logs(log.id)
       .put(log)
-      .catch(err => console.error('Error getting log:', err.message));
+      .catch(err => toastr.error('Failed to update log', err.message));
   }
 }
 

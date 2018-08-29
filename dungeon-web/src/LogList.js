@@ -4,7 +4,6 @@ import { PanelGroup } from 'react-bootstrap';
 import Logs from './Logs';
 import CreateLog from './CreateLog';
 import Api from './Api';
-import CreateLogTest from './CreateLogTest'
 
 
 class LogList extends Component {
@@ -43,7 +42,7 @@ class LogList extends Component {
 
     return (
       <PanelGroup>
-        {allLogs} <br/>
+        {allLogs}
         <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
       </PanelGroup>
     );

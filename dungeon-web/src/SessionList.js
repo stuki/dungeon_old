@@ -20,7 +20,7 @@ class SessionList extends Component {
   async componentDidMount() {
     const { player } = this.state;
     const sessions = await Api.getSessions(player.id);
-    if (sessions) {
+    if (sessions.length > 0) {
       this.setState({ sessions });
     }
   }
