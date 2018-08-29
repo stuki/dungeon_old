@@ -66,7 +66,6 @@ class CreateLog extends Component {
 
                     <Button type="submit">Add</Button>
                 </form>
-                {/* <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button> */}
             </div>
         );
     }

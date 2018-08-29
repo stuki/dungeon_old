@@ -19,10 +19,11 @@ class ProfilePage extends Component {
     }
 
     handleLogOut = () => {
-      const { onUpdateUser, user } = this.props;
+      const { onUpdateUser } = this.props;
       onUpdateUser(null);
-      setTimeout(() => this.setState({ player: user }), 1000);
+      this.setState({ player: null });
     }
+
 
     render() {
       const { player } = this.state;
