@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Session = (props) => {
   const { session } = props;
-  const link = `/session/${session.id}/journey`;
+  const link = `/session/${session.id}`;
   return (
     <Panel>
       <Panel.Heading>

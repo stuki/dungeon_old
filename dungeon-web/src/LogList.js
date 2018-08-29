@@ -5,7 +5,6 @@ import Logs from './Logs';
 import CreateLog from './CreateLog';
 import Api from './Api';
 
-
 class LogList extends Component {
   constructor(props) {
     super(props);
