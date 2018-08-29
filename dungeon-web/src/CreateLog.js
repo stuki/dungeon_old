@@ -87,7 +87,7 @@ function FieldGroup({
 
 
 CreateLog.propTypes = {
-  sessionId: PropTypes.number.isRequired,
+  sessionId: PropTypes.string.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

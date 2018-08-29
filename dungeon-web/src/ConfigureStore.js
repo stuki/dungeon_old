@@ -1,9 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+
+import { reducer as toastrReducer } from 'react-redux-toastr';
 // defaults to localStorage for web and AsyncStorage for react-native
 import storage from 'redux-persist/lib/storage';
-
 import UserReducer from './Reducers/UserReducers';
+
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +14,7 @@ const persistConfig = {
 
 const allReducers = combineReducers({
   user: UserReducer,
+  toastr: toastrReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers);
@@ -19,7 +22,7 @@ const persistedReducer = persistReducer(persistConfig, allReducers);
 export const store = createStore(
   persistedReducer,
   {
-    user: null,
+    user: {},
   },
   window.devToolsExtension && window.devToolsExtension(),
 );
