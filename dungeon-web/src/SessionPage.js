@@ -24,8 +24,7 @@ class SessionPage extends Component {
       player: props.user,
       playerCharacter: null,
       isLoading: true,
-    };
-    
+    };  
   }
 
   async componentDidMount() {
@@ -69,7 +68,7 @@ class SessionPage extends Component {
       });
     }
   }
-
+  
   render() {
     const {
       session, player, playerCharacter,
@@ -92,7 +91,7 @@ class SessionPage extends Component {
     if (session.playerSessions.findIndex(p => p.playerId === player.id) < 0) {
       return (
         <div>
-          <p> JOin session give password</p>
+          <p>Join session give password</p>
           <Password handlePassword={this.handlePassword} />
         </div>
       );
