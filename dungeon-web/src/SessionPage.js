@@ -69,10 +69,16 @@ class SessionPage extends Component {
     }
   }
 
+  updateState = () => {
+    this.componentDidMount();
+  }
+
   render() {
     const {
-      session, player, playerCharacter,
+      session, sessionId, player, playerCharacter,
     } = this.state;
+
+    console.log(sessionId)
 
     const {
       match,
@@ -104,7 +110,7 @@ class SessionPage extends Component {
                   <NavbarBrand to="/">Dungeon</NavbarBrand>
                   <Nav navbar>
                     <NavItem>
-                      <NavLink to={`${match.url}/journey`}>Journey</NavLink>
+                      <NavLink to={`${match.url}`}>Journey</NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink to={`${match.url}/settings`}>Settings</NavLink>
@@ -121,7 +127,7 @@ class SessionPage extends Component {
                   <NavbarBrand to="/">Dungeon</NavbarBrand>
                   <Nav navbar>
                     <NavItem>
-                      <NavLink to={`${match.url}/journey`}>Journey</NavLink>
+                      <NavLink to={`${match.url}`}>Journey</NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink to={`${match.url}/character`}>Character</NavLink>
@@ -134,10 +140,10 @@ class SessionPage extends Component {
               )
             }
         {!playerCharacter && (player.id !== session.dungeonMasterId)
-          && <CreateCharacter SessionId={session.id} />
+          && <CreateCharacter updateState={this.updateState} SessionId={sessionId} />
         }
+        <Route exact path={match.url} component={LogList} />
         <Route path={`${match.url}/character`} component={ModifyCharacter} />
-        <Route path={`${match.url}/journey`} component={LogList} />
         <Route path={`${match.url}/settings`} component={Settings} />
         <Route path={`${match.url}/moves`} component={Moves} />
       </div>
