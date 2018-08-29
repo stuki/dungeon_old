@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button
+  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
 } from 'react-bootstrap';
 import Api from './Api';
 
@@ -26,18 +26,41 @@ class Settings extends Component {
     this.setState(session);
   }
 
+  getCharacterById = (id) => {
+    const { characters, dungeonMasterId } = this.state;
+
+    if (id === dungeonMasterId) {
+      return 'Game Master';
+    }
+
+    const char = characters.find(c => c.playerId === id);
+
+    if (!char) {
+      return 'No character created';
+    }
+
+    return char.name;
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    Api.updateSession(this.state);
+    this.componentDidMount();
+  }
+
+  delete = () => {
+    const { id } = this.state;
+    const { history } = this.props;
+    Api.deleteSession(id);
+    history.push('/');
+  }
+
   handleChange(property) {
     return (e) => {
       this.setState({
         [property]: e.target.value,
       });
     };
-  }
-
-  delete = () => {
-    const { id } = this.state;
-    Api.deleteSession(id);
-    this.props.history.push('/')
   }
 
   render() {
@@ -56,34 +79,56 @@ class Settings extends Component {
     url = url.join('/');
 
     if (playerSessions) {
-      options = playerSessions.map(ps => <option value={ps.player.id} key={ps.player.id}>{ps.player.name}</option>);
-      players = playerSessions.map(ps => <ListGroupItem data-id={ps.player.id} header={ps.player.name}>omom</ListGroupItem>);
+      options = playerSessions.map(ps => (
+        <option value={ps.player.id} key={ps.player.id}>
+          {ps.player.name}
+        </option>
+      ));
+
+      players = playerSessions.map(ps => (
+        <ListGroupItem key={ps.player.id} header={ps.player.name}>
+          {this.getCharacterById(ps.player.id)}
+        </ListGroupItem>
+      ));
+
       return (
         <div>
-          <form>
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <ControlLabel>Session url</ControlLabel>
+              <FormControl.Static>{url}</FormControl.Static>
+            </FormGroup>
             <FieldGroup
               id="name"
               type="text"
               label="Session name"
-              placeholder={name}
+              value={name}
+              onChange={this.handleChange('name')}
             />
             <FieldGroup
               id="pincode"
               type="text"
               label="Password"
-              placeholder={password}
+              value={password}
+              onChange={this.handleChange('password')}
               minLength="4"
               maxLength="4"
             />
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Game Master</ControlLabel>
-              <FormControl componentClass="select" value={dungeonMasterId}>
+              <FormControl
+                componentClass="select"
+                value={dungeonMasterId}
+                onChange={this.handleChange('dungeonMasterId')}
+              >
                 {options}
               </FormControl>
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Session url</ControlLabel>
-              <FormControl.Static>{url}</FormControl.Static>
+              <ControlLabel>Players</ControlLabel>
+              <ListGroup>
+                {players}
+              </ListGroup>
             </FormGroup>
             <ListGroup>
               {players}
@@ -98,10 +143,9 @@ class Settings extends Component {
           }
         }
       })}>Delete Session</Button> */}
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Update Session</Button>
             <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
           </form>
-         
         </div>
       );
     }
@@ -110,7 +154,7 @@ class Settings extends Component {
     );
   }
 }
-
+      
 function mapDispatchToProps(dispatch) {
   return { dispatch };
 }

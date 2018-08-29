@@ -24,7 +24,7 @@ class SessionPage extends Component {
       player: props.user,
       playerCharacter: null,
       isLoading: true,
-    };  
+    };
   }
 
   async componentDidMount() {
@@ -68,7 +68,7 @@ class SessionPage extends Component {
       });
     }
   }
-  
+
   render() {
     const {
       session, player, playerCharacter,
@@ -98,7 +98,7 @@ class SessionPage extends Component {
     }
     return (
       <div>
-        {session && (player.id === session.dungeonMasterId)
+        {(player.id === session.dungeonMasterId)
               && (
                 <Navbar expand="md">
                   <NavbarBrand to="/">Dungeon</NavbarBrand>
@@ -115,23 +115,25 @@ class SessionPage extends Component {
                   </Nav>
                 </Navbar>
               )}
-        {session && playerCharacter
+        {playerCharacter
               && (
-              <Nav>
-                <NavItem>
-                  <NavLink to={`${match.url}/journey`} active>Journey</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to={`${match.url}/character`}>Character</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to={`${match.url}/moves`}>Moves</NavLink>
-                </NavItem>
-              </Nav>
+                <Navbar expand="md">
+                  <NavbarBrand to="/">Dungeon</NavbarBrand>
+                  <Nav navbar>
+                    <NavItem>
+                      <NavLink to={`${match.url}/journey`}>Journey</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink to={`${match.url}/character`}>Character</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink to={`${match.url}/moves`}>Moves</NavLink>
+                    </NavItem>
+                  </Nav>
+                </Navbar>
               )
             }
-        {!session && <CreateSession /> }
-        {session && !playerCharacter && (player.id !== session.dungeonMasterId)
+        {!playerCharacter && (player.id !== session.dungeonMasterId)
           && <CreateCharacter SessionId={session.id} />
         }
         <Route path={`${match.url}/character`} component={ModifyCharacter} />
