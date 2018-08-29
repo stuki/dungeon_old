@@ -32,7 +32,7 @@ class Api {
   }
 
   getSessions = async (id) => {
-    const sessions = this.sessions('playerid');
+    const sessions = this.sessions('playerId');
     return sessions(id)
       .get()
       .catch(err => toastr.error('Failed to get sessions', err.message));

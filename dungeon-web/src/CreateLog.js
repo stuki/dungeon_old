@@ -90,5 +90,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(CreateLog);

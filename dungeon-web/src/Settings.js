@@ -140,7 +140,7 @@ class Settings extends Component {
     );
   }
 }
-      
+
 function FieldGroup({
   id, label, help, ...props
 }) {

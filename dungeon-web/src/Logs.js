@@ -42,6 +42,7 @@ class Logs extends Component {
 
   render() {
     const { text, label, edit } = this.state;
+    const { filter } = this.props;
     if (edit) {
       return (
         <Panel>
@@ -62,7 +63,7 @@ class Logs extends Component {
           <Glyphicon glyph="pencil" onClick={this.toggleEditState} />
         </Panel.Body>
         <Panel.Footer>
-          <Badge>{label}</Badge>
+          <Badge onClick={() => filter(label)}>{label}</Badge>
         </Panel.Footer>
       </Panel>
     );
@@ -76,6 +77,7 @@ Logs.propTypes = {
     label: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }).isRequired,
+  filter: PropTypes.func.isRequired,
 };
 
 

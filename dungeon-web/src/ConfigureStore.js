@@ -2,7 +2,6 @@ import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import { reducer as toastrReducer } from 'react-redux-toastr';
-// defaults to localStorage for web and AsyncStorage for react-native
 import storage from 'redux-persist/lib/storage';
 import UserReducer from './Reducers/UserReducers';
 

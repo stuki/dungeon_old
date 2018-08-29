@@ -7,7 +7,7 @@ import 'bootstrap';
 class CreateCharacter extends Component {
   constructor(props) {
     super(props);
-    const { SessionId, user } = props;
+    const { sessionId, user } = props;
     this.state = {
       Name: '',
       Constitution: 0,
@@ -19,16 +19,17 @@ class CreateCharacter extends Component {
       Looks: '',
       Armor: 0,
       Level: 0,
-      SessionId,
-      PlayerId: user.id,
+      sessionId,
+      playerId: user.id,
     };
   }
 
 
   handleSubmit = (e) => {
+    const { updateState } = this.props;
     e.preventDefault();
     Api.createCharacter(this.state);
-    setTimeout(this.props.updateState(), 1000);
+    setTimeout(updateState(), 1000);
   }
 
   handleChange(property) {
@@ -114,11 +115,11 @@ CreateCharacter.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   }).isRequired,
+  updateState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(CreateCharacter);

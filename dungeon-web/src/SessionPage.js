@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink, Route } from 'react-router-dom';
-import {
-  Navbar, Nav, NavItem, NavbarBrand,
-} from 'react-bootstrap';
+import { Route } from 'react-router-dom';
+import MDSpinner from 'react-md-spinner';
+import { updateUser } from './Actions/UserActions';
+import NavigationBar from './NavigationBar';
 import CreateCharacter from './CreateCharacter';
 import CreateSession from './CreateSession';
 import LogList from './LogList';
@@ -44,10 +44,15 @@ class SessionPage extends Component {
   }
 
   handleLogin = async () => {
-    const { sessionId } = this.state;
     const { user } = this.props;
-    this.setState({player: user})
+    this.setState({ player: user });
     this.componentDidMount();
+  }
+
+  handleLogout = () => {
+    const { onUpdateUser } = this.props;
+    onUpdateUser(null);
+    this.setState({ player: null });
   }
 
   handlePassword = async (pin) => {
@@ -67,26 +72,27 @@ class SessionPage extends Component {
 
   render() {
     const {
-      session, sessionId, player, playerCharacter,
+      session, sessionId, player, playerCharacter, isLoading,
     } = this.state;
-
-    console.log(sessionId)
 
     const {
       match,
     } = this.props;
+
     if (!player) {
-      console.log("kakka")
       return (
         <div>
           <Login handleLogin={this.handleLogin} />
         </div>
       );
-    } if (!session) {
+    }
+
+    if (!session) {
       return (
         <CreateSession />
       );
     }
+
     if (session.playerSessions.findIndex(p => p.playerId === player.id) < 0) {
       return (
         <div>
@@ -95,49 +101,32 @@ class SessionPage extends Component {
         </div>
       );
     }
-    if (playerCharacter === null && session.dungeonMasterId !== player.id){
-      console.log("pilluperse");
+
+    if (playerCharacter === null && session.dungeonMasterId !== player.id) {
       return (
-      <CreateCharacter updateState={this.updateState} SessionId={sessionId} />
-      )
+        <CreateCharacter updateState={this.updateState} sessionId={sessionId} />
+      );
     }
+
+    if (isLoading) {
+      return (
+        <MDSpinner
+          color1="#e91e63"
+          color2="#673ab7"
+          color3="#009688"
+          color4="#ff5722"
+          className="spinner"
+        />
+      );
+    }
+
     return (
       <div>
-        {(player.id === session.dungeonMasterId)
-              && (
-                <Navbar expand="md">
-                  <Navbar.Brand><NavLink to='/'>Dungeon</NavLink></Navbar.Brand>
-                  <Nav navbar>
-                    <NavItem>
-                      <NavLink to={`${match.url}`}>Journey</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to={`${match.url}/settings`}>Settings</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to={`${match.url}/moves`}>Moves</NavLink>
-                    </NavItem>
-                  </Nav>
-                </Navbar>
-              )}
-        {playerCharacter
-              && (
-                <Navbar expand="md">
-                  <Navbar.Brand><NavLink to='/'>Dungeon</NavLink></Navbar.Brand>
-                  <Nav navbar>
-                    <NavItem>
-                      <NavLink to={`${match.url}`}>Journey</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to={`${match.url}/character`}>Character</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to={`${match.url}/moves`}>Moves</NavLink>
-                    </NavItem>
-                  </Nav>
-                </Navbar>
-              )
-            }
+        <NavigationBar
+          match={match}
+          dm={session.dungeonMasterId === player.id}
+          handleLogout={this.handleLogout}
+        />
         <Route exact path={match.url} component={LogList} />
         <Route path={`${match.url}/character`} component={ModifyCharacter} />
         <Route path={`${match.url}/settings`} component={Settings} />
@@ -157,12 +146,20 @@ SessionPage.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-  }).isRequired,
+  }),
+  onUpdateUser: PropTypes.func.isRequired,
+};
+
+SessionPage.defaultProps = {
+  user: null,
 };
 
 const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
-export default connect(mapStateToProps)(SessionPage);
+const mapActionsToProps = {
+  onUpdateUser: updateUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(SessionPage);

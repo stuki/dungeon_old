@@ -33,8 +33,6 @@ class Login extends Component {
     if (name) {
       const player = await Api.getPlayer(name);
       if (player !== undefined) {
-        console.log(player);
-        
         this.onUpdateUser(player);
         setTimeout(handleLogin(), 1000);
       } else {
@@ -111,10 +109,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  // Käytetään onUpdateUser, jotta vältytään
-  // variable collisionilta
   onUpdateUser: updateUser,
 };
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps, mapActionsToProps)(Login);
