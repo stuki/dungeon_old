@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
 import SessionPage from './SessionPage';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './bootstrap-3.3.7-dist/css/bootstrap.min.css';
 
 const App = () => (

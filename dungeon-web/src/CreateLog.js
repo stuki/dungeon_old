@@ -21,7 +21,7 @@ class CreateLog extends Component {
 
       e.preventDefault();
       Api.createLog(this.state);
-      updateLogs();
+      setTimeout(updateLogs(), 1000);
       this.setState({ label: '', text: '' });
     }
 
