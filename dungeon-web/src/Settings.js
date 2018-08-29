@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
 } from 'react-bootstrap';
-
 import Api from './Api';
 
 class Settings extends Component {
@@ -54,6 +53,12 @@ class Settings extends Component {
         [property]: e.target.value,
       });
     };
+  }
+
+  delete = () => {
+    const { id } = this.state;
+    Api.deleteSession(id);
+    this.props.history.push('/')
   }
 
   render() {
@@ -126,33 +131,34 @@ class Settings extends Component {
 
             <Button type="submit">Update session</Button>
           </form>
+          <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
         </div>
-      );
-    }
-    return (
+          );
+        }
+        return (
       <div />
-    );
-  }
-}
-
+          );
+        }
+      }
+      
 function FieldGroup({
-  id, label, help, ...props
+            id, label, help, ...props
 }) {
   return (
     <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
-
+            <ControlLabel>{label}</ControlLabel>
+            <FormControl {...props} />
+            {help && <HelpBlock>{help}</HelpBlock>}
+          </FormGroup>
+          );
+        }
+        
 Settings.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      sessionId: PropTypes.node,
-    }).isRequired,
-  }).isRequired,
-};
-
-export default Settings;
+            match: PropTypes.shape({
+            params: PropTypes.shape({
+            sessionId: PropTypes.node,
+        }).isRequired,
+      }).isRequired,
+    };
+    
+    export default Settings;

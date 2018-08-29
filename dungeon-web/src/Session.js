@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-
 const Session = (props) => {
   const { session } = props;
   const link = `/session/${session.id}/journey`;
@@ -20,6 +19,7 @@ const Session = (props) => {
     </Panel>
   );
 };
+
 
 Session.propTypes = {
   session: PropTypes.shape({

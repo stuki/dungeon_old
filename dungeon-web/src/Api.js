@@ -41,6 +41,12 @@ class Api {
       .catch(err => console.error('Error getting sessions:', err.message));
   }
 
+  deleteSession = async (id) => {
+    return this.sessions(id)
+      .delete()
+      .catch(err => console.error('Error getting sessions:', err.message));
+  }
+
   joinSession = (id, player) => {
     this.sessions(`${id}/join`)
       .post(player)
