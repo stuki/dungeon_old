@@ -85,7 +85,7 @@ class Api {
 
   getLogs = async id => this.logs(id)
     .get()
-    .catch(err => console.error('Error getting log:', err.message))
+    .catch(err => console.error('Error getting log:', err.message)) 
 
   updateLog = (log) => {
     this.logs(log.id)

@@ -3,6 +3,7 @@ import {
   Panel, Glyphicon, Badge, Button, FormControl,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 import Api from './Api';
 import './Logs.css';
 
@@ -33,7 +34,7 @@ class Logs extends Component {
     Api.updateLog(log);
 
     const newLog = await Api.getLogs(log.id);
-
+    toastr.success('sara', 'on kakka');
     setTimeout(this.setState(newLog), 1000);
   }
 
