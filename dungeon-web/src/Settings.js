@@ -47,18 +47,19 @@ class Settings extends Component {
     this.componentDidMount();
   }
 
+  delete = () => {
+    const { id } = this.state;
+    const { history } = this.props;
+    Api.deleteSession(id);
+    history.push('/');
+  }
+
   handleChange(property) {
     return (e) => {
       this.setState({
         [property]: e.target.value,
       });
     };
-  }
-
-  delete = () => {
-    const { id } = this.state;
-    Api.deleteSession(id);
-    this.props.history.push('/')
   }
 
   render() {
@@ -130,35 +131,35 @@ class Settings extends Component {
             </FormGroup>
 
             <Button type="submit">Update session</Button>
+            <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
           </form>
-          <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
         </div>
-          );
-        }
-        return (
+      );
+    }
+    return (
       <div />
-          );
-        }
-      }
-      
+    );
+  }
+}
+
 function FieldGroup({
-            id, label, help, ...props
+  id, label, help, ...props
 }) {
   return (
     <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-          </FormGroup>
-          );
-        }
-        
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
+
 Settings.propTypes = {
-            match: PropTypes.shape({
-            params: PropTypes.shape({
-            sessionId: PropTypes.node,
-        }).isRequired,
-      }).isRequired,
-    };
-    
-    export default Settings;
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      sessionId: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default Settings;

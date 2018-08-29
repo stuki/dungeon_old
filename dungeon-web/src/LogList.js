@@ -28,7 +28,7 @@ class LogList extends Component {
 
     const logs = await Api.getLogs(sessionId);
     if (logs) {
-      this.setState({ logs });
+      this.setState({ logs: logs.reverse() });
     }
   }
 
@@ -38,7 +38,7 @@ class LogList extends Component {
 
   render() {
     const { logs, sessionId } = this.state;
-    const allLogs = logs.map(l => <Logs logs={l} key={l.id} label={l.label} text={l.text} />);
+    const allLogs = logs.map(l => <Logs log={l} key={l.id} />);
 
     return (
       <PanelGroup>
