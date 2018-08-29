@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // Provider mahdollistaa käsiksi pääsemisen storeen
-import { Provider } from 'react-redux';
 import { store, persistor } from './ConfigureStore';
-import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,6 +14,6 @@ ReactDOM.render(
       <App />
     </PersistGate>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 registerServiceWorker();

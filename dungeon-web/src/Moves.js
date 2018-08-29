@@ -1,8 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-class Moves extends PureComponent {
-    render() {
-        return(
+const Moves = () => (
     <div>
         <h1>Basic Moves</h1>
         
@@ -351,9 +349,7 @@ class Moves extends PureComponent {
       </p>
       </div>
     </div>
-    )
-    }
-  }
+    );
 
 
 export default Moves;
