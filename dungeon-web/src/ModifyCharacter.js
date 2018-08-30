@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Api from './Api';
-import {
-    FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
-  } from 'react-bootstrap';
+import './ModifyCharacter.css';
+import { FormGroup, FormControl, Form, Col, ControlLabel, Button } from 'react-bootstrap';
 
 class ModifyCharacter extends Component {
   constructor(props) {
@@ -57,203 +56,203 @@ class ModifyCharacter extends Component {
         <Form horizontal onSubmit={this.handleSubmit}>
             
             <FormGroup controlId="modifyField">
-                <Col componentClass={ControlLabel} sm={2}>
+                <Col componentClass={ControlLabel} lg={4}>
                     Character qualities
                 </Col>
             </FormGroup>
             
             <FormGroup controlId="charName">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Name:
             </Col>
-            <Col sm={4}>
+            <Col lg={4}>
             <FormControl type="text" value={character.name} onChange={this.handleChange('name')} required />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charLooks">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Looks:
             </Col>
-            <Col sm={4}>
+            <Col lg={4}>
             <FormControl type="text" value={character.looks} onChange={this.handleChange('looks')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charConstitution">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Constitution:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.constitution} onChange={this.handleChange('constitution')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charCharisma">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Charisma:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.charisma} onChange={this.handleChange('charisma')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charDexterity">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Dexterity:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.dexterity} onChange={this.handleChange('dexterity')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charIntelligence">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Intelligence:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.intelligence} onChange={this.handleChange('intelligence')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charStrenght">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Strength:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.strength} onChange={this.handleChange('strength')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charWisdom">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Wisdom:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.wisdom} onChange={this.handleChange('wisdom')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charArmor">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Armor:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.armor} onChange={this.handleChange('armor')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charLevel">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Level:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.level} onChange={this.handleChange('level')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charXp">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Xp:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.xp} onChange={this.handleChange('xp')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charHitpoints">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Hitpoints:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.hitpoints} onChange={this.handleChange('hitpoints')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charDamage">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Damage:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.damage} onChange={this.handleChange('damage')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charAlignment">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Alignment:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.alignment} onChange={this.handleChange('alignment')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charGear">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Gear:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.gear} onChange={this.handleChange('gear')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charRace">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Race:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.race} onChange={this.handleChange('race')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charBonds">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Bonds:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.bonds} onChange={this.handleChange('bonds')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charStartingMoves">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Starting moves:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.startingmoves} onChange={this.handleChange('startingmoves')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charAdvancedMoves">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Advanced moves:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.advancedmoves} onChange={this.handleChange('advancedmoves')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charCoin">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Coins:
             </Col>
-            <Col sm={1}>
+            <Col lg={4}>
             <FormControl type="text" value={character.coin} onChange={this.handleChange('coin')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="charSpells">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} lg={4}>
                 Spells:
             </Col>
-            <Col sm={1}>
+            <Col lg={1}>
             <FormControl type="text" value={character.spells} onChange={this.handleChange('spells')} />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="submit">
-            <Col smOffset={2} sm={10}>
-                <Button type="submit">Change</Button>
+            <Col lg={9}>
+                <Button type="submit" bsStyle="primary">Change</Button>
             </Col>
             </FormGroup>
             

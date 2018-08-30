@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Api from './Api';
 import 'bootstrap';
 import {
-    FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
+    FormGroup, FormControl, Form, Col, ControlLabel, Button,
   } from 'react-bootstrap';
 
 class CreateCharacter extends Component {

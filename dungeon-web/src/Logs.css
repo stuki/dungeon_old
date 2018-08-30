@@ -13,4 +13,10 @@
 
 .badge {
     cursor: pointer; 
-}
+    margin-left: 50%;
+    margin-bottom: 10px;
+ }
+
+ .panel-footer .badge{
+     margin: 0px;
+ }

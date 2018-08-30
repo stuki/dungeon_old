@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
-import {
-  FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
-} from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Col, ControlLabel, Button } from 'react-bootstrap';
 
 class Login extends Component {
   constructor(props) {
