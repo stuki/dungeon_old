@@ -10,6 +10,7 @@ class CreateSession extends Component {
     this.state = {
       name: '',
       CreatorId: props.user.id,
+      id: props.sessionId,
     };
   }
 
@@ -48,6 +49,7 @@ CreateSession.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   updateState: PropTypes.func,
+  sessionId: PropTypes.string.isRequired,
 };
 
 CreateSession.defaultProps = {
