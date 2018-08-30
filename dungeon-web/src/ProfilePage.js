@@ -5,6 +5,7 @@ import { updateUser } from './Actions/UserActions';
 import SessionList from './SessionList';
 import NavigationBar from './NavigationBar';
 import Login from './Login';
+import CreateSession from './CreateSession';
 
 class ProfilePage extends Component {
   constructor(props) {

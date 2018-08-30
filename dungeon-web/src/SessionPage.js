@@ -122,6 +122,7 @@ class SessionPage extends Component {
     if (playerCharacter === null && session.dungeonMasterId !== player.id) {
       return (
         <CreateCharacter updateState={this.updateState} sessionId={sessionId} />
+        
       );
     }
 
