@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {
+  FormGroup, FormControl, ControlLabel, Button,
+}
+  from 'react-bootstrap';
 import Api from './Api';
-import { FormGroup, FormControl, ControlLabel, Button, }
-from 'react-bootstrap';
-
+import './CreateSession.css';
 
 class CreateSession extends Component {
   constructor(props) {
@@ -16,14 +18,6 @@ class CreateSession extends Component {
     };
   }
 
-  handleChange (property)  {
-    return (e) => {
-     this.setState({ 
-       [property]: e.target.value,
-       }); 
-    };
-  }
-
   handleSubmit = (e) => {
     const { updateState } = this.props;
     e.preventDefault();
@@ -32,21 +26,30 @@ class CreateSession extends Component {
     this.setState({ name: '' });
   }
 
+  handleChange(property) {
+    return (e) => {
+      this.setState({
+        [property]: e.target.value,
+      });
+    };
+  }
+
   render() {
-    const { 
-      name 
+    const {
+      name,
     } = this.state;
 
     return (
-      <div>
+      <div id="session-form">
         <form onSubmit={this.handleSubmit}>
           <FieldGroup
-          id="newSession"
-          type="text"
-          label="Create new session"
-          value={name}
-          placeholder="Write session name"
-          onChange={this.handleChange('name')}
+            id="newSession"
+            type="text"
+            label="Create new session"
+            value={name}
+            placeholder="Write session name"
+            onChange={this.handleChange('name')}
+            bsSize="large"
           />
           <Button type="submit">Add</Button>
         </form>
@@ -61,7 +64,7 @@ function FieldGroup({ label, ...name }) {
       <ControlLabel>{label}</ControlLabel>
       <FormControl {...name} />
     </FormGroup>
-  )
+  );
 }
 
 CreateSession.propTypes = {

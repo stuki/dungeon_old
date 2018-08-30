@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button, Glyphicon,
+  FormGroup, FormControl, ControlLabel, ListGroupItem, ListGroup, Button, Glyphicon,
 } from 'react-bootstrap';
+import MDSpinner from 'react-md-spinner';
+import FieldGroup from './FieldGroup';
 import Api from './Api';
 import './Settings.css';
 
@@ -146,21 +148,15 @@ class Settings extends Component {
       );
     }
     return (
-      <div />
+      <MDSpinner
+        color1="#e91e63"
+        color2="#673ab7"
+        color3="#009688"
+        color4="#ff5722"
+        className="spinner"
+      />
     );
   }
-}
-
-function FieldGroup({
-  id, label, help, ...props
-}) {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
 }
 
 Settings.propTypes = {

@@ -1,29 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {
+  Form, Col, Button,
+} from 'react-bootstrap';
 import Api from './Api';
 import 'bootstrap';
-import {
-    FormGroup, FormControl, Form, Col, ControlLabel, Button,
-  } from 'react-bootstrap';
+import FieldGroup from './FieldGroup';
+import './CreateCharacter.css';
 
 class CreateCharacter extends Component {
   constructor(props) {
     super(props);
     const { sessionId, user } = props;
     this.state = {
-      Name: '',
-      Constitution: 0,
-      Charisma: 0,
-      Dexterity: 0,
-      Intelligence: 0,
-      Strength: 0,
-      Wisdom: 0,
-      Looks: '',
-      Armor: 0,
-      Level: 0,
+      name: '',
       sessionId,
       playerId: user.id,
+      constitution: '',
+      charisma: '',
+      dexterity: '',
+      intelligence: '',
+      strength: '',
+      wisdom: '',
+      looks: '',
+      armor: '',
+      level: 1,
+      xp: '',
+      hitpoints: '',
+      damage: '',
+      alignment: '',
+      gear: '',
+      race: '',
+      bonds: '',
+      startingmoves: '',
+      advancedmoves: '',
+      coin: '',
+      spells: '',
     };
   }
 
@@ -31,7 +44,9 @@ class CreateCharacter extends Component {
   handleSubmit = (e) => {
     const { updateState } = this.props;
     e.preventDefault();
-    Api.createCharacter(this.state);
+    const character = this.state;
+    character.hitpoints = 8 + character.constitution;
+    Api.createCharacter(character);
     setTimeout(() => updateState(), 500);
   }
 
@@ -45,124 +60,64 @@ class CreateCharacter extends Component {
 
   render() {
     const {
-      Name,
-      Constitution,
-      Charisma,
-      Dexterity,
-      Intelligence,
-      Strength,
-      Wisdom,
-      Looks,
-      Armor,
-      Level,
+      name,
+      constitution,
+      charisma,
+      dexterity,
+      intelligence,
+      strength,
+      wisdom,
+      looks,
     } = this.state;
-    
+
+    const attributes = [
+      { name: 'Constitution', help: 'How sturdy you are, determines how many hit points you have' },
+      { name: 'Charisma', help: 'Can you charm your way out of any situation, and barter anything?' },
+      { name: 'Dexterity', help: 'Nimble and agile, useful in tight spots and leaps of faith' },
+      { name: 'Intelligence', help: 'How book smart are you, and how is your skill in magic' },
+      { name: 'Strength', help: 'Determines how much you can carry, or how much damage you can cause' },
+      { name: 'Wisdom', help: 'As opposed to intelligence, wisdom is more about street smarts' },
+    ].map(attr => (
+      <FieldGroup
+        id={attr.name.toLowerCase()}
+        type="number"
+        label={attr.name}
+        help={attr.help}
+        value={eval(attr.name.toLowerCase())}
+        onChange={this.handleChange(attr.name.toLowerCase())}
+        bsSize="small"
+      />
+    ));
+
     return (
-      <div>
-        <Form horizontal className="characterSheet" onSubmit={this.handleSubmit}>
-            
-            <FormGroup controlId="labelField">
-                <Col componentClass={ControlLabel} sm={2}>
-                    Add character qualities
-                </Col>
-            </FormGroup>
-            
-            <FormGroup controlId="nameField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Name:
-            </Col>
-            <Col sm={4}>
-            <FormControl type="text" placeholder="Give name to your character" onChange={this.handleChange('Name')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="looksField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Looks:
-            </Col>
-            <Col sm={4}>
-            <FormControl type="text" placeholder="Describe the looks of the character" onChange={this.handleChange('Looks')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="constitutionField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Constitution:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Constitution')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="charismaField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Charisma:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Charisma')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="dexterityField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Dexterity:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Dexterity')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="intelligenceField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Intelligence:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Intelligence')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="stregthField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Strength:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Strength')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="wisdomField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Wisdom:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Wisdom')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="armorField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Armor:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Armor')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="levelField">
-            <Col componentClass={ControlLabel} sm={2}>
-                Level:
-            </Col>
-            <Col sm={1}>
-            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Level')} />
-            </Col>
-            </FormGroup>
-
-            <FormGroup controlId="submit">
-            <Col smOffset={2} sm={10}>
-                <Button type="submit">Add</Button>
-            </Col>
-            </FormGroup>
-            
+      <div id="character-form">
+        <h1 id="title">Add your character information</h1>
+        <Form className="characterSheet" onSubmit={this.handleSubmit}>
+          <FieldGroup
+            id="name"
+            type="text"
+            label="Character name"
+            help="Give your character a proper name, but beware, you cannot change it afterwards"
+            value={name}
+            onChange={this.handleChange('name')}
+            bsSize="small"
+          />
+          <FieldGroup
+            id="looks"
+            type="text"
+            label="Looks"
+            help="Describe your looks in a few adjectives, be it handsome or the next bell ringer"
+            value={looks}
+            onChange={this.handleChange('looks')}
+            bsSize="small"
+          />
+          <Col md={6}>
+            {attributes.slice(0, 3)}
+          </Col>
+          <Col md={6}>
+            {attributes.slice(3)}
+          </Col>
+          <Button type="submit">Create character</Button>
         </Form>
       </div>
     );
