@@ -30,13 +30,12 @@ class ModifyCharacter extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
     const { sessionId, playerId, character } = this.state;
-
+    console.log(character)
     Api.updateCharacter(character);
     const char = await Api.getCharacter(sessionId, playerId);
-    toastr.success('sara', 'on kakka');
     this.setState({ character: char });
+    console.log(character)
   }
 
   handleChange(property) {
