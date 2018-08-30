@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Panel, Glyphicon, Badge, Button, FormControl,
+  Panel, Glyphicon, Badge, Button, FormControl, Row, Col
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Api from './Api';
@@ -44,27 +44,35 @@ class Logs extends Component {
     const { filter } = this.props;
     if (edit) {
       return (
-        <Panel>
-          <Panel.Body>
-            <Button onClick={this.handleSubmit}>Done</Button>
-            <FormControl value={text} onChange={this.handleChange} />
-          </Panel.Body>
-          <Panel.Footer>
-            <Badge>{label}</Badge>
-          </Panel.Footer>
-        </Panel>
+        <Row>
+          <Col lg={6} lgOffset={3}>
+            <Panel>
+              <Panel.Body>
+                <Button onClick={this.handleSubmit}>Done</Button>
+                <FormControl value={text} onChange={this.handleChange} />
+              </Panel.Body>
+              <Panel.Footer>
+                <Badge>{label}</Badge>
+              </Panel.Footer>
+            </Panel>
+          </Col>
+        </Row>
       );
     }
     return (
-      <Panel>
-        <Panel.Body>
-          {text}
-          <Glyphicon glyph="pencil" onClick={this.toggleEditState} />
-        </Panel.Body>
-        <Panel.Footer>
-          <Badge onClick={() => filter(label)}>{label}</Badge>
-        </Panel.Footer>
-      </Panel>
+      <Row>
+        <Col lg={6} lgOffset={3}>
+          <Panel>
+            <Panel.Body>
+              {text}
+              <Glyphicon glyph="pencil" onClick={this.toggleEditState} />
+            </Panel.Body>
+            <Panel.Footer>
+              <Badge onClick={() => filter(label)}>{label}</Badge>
+            </Panel.Footer>
+          </Panel>
+        </Col>
+      </Row>
     );
   }
 }

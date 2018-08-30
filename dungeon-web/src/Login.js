@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
 import {
@@ -58,7 +59,7 @@ class Login extends Component {
   render() {
     const { register, name } = this.state;
     return (
-      <div className="Login">
+      <div>
         {!register
           && (
             <Form horizontal onSubmit={this.login}>

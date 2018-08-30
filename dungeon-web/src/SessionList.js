@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Session from './Session';
 import Api from './Api';
-import CreateSession from './CreateSession';
 import './SessionList.css';
 import NameGen from './NameGen';
 

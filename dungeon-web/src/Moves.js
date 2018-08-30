@@ -1,8 +1,15 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
+
 
 const Moves = () => (
+
     <div>
-        <h1>Basic Moves</h1>
+      <Grid>
+      <Row>
+      <Col  lg={12}>
+
+      <h1>Basic Moves</h1>
         
       <div className='card'>
       <h2>Hack & Slash</h2>
@@ -348,6 +355,10 @@ const Moves = () => (
             in a bad spot as a result of your actions</li></ul>
       </p>
       </div>
+      
+      </Col>
+      </Row>
+      </Grid>
     </div>
     );
 
