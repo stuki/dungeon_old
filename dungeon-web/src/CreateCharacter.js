@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Api from './Api';
 import 'bootstrap';
+import {
+    FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
+  } from 'react-bootstrap';
 
 class CreateCharacter extends Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class CreateCharacter extends Component {
     const { updateState } = this.props;
     e.preventDefault();
     Api.createCharacter(this.state);
-    setTimeout(updateState(), 1000);
+    setTimeout(() => updateState(), 500);
   }
 
   handleChange(property) {
@@ -53,57 +56,114 @@ class CreateCharacter extends Component {
       Armor,
       Level,
     } = this.state;
+    
     return (
       <div>
-        <div>Add character qualities</div>
-        <form className="characterSheet" onSubmit={this.handleSubmit}>
-          <table>
-            <tbody>
-              <tr>
-                <td>Name: </td>
-                <td><input type="text" value={Name} onChange={this.handleChange('Name')} required /></td>
-              </tr>
-              <tr>
-                <td>Constitution: </td>
-                <td><input type="number" value={Constitution} onChange={this.handleChange('Constitution')} /></td>
-              </tr>
-              <tr>
-                <td>Charisma: </td>
-                <td><input type="number" value={Charisma} onChange={this.handleChange('Charisma')} /></td>
-              </tr>
-              <tr>
-                <td>Dexterity: </td>
-                <td><input type="number" value={Dexterity} onChange={this.handleChange('Dexterity')} /></td>
-              </tr>
-              <tr>
-                <td>Intelligence: </td>
-                <td><input type="number" value={Intelligence} onChange={this.handleChange('Intelligence')} /></td>
-              </tr>
-              <tr>
-                <td>Strength: </td>
-                <td><input type="number" value={Strength} onChange={this.handleChange('Strength')} /></td>
-              </tr>
-              <tr>
-                <td>Wisdom: </td>
-                <td><input type="number" value={Wisdom} onChange={this.handleChange('Wisdom')} /></td>
-              </tr>
-              <tr>
-                <td>Looks: </td>
-                <td><input type="text" value={Looks} onChange={this.handleChange('Looks')} /></td>
-              </tr>
-              <tr>
-                <td>Armor: </td>
-                <td><input type="number" value={Armor} onChange={this.handleChange('Armor')} /></td>
-              </tr>
-              <tr>
-                <td>Level: </td>
-                <td><input type="number" value={Level} onChange={this.handleChange('Level')} /></td>
-              </tr>
+        <Form horizontal className="characterSheet" onSubmit={this.handleSubmit}>
+            
+            <FormGroup controlId="labelField">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Add character qualities
+                </Col>
+            </FormGroup>
+            
+            <FormGroup controlId="nameField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Name:
+            </Col>
+            <Col sm={4}>
+            <FormControl type="text" placeholder="Give name to your character" onChange={this.handleChange('Name')} />
+            </Col>
+            </FormGroup>
 
-              <tr><td><input type="submit" defaultValue="Add new character" /></td></tr>
-            </tbody>
-          </table>
-        </form>
+            <FormGroup controlId="looksField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Looks:
+            </Col>
+            <Col sm={4}>
+            <FormControl type="text" placeholder="Describe the looks of the character" onChange={this.handleChange('Looks')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="constitutionField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Constitution:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Constitution')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="charismaField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Charisma:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Charisma')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="dexterityField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Dexterity:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Dexterity')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="intelligenceField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Intelligence:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Intelligence')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="stregthField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Strength:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Strength')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="wisdomField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Wisdom:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Wisdom')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="armorField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Armor:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Armor')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="levelField">
+            <Col componentClass={ControlLabel} sm={2}>
+                Level:
+            </Col>
+            <Col sm={1}>
+            <FormControl type="number" placeholder="0-50" onChange={this.handleChange('Level')} />
+            </Col>
+            </FormGroup>
+
+            <FormGroup controlId="submit">
+            <Col smOffset={2} sm={10}>
+                <Button type="submit">Add</Button>
+            </Col>
+            </FormGroup>
+            
+        </Form>
       </div>
     );
   }

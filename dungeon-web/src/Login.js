@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
+import {
+  FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
+} from 'react-bootstrap';
 
 class Login extends Component {
   constructor(props) {
@@ -34,8 +37,8 @@ class Login extends Component {
     if (name) {
       const player = await Api.getPlayer(name);
       if (player !== undefined) {
-        this.onUpdateUser(player)
-        setTimeout(handleLogin(), 1000);
+        this.onUpdateUser(player);
+        setTimeout(() => handleLogin(), 500);
       } else {
         this.setState({ register: true });
       }
@@ -46,10 +49,10 @@ class Login extends Component {
   register = async (e) => {
     e.preventDefault();
     const player = this.state;
-    delete player.register
+    delete player.register;
     if (player.name) {
       Api.createPlayer(player);
-      setTimeout(this.login(e), 1000);
+      setTimeout(() => this.login(e), 500);
     }
   }
 
@@ -59,48 +62,58 @@ class Login extends Component {
       <div>
         {!register
           && (
-            <Grid>
-              <Row>
-                <Col xs={6} xsOffset={3}>
-                  <form onSubmit={this.login}>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Name: </td>
-                          <td><input value={name} onChange={this.nameChanged} /></td>
-                        </tr>
-                        <tr>
-                          <td><input type="submit" defaultValue="Login" /></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </form>
-                </Col>
-              </Row>
-            </Grid>
+            <Form horizontal onSubmit={this.login}>
+            
+          <FormGroup controlId="loginLabel">
+              <Col componentClass={ControlLabel} sm={2}>
+                  Login
+              </Col>
+          </FormGroup>
+          
+          <FormGroup controlId="loginName">
+          <Col componentClass={ControlLabel} sm={2}>
+              Name:
+          </Col>
+          <Col sm={4}>
+          <FormControl type="text" placeholder="Write your name and log in" value={name} onChange={this.nameChanged} />
+          </Col>
+          </FormGroup>
+
+          <FormGroup controlId="submit">
+            <Col smOffset={2} sm={10}>
+                <Button type="submit">Login</Button>
+            </Col>
+            </FormGroup>
+
+          </Form>
           )
         }
         {register
           && (
-            <Grid>
-              <Row>
-                <Col xs={6} xsOffset={3}>
-                  <form onSubmit={this.register}>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Name: </td>
-                          <td><input value={name} onChange={this.nameChanged} /></td>
-                        </tr>
-                        <tr>
-                          <td><input type="submit" defaultValue="Register" /></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </form>
-                </Col>
-              </Row>
-            </Grid>
+          <Form horizontal onSubmit={this.handleSubmit}>
+            
+          <FormGroup controlId="register">
+              <Col componentClass={ControlLabel} sm={2}>
+                  Register
+              </Col>
+          </FormGroup>
+          
+          <FormGroup controlId="registerName">
+          <Col componentClass={ControlLabel} sm={2}>
+              Name:
+          </Col>
+          <Col sm={4}>
+          <FormControl type="text" placeholder="Write your name and register" value={name} onChange={this.nameChanged} required />
+          </Col>
+          </FormGroup>
+
+          <FormGroup controlId="submit">
+            <Col smOffset={2} sm={10}>
+                <Button type="submit">Register</Button>
+            </Col>
+            </FormGroup>
+
+          </Form>
           )
         }
       </div>

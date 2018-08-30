@@ -26,14 +26,13 @@ class Logs extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.toggleEditState();
-
     const log = this.state;
     delete log.edit;
 
     Api.updateLog(log);
 
     const newLog = await Api.getLogs(log.id);
-    setTimeout(this.setState(newLog), 1000);
+    setTimeout(() => this.setState(newLog), 500);
   }
 
   handleChange = (e) => {
