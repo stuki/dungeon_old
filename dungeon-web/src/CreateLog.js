@@ -21,10 +21,11 @@ class CreateLog extends Component {
 
     handleSubmit = (e) => {
       const { updateLogs } = this.props;
-
+      console.log(this.state);
+      
       e.preventDefault();
       Api.createLog(this.state);
-      setTimeout(updateLogs(), 1000);
+      setTimeout(() => updateLogs(), 500);
       this.setState({ label: '', text: '' });
     }
 

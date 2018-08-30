@@ -29,7 +29,7 @@ class CreateCharacter extends Component {
     const { updateState } = this.props;
     e.preventDefault();
     Api.createCharacter(this.state);
-    setTimeout(updateState(), 1000);
+    setTimeout(() => updateState(), 500);
   }
 
   handleChange(property) {

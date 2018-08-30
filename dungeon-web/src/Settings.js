@@ -57,7 +57,7 @@ class Settings extends Component {
 
   deleteCharacter = (character) => {
     Api.deleteCharacter(character);
-    setTimeout(this.componentDidMount(), 1000);
+    setTimeout(() => this.componentDidMount(), 500);
   }
 
   handleChange(property) {

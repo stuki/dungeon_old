@@ -42,6 +42,8 @@ class SessionPage extends Component {
         console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, isLoading: false });
       }
+    } else {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -81,6 +83,19 @@ class SessionPage extends Component {
       match,
     } = this.props;
 
+
+    if (isLoading) {
+      return (
+        <MDSpinner
+          color1="#e91e63"
+          color2="#673ab7"
+          color3="#009688"
+          color4="#ff5722"
+          className="spinner"
+        />
+      );
+    }
+    
     if (!player) {
       return (
         <div>
@@ -107,18 +122,6 @@ class SessionPage extends Component {
     if (playerCharacter === null && session.dungeonMasterId !== player.id) {
       return (
         <CreateCharacter updateState={this.updateState} sessionId={sessionId} />
-      );
-    }
-
-    if (isLoading) {
-      return (
-        <MDSpinner
-          color1="#e91e63"
-          color2="#673ab7"
-          color3="#009688"
-          color4="#ff5722"
-          className="spinner"
-        />
       );
     }
 
