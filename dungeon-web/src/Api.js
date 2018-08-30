@@ -87,6 +87,12 @@ class Api {
       .catch(err => console.log(err))//toastr.error('Failed to fetch character', err.message));
   }
 
+  deleteCharacter = (character) => {
+    return this.characters(character.id)
+      .delete()
+      .catch(err => console.log(err))//toastr.error('Failed to fetch character', err.message));
+  }
+
   createLog = (log) => {
     this.logs
       .post(log)
