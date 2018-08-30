@@ -51,7 +51,6 @@ class SessionList extends Component {
       <div>
         <PanelGroup id="sessionList">
           {allSessions}
-          {/* <CreateSession updateSessions={this.updateSessions} /> */}
         </PanelGroup>
         <Button
           variant="fab"

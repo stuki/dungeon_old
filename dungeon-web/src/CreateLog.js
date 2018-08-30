@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Api from './Api';
 import './CreateLog.css';
 import {
-  FormGroup, FormControl, ControlLabel, Button, Row, Col, Grid
+  FormGroup, FormControl, ControlLabel, Button, Form
 } from 'react-bootstrap';
-
 
 class CreateLog extends Component {
   constructor(props) {
@@ -18,15 +17,15 @@ class CreateLog extends Component {
       playerId: props.user.id,
     };
   }
-    handleSubmit = (e) => {
-      const { updateLogs } = this.props;
-      console.log(this.state);
-      
-      e.preventDefault();
-      Api.createLog(this.state);
-      setTimeout(() => updateLogs(), 500);
-      this.setState({ label: '', text: '' });
-    }
+  handleSubmit = (e) => {
+    const { updateLogs } = this.props;
+    console.log(this.state);
+
+    e.preventDefault();
+    Api.createLog(this.state);
+    setTimeout(() => updateLogs(), 500);
+    this.setState({ label: '', text: '' });
+  }
 
   handleChange(property) {
     return (e) => {
@@ -44,45 +43,23 @@ class CreateLog extends Component {
     } = this.state;
 
     return (
-      <div className="createLog">
-        <form onSubmit={this.handleSubmit}>
-        <div>
+      <div>
+        <div className="createLog">
+          <Form inline onSubmit={this.handleSubmit} >
 
-            <Grid>
-              <Row>
-                <Col lg={4} lgOffset={2}>
-                  <FieldGroup
-                    id="newLogLabel"
-                    type="text"
-                    label="Create new log"
-                    value={label}
-                    placeholder="Write a label"
-                    onChange={this.handleChange('label')}
-                  />
-                </Col>
-              </Row>
+            <FormGroup controlId="formInlineLabel">
+              <ControlLabel>Log Label</ControlLabel>{' '}
+              <FormControl id="newLabel" type="text" value={label} placeholder="Write a log label" onChange={this.handleChange('label')} />
+            </FormGroup>{' '}
 
-              <Row>
-                <Col Col lg={8} lgOffset={2}>
-                  <FieldGroup
-                    id="newLogText"
-                    type="text"
-                    value={text}
-                    placeholder="Write a log text"
-                    onChange={this.handleChange('text')}
-                  />
-                </Col>
-              </Row>
+            <FormGroup controlId="formInlineLogText">
+              <ControlLabel>Log text</ControlLabel>{' '}
+              <FormControl id="newLogText" type="text" value={text} placeholder="Write a log text" onChange={this.handleChange('text')} />
+            </FormGroup>{' '}
 
-              <Row>
-                <Col Col lg={12} lgOffset={2}>
-                  <Button type="submit">Add</Button>
-                </Col>
-              </Row>
-
-            </Grid>
+            <Button type="submit" bsStyle="primary">Add</Button>
+          </Form>
         </div>
-        </form>
       </div>
     );
   }
