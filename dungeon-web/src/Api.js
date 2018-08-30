@@ -41,7 +41,8 @@ class Api {
     const sessions = this.sessions('id');
     return sessions(id)
       .get()
-      .catch(err => console.log(err))//toastr.error('Failed to open session', err.message));
+      .catch(err => console.log(err));
+      //toastr.error('Failed to open session', err.message));
   }
 
   deleteSession = async id => {

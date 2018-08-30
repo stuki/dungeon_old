@@ -48,7 +48,7 @@ namespace dungeon_api.Controllers
 
         // GET: api/Sessions/id/5
         [HttpGet("id/{id}")]
-        public async Task<IActionResult> GetSession([FromRoute] int id)
+        public async Task<IActionResult> GetSession([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace dungeon_api.Controllers
 
         // PUT: api/Sessions/id/5
         [HttpPut("id/{id}")]
-        public async Task<IActionResult> PutSession([FromRoute] int id, [FromBody] Session session)
+        public async Task<IActionResult> PutSession([FromRoute] string id, [FromBody] Session session)
         {
             if (!ModelState.IsValid)
             {
@@ -105,14 +105,14 @@ namespace dungeon_api.Controllers
 
         // POST: api/Sessions
         [HttpPost]
-        public async Task<IActionResult> PostSession([FromBody] Session session)
+        public async Task<ActionResult<Session>> PostSession([FromBody] Session session)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             Random rnd = new Random();
-            string code = rnd.Next(0, 999).ToString().PadLeft(4, '0');
+            string code = rnd.Next(0, 9999).ToString().PadLeft(4, '0');
 
             session.CreatedAt = DateTime.Now;
             session.DungeonMasterId = session.CreatorId;
@@ -130,12 +130,12 @@ namespace dungeon_api.Controllers
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSession", new { id = session.Id }, session);
+            return Ok(session);
         }
 
         // POST: api/Sessions/:id/join
         [HttpPost("{id}/join")]
-        public async Task<IActionResult> JoinSession([FromRoute] int id, [FromBody] Player player)
+        public async Task<IActionResult> JoinSession([FromRoute] string id, [FromBody] Player player)
         {
             if (!ModelState.IsValid)
             {
@@ -176,7 +176,7 @@ namespace dungeon_api.Controllers
             return Ok(session);
         }
 
-        private bool SessionExists(int id)
+        private bool SessionExists(string id)
         {
             return _context.Sessions.Any(e => e.Id == id);
         }
