@@ -15,17 +15,28 @@ class CreateCharacter extends Component {
     const { sessionId, user } = props;
     this.state = {
       name: '',
-      constitution: 0,
-      charisma: 0,
-      dexterity: 0,
-      intelligence: 0,
-      strength: 0,
-      wisdom: 0,
-      looks: '',
-      armor: 0,
-      level: 0,
       sessionId,
       playerId: user.id,
+      constitution: '',
+      charisma: '',
+      dexterity: '',
+      intelligence: '',
+      strength: '',
+      wisdom: '',
+      looks: '',
+      armor: '',
+      level: 1,
+      xp: '',
+      hitpoints: '',
+      damage: '',
+      alignment: '',
+      gear: '',
+      race: '',
+      bonds: '',
+      startingmoves: '',
+      advancedmoves: '',
+      coin: '',
+      spells: '',
     };
   }
 
@@ -33,7 +44,9 @@ class CreateCharacter extends Component {
   handleSubmit = (e) => {
     const { updateState } = this.props;
     e.preventDefault();
-    Api.createCharacter(this.state);
+    const character = this.state;
+    character.hitpoints = 8 + character.constitution;
+    Api.createCharacter(character);
     setTimeout(() => updateState(), 500);
   }
 
@@ -58,21 +71,24 @@ class CreateCharacter extends Component {
     } = this.state;
 
     const attributes = [
-      'Constitution',
-      'Charisma',
-      'Dexterity',
-      'Intelligence',
-      'Strength',
-      'Wisdom',
+      { name: 'Constitution', help: 'How sturdy you are, determines how many hit points you have' },
+      { name: 'Charisma', help: 'Can you charm your way out of any situation, and barter anything?' },
+      { name: 'Dexterity', help: 'Nimble and agile, useful in tight spots and leaps of faith' },
+      { name: 'Intelligence', help: 'How book smart are you, and how is your skill in magic' },
+      { name: 'Strength', help: 'Determines how much you can carry, or how much damage you can cause' },
+      { name: 'Wisdom', help: 'As opposed to intelligence, wisdom is more about street smarts' },
     ].map(attr => (
       <FieldGroup
-        id={attr.toLowerCase()}
+        id={attr.name.toLowerCase()}
         type="number"
-        label={attr}
-        value={eval(attr.toLowerCase())}
-        onChange={this.handleChange(attr.toLowerCase())}
+        label={attr.name}
+        help={attr.help}
+        value={eval(attr.name.toLowerCase())}
+        onChange={this.handleChange(attr.name.toLowerCase())}
+        bsSize="small"
       />
     ));
+
     return (
       <div id="character-form">
         <h1 id="title">Add your character information</h1>
@@ -84,16 +100,24 @@ class CreateCharacter extends Component {
             help="Give your character a proper name, but beware, you cannot change it afterwards"
             value={name}
             onChange={this.handleChange('name')}
+            bsSize="small"
           />
           <FieldGroup
             id="looks"
             type="text"
             label="Looks"
-            help="Describe your looks, be it handsome or puke worthy"
+            help="Describe your looks in a few adjectives, be it handsome or the next bell ringer"
             value={looks}
             onChange={this.handleChange('looks')}
+            bsSize="small"
           />
-          {attributes}
+          <Col md={6}>
+            {attributes.slice(0, 3)}
+          </Col>
+          <Col md={6}>
+            {attributes.slice(3)}
+          </Col>
+          <Button type="submit">Create character</Button>
         </Form>
       </div>
     );

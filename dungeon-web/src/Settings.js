@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   FormGroup, FormControl, ControlLabel, ListGroupItem, ListGroup, Button, Glyphicon,
 } from 'react-bootstrap';
+import MDSpinner from 'react-md-spinner';
 import FieldGroup from './FieldGroup';
 import Api from './Api';
 import './Settings.css';
@@ -147,7 +148,13 @@ class Settings extends Component {
       );
     }
     return (
-      <div />
+      <MDSpinner
+        color1="#e91e63"
+        color2="#673ab7"
+        color3="#009688"
+        color4="#ff5722"
+        className="spinner"
+      />
     );
   }
 }
