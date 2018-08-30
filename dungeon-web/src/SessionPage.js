@@ -32,14 +32,14 @@ class SessionPage extends Component {
 
     if (player != null) {
       const session = await Api.getSession(sessionId);
-      console.log('SESSION PASSWORD:', session.password);
       const character = await Api.getCharacter(sessionId, player.id);
-      console.log(character);
-      
+
       if (session && character) {
+        console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, playerCharacter: character, isLoading: false });
       }
       if (session && character === undefined) {
+        console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, isLoading: false });
       }
     }
@@ -91,7 +91,7 @@ class SessionPage extends Component {
 
     if (!session) {
       return (
-        <CreateSession />
+        <CreateSession updateState={this.updateState} />
       );
     }
 

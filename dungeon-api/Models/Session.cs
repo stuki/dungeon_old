@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dungeon_api
 {
@@ -9,6 +10,7 @@ namespace dungeon_api
     // the session is the admin and the default DM of the session
     public class Session
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; }
         public DateTime CreatedAt { get; set; }
         [Required]
