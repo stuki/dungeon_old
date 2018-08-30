@@ -33,7 +33,7 @@ class Login extends Component {
     if (name) {
       const player = await Api.getPlayer(name);
       if (player !== undefined) {
-        this.onUpdateUser(player);
+        this.onUpdateUser(player)
         setTimeout(handleLogin(), 1000);
       } else {
         this.setState({ register: true });
@@ -44,11 +44,10 @@ class Login extends Component {
 
   register = async (e) => {
     e.preventDefault();
-
-    const { name } = this.state;
-
-    if (name) {
-      Api.createPlayer(name);
+    const player = this.state;
+    delete player.register
+    if (player.name) {
+      Api.createPlayer(player);
       setTimeout(this.login(e), 1000);
     }
   }

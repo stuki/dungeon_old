@@ -1,5 +1,5 @@
 import fetchival from 'fetchival';
-import { toastr } from 'react-redux-toastr';
+// import { toastr } from 'react-redux-toastr';
 
 class Api {
   constructor(url = 'https://dungeon.azurewebsites.net/api') {
@@ -13,93 +13,93 @@ class Api {
 
 
   createPlayer = (player) => {
-    const p = { name: player };
     this.players
-      .post(p)
-      .catch(err => toastr.error('Problem registering', err.message))
-      .then(json => toastr.success('Register successful', `Welcome ${json.name}`));
+      .post(player)
+      .catch(err =>  console.log(err))//toastr.error('Problem registering', err.message))
   }
 
-  getPlayer = async name => this.players(name)
-    .get()
-    .catch(err => toastr.error('Error logging in', err.message))
+  getPlayer = async (name) => {
+    return (this.players(name).get()
+    .catch(err => console.log(err)))
+  }
 
   createSession = (session) => {
-    this.sessions
+    return this.sessions
       .post(session)
-      .catch(err => toastr.error('Failed to create session', err.message))
-      .then(json => toastr.success('Session created', `Send ${json.url} to your friends, password is ${json.password}`));
+      .catch(err => console.log(err))//toastr.error('Failed to create session', err.message))
+      // .then(json => toastr.success('Session created', `Send ${json.url} to your friends, password is ${json.password}`));
   }
 
   getSessions = async (id) => {
     const sessions = this.sessions('playerId');
     return sessions(id)
       .get()
-      .catch(err => toastr.error('Failed to get sessions', err.message));
+      .catch(err => console.log(err))//toastr.error('Failed to get sessions', err.message));
   }
 
   getSession = async (id) => {
     const sessions = this.sessions('id');
     return sessions(id)
       .get()
-      .catch(err => toastr.error('Failed to open session', err.message));
+      .catch(err => console.log(err))//toastr.error('Failed to open session', err.message));
   }
 
-  deleteSession = async id => this.sessions(id)
-    .delete()
-    .catch(err => toastr.error('Cannot delete session', err.message))
-    .then(() => toastr.success('Session deleted successfully'));
-
+  deleteSession = async id => {
+    this.sessions(id)
+      .delete()
+      .catch(err => console.log(err))//toastr.error('Cannot delete session', err.message))
+      // .then(() => toastr.success('Session deleted successfully'))};
+  }
   joinSession = (id, player) => {
     this.sessions(`${id}/join`)
       .post(player)
-      .catch(err => toastr.error('Failed to join session', err.message))
-      .then(() => toastr.success('Successfully joined session'));
+      .catch(err => console.log(err))//toastr.error('Failed to join session', err.message))
+      // .then(() => toastr.success('Successfully joined session'));
   }
 
   updateSession = (session) => {
     this.sessions(`id/${session.id}`)
       .put(session)
-      .catch(err => toastr.error('Failed to update session settings', err.message))
-      .then(() => toastr.success('Updated session settings'));
+      .catch(err => console.log(err))//toastr.error('Failed to update session settings', err.message))
+      // .then(() => toastr.success('Updated session settings'));
   }
 
   createCharacter = (character) => {
     this.characters
       .post(character)
-      .catch(err => toastr.error('Failed to create character', err.message))
-      .then(json => toastr.success(`Character ${json.name} created`));
+      .catch(err => console.log(err))//toastr.error('Failed to create character', err.message))
+      // .then(json => toastr.success(`Character ${json.name} created`));
   }
 
   updateCharacter = (character) => {
     const url = `${character.sessionId}/${character.playerId}`;
     this.characters(url)
       .put(character)
-      .catch(err => toastr.error('Failed to update character sheet', err.message))
-      .then(() => toastr.success('Character sheet update successful'));
+      .catch(err => console.log(err))//toastr.error('Failed to update character sheet', err.message))
+      // .then(() => toastr.success('Character sheet update successful'));
   }
 
   getCharacter = async (sessionId, playerId) => {
     const url = `${sessionId}/${playerId}`;
     return this.characters(url)
       .get()
-      .catch(err => toastr.error('Failed to fetch character', err.message));
+      .catch(err => console.log(err))//toastr.error('Failed to fetch character', err.message));
   }
 
   createLog = (log) => {
     this.logs
       .post(log)
-      .catch(err => toastr.error('Failed to update journey', err.message));
+      .catch(err => console.log(err))//toastr.error('Failed to update journey', err.message));
   }
 
   getLogs = async id => this.logs(id)
     .get()
-    .catch(err => toastr.error('Failed to populate journey', err.message))
+    .catch(err =>  console.log(err))//toastr.error('Failed to populate journey', err.message))
 
   updateLog = (log) => {
     this.logs(log.id)
       .put(log)
-      .catch(err => toastr.error('Failed to update log', err.message));
+      .catch(err =>  console.log(err))//toastr.error('Failed to update log', err.message));
   }
 }
 
