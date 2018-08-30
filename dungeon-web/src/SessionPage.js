@@ -91,7 +91,7 @@ class SessionPage extends Component {
 
     if (!session) {
       return (
-        <CreateSession updateState={this.updateState} />
+        <CreateSession sessionId={sessionId} updateState={this.updateState} />
       );
     }
 
