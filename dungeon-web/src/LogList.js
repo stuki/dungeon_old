@@ -1,44 +1,92 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { PanelGroup, Badge } from 'react-bootstrap';
+import MDSpinner from 'react-md-spinner';
 import Logs from './Logs';
-import fetchival from 'fetchival';
 import CreateLog from './CreateLog';
-const baseurl = "https://dungeon.azurewebsites.net/api";
-
+import Api from './Api';
 
 class LogList extends Component {
   constructor(props) {
     super(props);
-    this.state = { userLogs: [] };
+
+    const { match } = this.props;
+
+    const sessionId = match.url.split('/')[2];
+
+    this.state = {
+      logs: [],
+      filter: null,
+      sessionId,
+      isLoading: true,
+    };
+
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  componentDidMount() {
-    this.getLogsAndUpdate();
-  }
+  async componentDidMount() {
+    const { sessionId } = this.state;
 
-  getLogsAndUpdate = async () => {
-    const api = fetchival(baseurl);
-    var logs = api("logs")
-    const log = await logs(this.props.sessionId).get().catch(err => console.log("Logs fetch:", err));
-    if (log) {
-      this.setState({ userLogs: log })
+    const logs = await Api.getLogs(sessionId);
+    if (logs) {
+      this.setState({ logs: logs.reverse(), isLoading: false });
     }
   }
-  render() {
-    console.dir(this.state.userLogs);
-    var allLogs = this.state.userLogs.map(function (logs) {
-      return (<Logs logs={logs} key={logs.id} label={logs.label} text={logs.text} />)
+
+  updateLogs = () => {
+    this.componentDidMount();
+  }
+
+  filterLogs = (label) => {
+    let { filter } = this.state;
+
+    filter = label;
+
+    this.setState({
+      filter,
     });
+  }
+
+  render() {
+    const { filter, sessionId, isLoading } = this.state;
+    let { logs } = this.state;
+
+    if (filter) {
+      logs = logs
+        .filter(l => l.label === filter)
+        .map(l => <Logs log={l} key={l.id} filter={this.filterLogs} />);
+    } else {
+      logs = logs.map(l => <Logs log={l} key={l.id} filter={this.filterLogs} />);
+    }
+
+    if (isLoading) {
+      return (
+        <MDSpinner
+          color1="#e91e63"
+          color2="#673ab7"
+          color3="#009688"
+          color4="#ff5722"
+          className="spinner"
+        />
+      );
+    }
 
     return (
-      <div>
-        <ul className="LogList">
-          {allLogs}
-
-          <CreateLog />
-        </ul>
-      </div>
+      <PanelGroup id="LogList">
+        {filter && <Badge onClick={() => this.filterLogs(null)}>{filter}</Badge>}
+        {logs}
+        <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
+      </PanelGroup>
     );
   }
 }
+
+LogList.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      sessionId: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default LogList;

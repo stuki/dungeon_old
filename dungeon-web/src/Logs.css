@@ -1,0 +1,11 @@
+.glyphicon-pencil {
+    cursor: pointer; 
+    float: right;
+}
+.panel-body > .btn {
+    float: right;
+}
+
+.badge {
+    cursor: pointer; 
+}

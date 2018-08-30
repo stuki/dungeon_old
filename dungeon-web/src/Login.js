@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-// Tämän avulla komponentit
-// connectoidaan storeen
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
-import fetchival from 'fetchival';
-const baseurl = "https://dungeon.azurewebsites.net/api";
+import Api from './Api';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      name: null
-    }
+      name: null,
+      register: false,
+    };
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
 
   onUpdateUser(user) {
-      this.props.onUpdateUser(user);
-    }
+    const { onUpdateUser } = this.props;
+
+    onUpdateUser(user);
+  }
 
   nameChanged = (e) => {
     this.setState({ name: e.target.value });
@@ -26,47 +26,90 @@ class Login extends Component {
 
   login = async (e) => {
     e.preventDefault();
-    if (this.state.name) {
-      const api = fetchival(baseurl);
-      const players = api('players');
-      const player = await players(this.state.name).get().catch(function(err) {console.log(err)})
-      console.log(player);
-      if (player != undefined) {
+
+    const { name } = this.state;
+    const { handleLogin } = this.props;
+
+    if (name) {
+      const player = await Api.getPlayer(name);
+      if (player !== undefined) {
         this.onUpdateUser(player);
-        this.props.handleLogin();
+        setTimeout(handleLogin(), 1000);
+      } else {
+        this.setState({ register: true });
       }
     }
   }
 
+
+  register = async (e) => {
+    e.preventDefault();
+
+    const { name } = this.state;
+
+    if (name) {
+      Api.createPlayer(name);
+      setTimeout(this.login(e), 1000);
+    }
+  }
+
   render() {
+    const { register, name } = this.state;
     return (
       <div className="Login">
-        <form onSubmit={this.login}>
-          <table>
-            <tbody>
-              <tr>
-                <td>Name: </td><td><input value={this.state.name} onChange={this.nameChanged}/></td>
-              </tr>
-              <tr>
-                <td><input type="submit" defaultValue="Login"/></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        {!register
+          && (
+          <form onSubmit={this.login}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Name: </td>
+                  <td><input value={name} onChange={this.nameChanged} /></td>
+                </tr>
+                <tr>
+                  <td><input type="submit" defaultValue="Login" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          )
+        }
+        {register
+          && (
+          <form onSubmit={this.register}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Name: </td>
+                  <td><input value={name} onChange={this.nameChanged} /></td>
+                </tr>
+                <tr>
+                  <td><input type="submit" defaultValue="Register" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          )
+        }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user
-})
-
-const mapActionsToProps = {
-  // Käytetään onUpdateUser, jotta vältytään
-  // variable collisionilta
-  onUpdateUser: updateUser
+Login.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  onUpdateUser: PropTypes.func.isRequired,
 };
 
-// mapStateToProps basically receives the state of the store
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapActionsToProps = {
+  onUpdateUser: updateUser,
+};
+
 export default connect(mapStateToProps, mapActionsToProps)(Login);

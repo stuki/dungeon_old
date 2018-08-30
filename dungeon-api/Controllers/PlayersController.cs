@@ -112,7 +112,7 @@ namespace dungeon_api.Controllers
             _context.Players.Add(player);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return Ok(player);
         }
 
         // DELETE: api/Players/5

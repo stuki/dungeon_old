@@ -1,55 +1,83 @@
 import React, { Component } from 'react';
-import Session from './Session';
-import fetchival from 'fetchival';
-import Api from './Api';
-import {Button} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { PanelGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Session from './Session';
+import Api from './Api';
+import CreateSession from './CreateSession';
+import './SessionList.css';
+import NameGen from './NameGen';
 
 class SessionList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        player: props.user,
-        userSessions: []
+      player: props.user,
+      sessions: [],
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   async componentDidMount() {
-    const { player } = this.state
+    const { player } = this.state;
     const sessions = await Api.getSessions(player.id);
-    console.log(sessions);
-    this.setState({ userSessions: sessions })
-    // this.getSessionsAndUpdate();
+    if (sessions.length > 0) {
+      this.setState({ sessions });
+    }
   }
 
-  getSessionsAndUpdate = async () => {
-      const api = fetchival("https://dungeon.azurewebsites.net/api");
-      var sessions = api("sessions")
-      const session = await sessions.get().catch(err => console.log("Session fetch:", err));
-      this.setState({ userSessions: session })
+  updateSessions = () => {
+    this.componentDidMount();
+  }
+
+  generateUrl = () => {
+    const name = NameGen.names[Math.floor(Math.random() * NameGen.names.length)];
+    const adjective = NameGen.adjectives[Math.floor(Math.random() * NameGen.adjectives.length)];
+    const dndclass = NameGen.class[Math.floor(Math.random() * NameGen.class.length)];
+    return `${name}The${adjective}${dndclass}`;
   }
 
   render() {
-    var allSessions = this.state.userSessions.map(function (session) {
-      return (<Session session={session} key={session.id} />)
-    });
+    const { sessions } = this.state;
+
+    const allSessions = sessions.map(s => (<Session session={s} key={s.id} />));
+
+    const url = this.generateUrl();
 
     return (
       <div>
-        <Button onClick={this.props.handleLogOut}>Log Out</Button>
-        <ul className="sessionList">
+        <PanelGroup id="sessionList">
           {allSessions}
-        </ul>
+          {/* <CreateSession updateSessions={this.updateSessions} /> */}
+        </PanelGroup>
+        <Button
+          variant="fab"
+          color="primary"
+          aria-label="Add"
+          component={Link}
+          to={`/session/${url}`}
+          className="new-session"
+        >
+          <AddIcon />
+        </Button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user
-})
+SessionList.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+};
 
-// mapStateToProps basically receives the state of the store
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
 export default connect(mapStateToProps)(SessionList);

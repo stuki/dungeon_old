@@ -1,46 +1,62 @@
 import React, { Component } from 'react';
-import SessionList from './SessionList';
-import Login from './Login';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
+import SessionList from './SessionList';
+import NavigationBar from './NavigationBar';
+import Login from './Login';
 
 class ProfilePage extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            player: props.user,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      player: props.user,
+    };
+  }
 
     handleLogin = () => {
-        this.setState({player: this.props.user})
+      const { user } = this.props;
+      this.setState({ player: user });
     }
 
-    handleLogOut = () => {
-        this.props.onUpdateUser(null);
-        setTimeout(() => this.setState({player: this.props.user}), 1000);
+    handleLogout = () => {
+      const { onUpdateUser } = this.props;
+      onUpdateUser(null);
+      this.setState({ player: null });
     }
 
     render() {
-        const { player } = this.state
+      const { player } = this.state;
+      if (!player) {
         return (
-            <div className="SessionList">
-            {!player && <Login handleLogin={this.handleLogin} />}
-            {player && <SessionList handleLogOut={this.handleLogOut}/>}
-            </div>
+          <Login handleLogin={this.handleLogin} />
         );
-    };
+      }
+      return (
+        <div className="SessionList">
+          <NavigationBar
+            handleLogout={this.handleLogout}
+          />
+          <SessionList />
+        </div>
+      );
+    }
 }
 
-const mapStateToProps = (state) => ({
-    user: state.user
-  })
+ProfilePage.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  onUpdateUser: PropTypes.func.isRequired,
+};
 
-  const mapActionsToProps = {
-    // Käytetään onUpdateUser, jotta vältytään
-    // variable collisionilta
-    onUpdateUser: updateUser
-  };
+const mapStateToProps = state => ({
+  user: state.user,
+});
 
-  // mapStateToProps basically receives the state of the store
-  export default connect(mapStateToProps, mapActionsToProps)(ProfilePage);
+const mapActionsToProps = {
+  onUpdateUser: updateUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(ProfilePage);

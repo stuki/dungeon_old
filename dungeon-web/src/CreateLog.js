@@ -1,51 +1,93 @@
 import React, { Component } from 'react';
-import { createLog } from './Service';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {
+  FormGroup, FormControl, ControlLabel, Button,
+} from 'react-bootstrap';
+import Api from './Api';
 
 
 class CreateLog extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        label: "",
-        text: "",
-        SessionId: 1,
-        PlayerId: 1
-      }
-    }
-
-    handleChange(property) {
-        return e => {
-          this.setState({
-            [property]: e.target.value
-          });
-        };
-      }
-
-    handleSubmit = (e) => {
-      e.preventDefault();
-      createLog(this.state)
-    }
-
-    render() {
-      return (
-        <li>
-            <div>Create new log</div>
-          <form onSubmit={this.handleSubmit}>
-            <table>
-                <tbody>
-                    <tr><td>Label: </td><td><input type="text" value={this.state.label} onChange={this.handleChange('label')} /></td></tr>
-                    <tr><td>Text: </td><td><input type="text" value={this.state.text} onChange={this.handleChange('text')} /></td></tr>
-
-                    <tr><td><input type="submit" defaultValue="Add new log" /></td></tr>
-                </tbody>
-            </table>
-
-          </form>
-        </li>
-      );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      label: '',
+      text: '',
+      sessionId: props.sessionId,
+      playerId: props.user.id,
+    };
   }
 
 
+    handleSubmit = (e) => {
+      const { updateLogs } = this.props;
 
-export default CreateLog;
+      e.preventDefault();
+      Api.createLog(this.state);
+      setTimeout(updateLogs(), 1000);
+      this.setState({ label: '', text: '' });
+    }
+
+    handleChange(property) {
+      return (e) => {
+        this.setState({
+          [property]: e.target.value,
+        });
+      };
+    }
+
+    render() {
+      const {
+        label,
+        text,
+      } = this.state;
+
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <FieldGroup
+              id="newLogLabel"
+              type="text"
+              label="Create new log"
+              value={label}
+              placeholder="Write a label"
+              onChange={this.handleChange('label')}
+            />
+            <FieldGroup
+              id="newLogText"
+              type="text"
+              value={text}
+              placeholder="Write a log text"
+              onChange={this.handleChange('text')}
+            />
+            <Button type="submit">Add</Button>
+          </form>
+        </div>
+      );
+    }
+}
+
+function FieldGroup({ label, ...text }) {
+  return (
+    <FormGroup>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...text} />
+    </FormGroup>
+  );
+}
+
+
+CreateLog.propTypes = {
+  sessionId: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  updateLogs: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(CreateLog);
