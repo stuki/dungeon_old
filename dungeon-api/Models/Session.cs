@@ -9,7 +9,7 @@ namespace dungeon_api
     // the session is the admin and the default DM of the session
     public class Session
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public DateTime CreatedAt { get; set; }
         [Required]
         public int CreatorId { get; set; }

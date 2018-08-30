@@ -9,7 +9,7 @@ namespace dungeon_api
     {
         public int Id { get; set; }
         [Required]
-        public int SessionId { get; set; }
+        public string SessionId { get; set; }
         public Session Session { get; set; }
         public int PlayerId { get; set; }
         public DateTime CreatedAt { get; set; }

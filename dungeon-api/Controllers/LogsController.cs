@@ -29,7 +29,7 @@ namespace dungeon_api.Controllers
 
         // GET: api/Logs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Log>>> GetLog([FromRoute] int id)
+        public async Task<ActionResult<List<Log>>> GetLog([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace dungeon_api.Controllers
             _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLog", new { id = log.Id }, log);
+            return Ok(log);
         }
 
         // DELETE: api/Logs/5
