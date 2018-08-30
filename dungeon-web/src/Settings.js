@@ -103,7 +103,7 @@ class Settings extends Component {
       ));
 
       return (
-        <div>
+        <div className="container">
           <form onSubmit={this.handleSubmit}>
             <FormGroup>
               <ControlLabel>Session url</ControlLabel>

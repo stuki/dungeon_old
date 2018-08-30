@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import { updateUser } from './Actions/UserActions';
-import Api from './Api';
-import { FormGroup, FormControl, Form, Col, ControlLabel, Button } from 'react-bootstrap';
-=======
 import MDSpinner from 'react-md-spinner';
 import {
-  FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, Button,
+  FormGroup, FormControl, Form, ControlLabel, HelpBlock, Button,
 } from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
 import './Login.css';
->>>>>>> wip
 
 class Login extends Component {
   constructor(props) {
@@ -81,11 +75,7 @@ class Login extends Component {
       );
     }
     return (
-<<<<<<< HEAD
-      <div>
-=======
       <div id="login">
->>>>>>> wip
         {!register
           && (
           <Form onSubmit={this.login}>

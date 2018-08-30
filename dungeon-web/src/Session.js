@@ -1,30 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel, Row, Col } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Session.css'
+import './Session.css';
 
 const Session = (props) => {
   const { session } = props;
   const link = `/session/${session.id}`;
+
   return (
     <div>
-      <div className='sessionRow'>
-        <Row>
-          <Col xs={6} xsOffset={3}>
-            <Panel key={session.id}>
-              <Panel.Heading>
-                <Link to={link}>
-                  <Panel.Title>{session.name}</Panel.Title>
-                </Link>
-              </Panel.Heading>
-              <Panel.Body>
-                Created at:
-        {new Date(session.createdAt).toLocaleString()}
-              </Panel.Body>
-            </Panel>
-          </Col>
-        </Row>
+      <div className="session">
+        <Link to={link}>
+          <Panel key={session.id}>
+            <Panel.Heading>
+              <Panel.Title>{session.name}</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body />
+            <Panel.Footer>
+              {session.createdAt.split('T')[0]}
+            </Panel.Footer>
+          </Panel>
+        </Link>
       </div>
     </div>
   );
@@ -33,7 +30,7 @@ const Session = (props) => {
 Session.propTypes = {
   session: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
   }).isRequired,
 };

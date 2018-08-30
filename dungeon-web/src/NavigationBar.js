@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import './NavigationBar.css'
 
 
 const NavigationBar = (props) => {
@@ -10,7 +11,7 @@ const NavigationBar = (props) => {
   if (!match) {
     return (
       <Navbar expand="md">
-        <Navbar.Brand><NavLink to="/">Dungeon</NavLink></Navbar.Brand>
+      <Navbar.Brand><NavLink to="/">Dungeon</NavLink></Navbar.Brand>
         <Nav pullRight>
           <NavItem onClick={handleLogout}> Log out </NavItem>
         </Nav>
@@ -19,7 +20,11 @@ const NavigationBar = (props) => {
   }
   return (
     <Navbar expand="md">
-      <Navbar.Brand><NavLink to="/">Dungeon</NavLink></Navbar.Brand>
+    <Navbar.Brand>
+      <NavLink to="/">
+        <Glyphicon glyph="chevron-left" />Dungeon
+      </NavLink>
+    </Navbar.Brand>
       <Nav navbar>
         <LinkContainer exact to={`${match.url}`}>
           <NavItem> Journey </NavItem>

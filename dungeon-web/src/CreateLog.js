@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Api from './Api';
 import './CreateLog.css';
 import {
-  FormGroup, FormControl, ControlLabel, Button, Form
+  FormGroup, FormControl, ControlLabel, Button, Form,
 } from 'react-bootstrap';
 
 class CreateLog extends Component {
@@ -17,9 +17,9 @@ class CreateLog extends Component {
       playerId: props.user.id,
     };
   }
+
   handleSubmit = (e) => {
     const { updateLogs } = this.props;
-    console.log(this.state);
 
     e.preventDefault();
     Api.createLog(this.state);
@@ -36,7 +36,6 @@ class CreateLog extends Component {
   }
 
   render() {
-
     const {
       label,
       text,
@@ -45,18 +44,15 @@ class CreateLog extends Component {
     return (
       <div>
         <div className="createLog">
-          <Form inline onSubmit={this.handleSubmit} >
-
+          <Form inline onSubmit={this.handleSubmit}>
             <FormGroup controlId="formInlineLabel">
-              <ControlLabel>Log Label</ControlLabel>{' '}
+              <ControlLabel>Log Label</ControlLabel>
               <FormControl id="newLabel" type="text" value={label} placeholder="Write a log label" onChange={this.handleChange('label')} />
-            </FormGroup>{' '}
-
+            </FormGroup>
             <FormGroup controlId="formInlineLogText">
-              <ControlLabel>Log text</ControlLabel>{' '}
-              <FormControl id="newLogText" type="text" value={text} placeholder="Write a log text" onChange={this.handleChange('text')} />
-            </FormGroup>{' '}
-
+              <ControlLabel>Log text</ControlLabel>
+              <FormControl id="newLogText" type="text" value={text} autoComplete placeholder="Write a log text" onChange={this.handleChange('text')} />
+            </FormGroup>
             <Button type="submit" bsStyle="primary">Add</Button>
           </Form>
         </div>
@@ -64,19 +60,6 @@ class CreateLog extends Component {
     );
   }
 }
-
-function FieldGroup({
-  label, ...text }) {
-  return (
-    <FormGroup>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...text} />
-    </FormGroup>
-  );
-}
-
-
-
 
 CreateLog.propTypes = {
   sessionId: PropTypes.string.isRequired,

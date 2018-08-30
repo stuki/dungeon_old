@@ -1,0 +1,15 @@
+.moves .panel {
+    width: 48%;
+    float: left;
+    margin: 1%;
+}
+
+.list-group-item {
+    background: #f9f9f9  !important;
+    
+    padding-left: 10% !important ;
+}
+
+.list-group-item:hover {
+    background: whitesmoke  !important;
+}

@@ -1,3 +1,14 @@
 .sessionRow {
     margin: 10px;
 }
+
+.session > a > .panel > .panel-body {
+    height: 10vh;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/e/ee/He_flapped_away_with_her%2C_magic_apples_and_all_by_Elmer_Boyd_Smith.jpg) center;
+}
+
+.session > a  > .panel {
+    width: 48%;
+    margin: 1%;
+    float: left !important;
+}

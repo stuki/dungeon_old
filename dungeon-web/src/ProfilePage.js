@@ -26,35 +26,16 @@ class ProfilePage extends Component {
     this.setState({ player: null });
   }
 
-<<<<<<< HEAD
   render() {
     const { player } = this.state;
+
     if (!player) {
       return (
-
-              <Login handleLogin={this.handleLogin} />
-
-=======
-    render() {
-      const { player } = this.state;
-
-      if (!player) {
-        return (
-          <Login handleLogin={this.handleLogin} />
-        );
-      }
-      return (
-        <div className="SessionList">
-          <NavigationBar
-            handleLogout={this.handleLogout}
-          />
-          <SessionList clearLoading={this.clearLoading} />
-        </div>
->>>>>>> wip
+        <Login handleLogin={this.handleLogin} />
       );
     }
     return (
-      <div className="SessionList">
+      <div>
         <NavigationBar
           handleLogout={this.handleLogout}
         />

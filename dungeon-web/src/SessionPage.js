@@ -14,6 +14,7 @@ import Login from './Login';
 import Password from './Password';
 import Settings from './Settings';
 import Moves from './Moves';
+import './SessionPage.css';
 
 class SessionPage extends Component {
   constructor(props) {
@@ -35,10 +36,8 @@ class SessionPage extends Component {
       const character = await Api.getCharacter(sessionId, player.id);
 
       if (session && character) {
-        console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, playerCharacter: character, isLoading: false });
       } else if (session && character === undefined) {
-        console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, isLoading: false });
       } else {
         this.setState({ isLoading: false });
@@ -125,7 +124,7 @@ class SessionPage extends Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <NavigationBar
           match={match}
           dm={session.dungeonMasterId === player.id}
@@ -136,7 +135,7 @@ class SessionPage extends Component {
         <Route path={`${match.url}/settings`} component={Settings} />
         <Route path={`${match.url}/moves`} component={Moves} />
         <Route path={`${match.url}/createCharacter`} component={CreateCharacter} />
-      </div>
+      </React.Fragment>
     );
   }
 }
