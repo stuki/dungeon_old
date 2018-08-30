@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button, Glyphicon,
+  FormGroup, FormControl, ControlLabel, ListGroupItem, ListGroup, Button, Glyphicon,
 } from 'react-bootstrap';
+import FieldGroup from './FieldGroup';
 import Api from './Api';
 import './Settings.css';
 
@@ -149,18 +150,6 @@ class Settings extends Component {
       <div />
     );
   }
-}
-
-function FieldGroup({
-  id, label, help, ...props
-}) {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
 }
 
 Settings.propTypes = {

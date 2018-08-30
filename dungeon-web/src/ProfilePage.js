@@ -5,7 +5,6 @@ import { updateUser } from './Actions/UserActions';
 import SessionList from './SessionList';
 import NavigationBar from './NavigationBar';
 import Login from './Login';
-import CreateSession from './CreateSession';
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -28,6 +27,7 @@ class ProfilePage extends Component {
 
     render() {
       const { player } = this.state;
+
       if (!player) {
         return (
           <Login handleLogin={this.handleLogin} />
@@ -38,7 +38,7 @@ class ProfilePage extends Component {
           <NavigationBar
             handleLogout={this.handleLogout}
           />
-          <SessionList />
+          <SessionList clearLoading={this.clearLoading} />
         </div>
       );
     }

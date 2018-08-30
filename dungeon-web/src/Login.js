@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MDSpinner from 'react-md-spinner';
+import {
+  FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, Button,
+} from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
-import {
-  FormGroup, FormControl, Form, Col, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
-} from 'react-bootstrap';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class Login extends Component {
     this.state = {
       name: null,
       register: false,
+      isLoading: false,
     };
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
@@ -23,7 +26,7 @@ class Login extends Component {
     onUpdateUser(user);
   }
 
-  nameChanged = (e) => {
+  handleChange = (e) => {
     this.setState({ name: e.target.value });
   }
 
@@ -51,73 +54,73 @@ class Login extends Component {
     delete player.register;
     if (player.name) {
       Api.createPlayer(player);
+      this.setState({ isLoading: true });
       setTimeout(() => this.login(e), 500);
     }
   }
 
   render() {
     const { register, name } = this.state;
+    const { isLoading } = this.state;
+
+    if (isLoading) {
+      return (
+        <MDSpinner
+          color1="#e91e63"
+          color2="#673ab7"
+          color3="#009688"
+          color4="#ff5722"
+          className="spinner"
+        />
+      );
+    }
     return (
-      <div className="Login">
+      <div id="login">
         {!register
           && (
-            <Form horizontal onSubmit={this.login}>
-            
-          <FormGroup controlId="loginLabel">
-              <Col componentClass={ControlLabel} sm={2}>
-                  Login
-              </Col>
-          </FormGroup>
-          
-          <FormGroup controlId="loginName">
-          <Col componentClass={ControlLabel} sm={2}>
-              Name:
-          </Col>
-          <Col sm={4}>
-          <FormControl type="text" placeholder="Write your name and log in" value={name} onChange={this.nameChanged} />
-          </Col>
-          </FormGroup>
-
-          <FormGroup controlId="submit">
-            <Col smOffset={2} sm={10}>
-                <Button type="submit">Login</Button>
-            </Col>
-            </FormGroup>
-
+          <Form onSubmit={this.login}>
+            <h1 id="title">Dungeon</h1>
+            <FieldGroup
+              id="name"
+              type="text"
+              label="Username"
+              value={name}
+              onChange={this.handleChange}
+              bsSize="large"
+            />
+            <Button type="submit">Login</Button>
           </Form>
           )
         }
         {register
           && (
-          <Form horizontal onSubmit={this.handleSubmit}>
-            
-          <FormGroup controlId="register">
-              <Col componentClass={ControlLabel} sm={2}>
-                  Register
-              </Col>
-          </FormGroup>
-          
-          <FormGroup controlId="registerName">
-          <Col componentClass={ControlLabel} sm={2}>
-              Name:
-          </Col>
-          <Col sm={4}>
-          <FormControl type="text" placeholder="Write your name and register" value={name} onChange={this.nameChanged} required />
-          </Col>
-          </FormGroup>
-
-          <FormGroup controlId="submit">
-            <Col smOffset={2} sm={10}>
-                <Button type="submit">Register</Button>
-            </Col>
-            </FormGroup>
-
-          </Form>
+            <Form onSubmit={this.register}>
+              <FieldGroup
+                id="name"
+                type="text"
+                label="Username"
+                value={name}
+                onChange={this.handleChange}
+              />
+              <Button type="submit">Register</Button>
+            </Form>
           )
         }
       </div>
     );
   }
+}
+
+function FieldGroup({
+  id, label, help, ...props
+}) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
 }
 
 Login.propTypes = {

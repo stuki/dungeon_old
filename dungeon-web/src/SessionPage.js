@@ -37,10 +37,11 @@ class SessionPage extends Component {
       if (session && character) {
         console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, playerCharacter: character, isLoading: false });
-      }
-      if (session && character === undefined) {
+      } else if (session && character === undefined) {
         console.log('SESSION PASSWORD:', session.password);
         this.setState({ session, isLoading: false });
+      } else {
+        this.setState({ isLoading: false });
       }
     } else {
       this.setState({ isLoading: false });
@@ -64,9 +65,9 @@ class SessionPage extends Component {
     if (session.password === pin) {
       Api.joinSession(session.id, player);
       const newSession = await Api.getSession(session.id);
-      this.setState({
+      setTimeout(() => this.setState({
         session: newSession,
-      });
+      }), 500);
     }
   }
 
@@ -95,7 +96,7 @@ class SessionPage extends Component {
         />
       );
     }
-    
+
     if (!player) {
       return (
         <div>
@@ -112,17 +113,14 @@ class SessionPage extends Component {
 
     if (session.playerSessions.findIndex(p => p.playerId === player.id) < 0) {
       return (
-        <div>
-          <p>Join session give password</p>
-          <Password handlePassword={this.handlePassword} />
-        </div>
+        <Password handlePassword={this.handlePassword} />
       );
     }
 
     if (playerCharacter === null && session.dungeonMasterId !== player.id) {
       return (
         <CreateCharacter updateState={this.updateState} sessionId={sessionId} />
-        
+
       );
     }
 
