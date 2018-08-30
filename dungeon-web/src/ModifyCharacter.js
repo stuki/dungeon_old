@@ -30,12 +30,8 @@ class ModifyCharacter extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { sessionId, playerId, character } = this.state;
-    console.log(character)
+    const { character } = this.state;
     Api.updateCharacter(character);
-    const char = await Api.getCharacter(sessionId, playerId);
-    this.setState({ character: char });
-    console.log(character)
   }
 
   handleChange(property) {
