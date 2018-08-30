@@ -73,9 +73,9 @@ class LogList extends Component {
 
     return (
       <PanelGroup id="LogList">
+        <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
         {filter && <Badge onClick={() => this.filterLogs(null)}>{filter}</Badge>}
         {logs}
-        <CreateLog sessionId={sessionId} updateLogs={this.updateLogs} />
       </PanelGroup>
     );
   }

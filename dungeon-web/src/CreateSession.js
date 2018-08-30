@@ -12,6 +12,7 @@ class CreateSession extends Component {
     this.state = {
       name: '',
       CreatorId: props.user.id,
+      id: props.sessionId,
     };
   }
 
@@ -24,10 +25,10 @@ class CreateSession extends Component {
   }
 
   handleSubmit = (e) => {
-    const { updateSessions } = this.props;
+    const { updateState } = this.props;
     e.preventDefault();
     Api.createSession(this.state);
-    setTimeout(updateSessions(), 1000);
+    updateState();
     this.setState({ name: '' });
   }
 
@@ -68,11 +69,12 @@ CreateSession.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   }).isRequired,
-  updateSessions: PropTypes.func,
+  updateState: PropTypes.func,
+  sessionId: PropTypes.string.isRequired,
 };
 
 CreateSession.defaultProps = {
-  updateSessions: null,
+  updateState: null,
 };
 
 

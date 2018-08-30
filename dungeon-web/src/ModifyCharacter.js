@@ -33,11 +33,8 @@ class ModifyCharacter extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
     const { character } = this.state;
-
     Api.updateCharacter(character);
-    
   }
 
   handleChange(property) {

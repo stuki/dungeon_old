@@ -28,8 +28,8 @@ namespace dungeon_api.Controllers
         }
 
         // GET: api/Characters/5/5
-        [HttpGet("{sessionId:int}/{playerId:int}")]
-        public async Task<IActionResult> GetCharacter([FromRoute] int sessionId, int playerId)
+        [HttpGet("{sessionId}/{playerId:int}")]
+        public async Task<IActionResult> GetCharacter([FromRoute] string sessionId, int playerId)
         {
             if (!ModelState.IsValid)
             {
@@ -47,8 +47,8 @@ namespace dungeon_api.Controllers
         }
 
         // PUT: api/Characters/5/5
-        [HttpPut("{sessionId:int}/{playerId:int}")]
-        public async Task<IActionResult> PutCharacter([FromRoute] int sessionId, int playerId, [FromBody] Character character)
+        [HttpPut("{sessionId}/{playerId:int}")]
+        public async Task<IActionResult> PutCharacter([FromRoute] string sessionId, int playerId, [FromBody] Character character)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace dungeon_api.Controllers
             _context.Characters.Add(character);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            return Ok(character);
         }
 
         // DELETE: api/Characters/5
