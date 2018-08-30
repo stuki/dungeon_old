@@ -2,6 +2,11 @@
     cursor: pointer; 
     float: right;
 }
+
+.glyphicon-pencil:hover {
+    opacity: 0.9;
+}
+
 .panel-body > .btn {
     float: right;
 }

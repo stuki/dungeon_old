@@ -105,8 +105,6 @@ class SessionPage extends Component {
     }
 
     if (playerCharacter === null && session.dungeonMasterId !== player.id) {
-      console.log(playerCharacter, session.dungeonMasterId, player.id)
-      console.log("Create characterissa ollaan")
       return (
         <CreateCharacter updateState={this.updateState} sessionId={sessionId} />
       );

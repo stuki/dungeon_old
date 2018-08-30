@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
+  FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button, Glyphicon,
 } from 'react-bootstrap';
 import Api from './Api';
+import './Settings.css';
 
 class Settings extends Component {
   constructor(props) {
@@ -29,16 +30,16 @@ class Settings extends Component {
     const { characters, dungeonMasterId } = this.state;
 
     if (id === dungeonMasterId) {
-      return 'Game Master';
+      return { name: 'Game Master' };
     }
 
     const char = characters.find(c => c.playerId === id);
 
     if (!char) {
-      return 'No character created';
+      return { name: 'No character created' };
     }
 
-    return char.name;
+    return char;
   }
 
   handleSubmit = (e) => {
@@ -47,11 +48,16 @@ class Settings extends Component {
     this.componentDidMount();
   }
 
-  delete = () => {
+  deleteSession = () => {
     const { id } = this.state;
     const { history } = this.props;
     Api.deleteSession(id);
     history.push('/');
+  }
+
+  deleteCharacter = (character) => {
+    Api.deleteCharacter(character);
+    setTimeout(this.componentDidMount(), 1000);
   }
 
   handleChange(property) {
@@ -71,6 +77,7 @@ class Settings extends Component {
       dungeonMasterId,
       password,
       name,
+      characters,
     } = this.state;
 
     let url = window.location.href.split('/');
@@ -86,7 +93,10 @@ class Settings extends Component {
 
       players = playerSessions.map(ps => (
         <ListGroupItem key={ps.player.id} header={ps.player.name}>
-          {this.getCharacterById(ps.player.id)}
+          {this.getCharacterById(ps.player.id).name}
+          {ps.player.id !== dungeonMasterId && characters.find(c => c.playerId === ps.player.id)
+            && <Glyphicon glyph="remove" onClick={() => this.deleteCharacter(this.getCharacterById(ps.player.id))} />
+          }
         </ListGroupItem>
       ));
 
@@ -130,7 +140,7 @@ class Settings extends Component {
               </ListGroup>
             </FormGroup>
             <Button type="submit">Update Session</Button>
-            <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
+            <Button bsStyle="danger" onClick={this.deleteSession}>Delete Session</Button>
           </form>
         </div>
       );
