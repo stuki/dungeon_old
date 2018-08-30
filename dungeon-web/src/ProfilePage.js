@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Grid } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { updateUser } from './Actions/UserActions';
 import SessionList from './SessionList';
@@ -14,33 +15,37 @@ class ProfilePage extends Component {
     };
   }
 
-    handleLogin = () => {
-      const { user } = this.props;
-      this.setState({ player: user });
-    }
+  handleLogin = () => {
+    const { user } = this.props;
+    this.setState({ player: user });
+  }
 
-    handleLogout = () => {
-      const { onUpdateUser } = this.props;
-      onUpdateUser(null);
-      this.setState({ player: null });
-    }
+  handleLogout = () => {
+    const { onUpdateUser } = this.props;
+    onUpdateUser(null);
+    this.setState({ player: null });
+  }
 
-    render() {
-      const { player } = this.state;
-      if (!player) {
-        return (
-          <Login handleLogin={this.handleLogin} />
-        );
-      }
+  render() {
+    const { player } = this.state;
+    if (!player) {
       return (
-        <div className="SessionList">
-          <NavigationBar
-            handleLogout={this.handleLogout}
-          />
-          <SessionList />
-        </div>
+
+              <Login handleLogin={this.handleLogin} />
+
       );
     }
+    return (
+      <div className="SessionList">
+        <NavigationBar
+          handleLogout={this.handleLogout}
+        />
+        <Grid>
+          <SessionList />
+        </Grid>
+      </div>
+    );
+  }
 }
 
 ProfilePage.propTypes = {

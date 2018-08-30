@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  FormGroup, FormControl, ControlLabel, Button,
-} from 'react-bootstrap';
 import Api from './Api';
+import './CreateLog.css';
+import {
+  FormGroup, FormControl, ControlLabel, Button, Row, Col, Grid
+} from 'react-bootstrap';
 
 
 class CreateLog extends Component {
@@ -19,55 +20,77 @@ class CreateLog extends Component {
   }
 
 
-    handleSubmit = (e) => {
-      const { updateLogs } = this.props;
+  handleSubmit = (e) => {
+    const { updateLogs } = this.props;
 
-      e.preventDefault();
-      Api.createLog(this.state);
-      setTimeout(updateLogs(), 1000);
-      this.setState({ label: '', text: '' });
-    }
+    e.preventDefault();
+    Api.createLog(this.state);
+    setTimeout(updateLogs(), 1000);
+    this.setState({ label: '', text: '' });
+  }
 
-    handleChange(property) {
-      return (e) => {
-        this.setState({
-          [property]: e.target.value,
-        });
-      };
-    }
+  handleChange(property) {
+    return (e) => {
+      this.setState({
+        [property]: e.target.value,
+      });
+    };
+  }
 
-    render() {
-      const {
-        label,
-        text,
-      } = this.state;
+  render() {
 
-      return (
+    const {
+      label,
+      text,
+    } = this.state;
+
+    return (
+      <div className="createLog">
+        <form onSubmit={this.handleSubmit}>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <FieldGroup
-              id="newLogLabel"
-              type="text"
-              label="Create new log"
-              value={label}
-              placeholder="Write a label"
-              onChange={this.handleChange('label')}
-            />
-            <FieldGroup
-              id="newLogText"
-              type="text"
-              value={text}
-              placeholder="Write a log text"
-              onChange={this.handleChange('text')}
-            />
-            <Button type="submit">Add</Button>
-          </form>
+
+            <Grid>
+              <Row>
+                <Col lg={4} lgOffset={2}>
+                  <FieldGroup
+                    id="newLogLabel"
+                    type="text"
+                    label="Create new log"
+                    value={label}
+                    placeholder="Write a label"
+                    onChange={this.handleChange('label')}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col Col lg={8} lgOffset={2}>
+                  <FieldGroup
+                    id="newLogText"
+                    type="text"
+                    value={text}
+                    placeholder="Write a log text"
+                    onChange={this.handleChange('text')}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col Col lg={12} lgOffset={2}>
+                  <Button type="submit">Add</Button>
+                </Col>
+              </Row>
+
+            </Grid>
         </div>
-      );
-    }
+        </form>
+      </div>
+    );
+  }
 }
 
-function FieldGroup({ label, ...text }) {
+function FieldGroup({
+  label, ...text }) {
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
@@ -75,6 +98,8 @@ function FieldGroup({ label, ...text }) {
     </FormGroup>
   );
 }
+
+
 
 
 CreateLog.propTypes = {
@@ -90,4 +115,5 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
+// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(CreateLog);

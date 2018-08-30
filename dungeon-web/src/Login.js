@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { updateUser } from './Actions/UserActions';
 import Api from './Api';
 
@@ -55,39 +56,51 @@ class Login extends Component {
   render() {
     const { register, name } = this.state;
     return (
-      <div className="Login">
+      <div>
         {!register
           && (
-          <form onSubmit={this.login}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Name: </td>
-                  <td><input value={name} onChange={this.nameChanged} /></td>
-                </tr>
-                <tr>
-                  <td><input type="submit" defaultValue="Login" /></td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+            <Grid>
+              <Row>
+                <Col xs={6} xsOffset={3}>
+                  <form onSubmit={this.login}>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Name: </td>
+                          <td><input value={name} onChange={this.nameChanged} /></td>
+                        </tr>
+                        <tr>
+                          <td><input type="submit" defaultValue="Login" /></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                </Col>
+              </Row>
+            </Grid>
           )
         }
         {register
           && (
-          <form onSubmit={this.register}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Name: </td>
-                  <td><input value={name} onChange={this.nameChanged} /></td>
-                </tr>
-                <tr>
-                  <td><input type="submit" defaultValue="Register" /></td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+            <Grid>
+              <Row>
+                <Col xs={6} xsOffset={3}>
+                  <form onSubmit={this.register}>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Name: </td>
+                          <td><input value={name} onChange={this.nameChanged} /></td>
+                        </tr>
+                        <tr>
+                          <td><input type="submit" defaultValue="Register" /></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                </Col>
+              </Row>
+            </Grid>
           )
         }
       </div>
