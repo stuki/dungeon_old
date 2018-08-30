@@ -47,7 +47,11 @@ CreateSession.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   }).isRequired,
-  updateSessions: PropTypes.func.isRequired,
+  updateSessions: PropTypes.func,
+};
+
+CreateSession.defaultProps = {
+  updateSessions: null,
 };
 
 
@@ -55,5 +59,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(CreateSession);

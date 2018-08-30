@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 import { connect } from 'react-redux';
 import Api from './Api';
 
@@ -32,9 +33,9 @@ class ModifyCharacter extends Component {
 
     const { sessionId, playerId, character } = this.state;
 
-    Api.updateCharacter(sessionId, playerId, character);
+    Api.updateCharacter(character);
     const char = await Api.getCharacter(sessionId, playerId);
-
+    toastr.success('sara', 'on kakka');
     this.setState({ character: char });
   }
 
@@ -102,5 +103,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(ModifyCharacter);

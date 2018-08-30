@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SessionList from './SessionList';
-import Login from './Login';
 import { updateUser } from './Actions/UserActions';
+import SessionList from './SessionList';
+import NavigationBar from './NavigationBar';
+import Login from './Login';
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -18,18 +19,25 @@ class ProfilePage extends Component {
       this.setState({ player: user });
     }
 
-    handleLogOut = () => {
-      const { onUpdateUser, user } = this.props;
+    handleLogout = () => {
+      const { onUpdateUser } = this.props;
       onUpdateUser(null);
-      setTimeout(() => this.setState({ player: user }), 1000);
+      this.setState({ player: null });
     }
 
     render() {
       const { player } = this.state;
+      if (!player) {
+        return (
+          <Login handleLogin={this.handleLogin} />
+        );
+      }
       return (
         <div className="SessionList">
-          {!player && <Login handleLogin={this.handleLogin} />}
-          {player && <SessionList handleLogOut={this.handleLogOut} />}
+          <NavigationBar
+            handleLogout={this.handleLogout}
+          />
+          <SessionList />
         </div>
       );
     }
@@ -48,10 +56,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  // Käytetään onUpdateUser, jotta vältytään
-  // variable collisionilta
   onUpdateUser: updateUser,
 };
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps, mapActionsToProps)(ProfilePage);

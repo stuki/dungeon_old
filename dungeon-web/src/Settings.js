@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   FormGroup, FormControl, ControlLabel, HelpBlock, ListGroupItem, ListGroup, Button,
@@ -130,19 +129,6 @@ class Settings extends Component {
                 {players}
               </ListGroup>
             </FormGroup>
-            <ListGroup>
-              {players}
-            </ListGroup>
-            {/* <Alerts alerts={this.props.alert} /> */}
-            {/* <Button bsStyle="danger" onClick={() => this.props.dispatch({
-        type: API_FAILURE,
-        payload: {
-          errorMessage: {
-            type: 'error',
-            message: 'My failure message goes here'
-          }
-        }
-      })}>Delete Session</Button> */}
             <Button type="submit">Update Session</Button>
             <Button bsStyle="danger" onClick={this.delete}>Delete Session</Button>
           </form>
@@ -153,16 +139,6 @@ class Settings extends Component {
       <div />
     );
   }
-}
-      
-function mapDispatchToProps(dispatch) {
-  return { dispatch };
-}
-
-function mapStateToProps(state) {
-  return {
-    alert: state.alert,
-  };
 }
 
 function FieldGroup({
@@ -185,4 +161,4 @@ Settings.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default Settings;

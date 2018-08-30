@@ -41,6 +41,7 @@ class Login extends Component {
     }
   }
 
+
   register = async (e) => {
     e.preventDefault();
 
@@ -108,10 +109,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  // Käytetään onUpdateUser, jotta vältytään
-  // variable collisionilta
   onUpdateUser: updateUser,
 };
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps, mapActionsToProps)(Login);

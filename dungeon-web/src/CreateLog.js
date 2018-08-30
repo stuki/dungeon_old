@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {
+  FormGroup, FormControl, ControlLabel, Button,
+} from 'react-bootstrap';
 import Api from './Api';
 
 
@@ -11,7 +14,7 @@ class CreateLog extends Component {
       label: '',
       text: '',
       sessionId: props.sessionId,
-      PlayerId: props.user.id,
+      playerId: props.user.id,
     };
   }
 
@@ -34,31 +37,43 @@ class CreateLog extends Component {
     }
 
     render() {
-      const { label, text } = this.state;
+      const {
+        label,
+        text,
+      } = this.state;
 
       return (
-        <li>
-          <div>Create new log</div>
+        <div>
           <form onSubmit={this.handleSubmit}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Label: </td>
-                  <td><input type="text" value={label} onChange={this.handleChange('label')} /></td>
-                </tr>
-                <tr>
-                  <td>Text: </td>
-                  <td><input type="text" value={text} onChange={this.handleChange('text')} /></td>
-                </tr>
-
-                <tr><td><input type="submit" defaultValue="Add new log" onClick={this.handleSubmit} /></td></tr>
-              </tbody>
-            </table>
-
+            <FieldGroup
+              id="newLogLabel"
+              type="text"
+              label="Create new log"
+              value={label}
+              placeholder="Write a label"
+              onChange={this.handleChange('label')}
+            />
+            <FieldGroup
+              id="newLogText"
+              type="text"
+              value={text}
+              placeholder="Write a log text"
+              onChange={this.handleChange('text')}
+            />
+            <Button type="submit">Add</Button>
           </form>
-        </li>
+        </div>
       );
     }
+}
+
+function FieldGroup({ label, ...text }) {
+  return (
+    <FormGroup>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...text} />
+    </FormGroup>
+  );
 }
 
 
@@ -75,5 +90,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-// mapStateToProps basically receives the state of the store
 export default connect(mapStateToProps)(CreateLog);
