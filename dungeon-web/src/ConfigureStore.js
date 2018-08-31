@@ -21,7 +21,7 @@ const persistedReducer = persistReducer(persistConfig, allReducers);
 export const store = createStore(
   persistedReducer,
   {
-    user: {},
+    user: null,
   },
   window.devToolsExtension && window.devToolsExtension(),
 );
