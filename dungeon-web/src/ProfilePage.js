@@ -28,7 +28,8 @@ class ProfilePage extends Component {
 
   render() {
     const { player } = this.state;
-
+  console.log(player);
+  
     if (!player) {
       return (
         <Login handleLogin={this.handleLogin} />
