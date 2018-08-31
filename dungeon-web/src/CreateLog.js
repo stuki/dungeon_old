@@ -51,7 +51,7 @@ class CreateLog extends Component {
             </FormGroup>
             <FormGroup controlId="formInlineLogText">
               <ControlLabel>Log text</ControlLabel>
-              <FormControl id="newLogText" type="text" value={text} autoComplete placeholder="Write a log text" onChange={this.handleChange('text')} />
+              <FormControl id="newLogText" type="text" value={text} autoComplete={false} placeholder="Write a log text" onChange={this.handleChange('text')} />
             </FormGroup>
             <Button type="submit" bsStyle="primary">Add</Button>
           </Form>

@@ -24,19 +24,8 @@ class CreateCharacter extends Component {
       strength: '',
       wisdom: '',
       looks: '',
-      armor: '',
       level: 1,
-      xp: '',
       hitpoints: '',
-      damage: '',
-      alignment: '',
-      gear: '',
-      race: '',
-      bonds: '',
-      startingmoves: '',
-      advancedmoves: '',
-      coin: '',
-      spells: '',
     };
   }
 

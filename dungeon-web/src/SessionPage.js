@@ -54,9 +54,13 @@ class SessionPage extends Component {
   }
 
   handleLogout = () => {
-    const { onUpdateUser } = this.props;
+    const { onUpdateUser, match, user  } = this.props;
     onUpdateUser(null);
-    this.setState({ player: null });
+    this.setState({ 
+      sessionId: match.params.sessionId,
+      session: null,
+      player: null,
+      playerCharacter: null,});
   }
 
   handlePassword = async (pin) => {
